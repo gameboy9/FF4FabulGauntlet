@@ -13,6 +13,8 @@ to load the randomizer resources.  Then set your options, then click "Randomize"
 ## THIS IS CURRENTLY A BETA VERSION.  EXPECT BUGS!
 When you find a bug, please let me know and I will take a look.
 
+Also... expect the game to be a bit unbalanced.  With some input, it should become more balanced in the future.
+
 # Special Thanks
 - mcgrew (Dragon Warrior Randomizer author) for inspiring me to create randomizers
 - Albeoris - author of Memoria for the Pixel Remaster, which really helped me create this randomizer
