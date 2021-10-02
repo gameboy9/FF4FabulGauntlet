@@ -10,6 +10,10 @@ This will test how well you can manage your resources as you go through each are
 Download both the GameAssets.zip and FF4FabulGauntlet.zip files.  Extract only the latter.  Run the EXE, locate your MAIN FF4 PR folder, then click the "extract" button
 to load the randomizer resources.  Then set your options, then click "Randomize" and you should be good to go.
 
+# Other notable changes
+- This is based off of Memoria, and in that spirit, you can toggle encounters on and off by pressing "F2".
+- Edward can equip the Knife.  (Fair warning:  I haven't been able to try that yet...)
+
 ## THIS IS CURRENTLY A BETA VERSION.  EXPECT BUGS!
 When you find a bug, please let me know and I will take a look.
 
