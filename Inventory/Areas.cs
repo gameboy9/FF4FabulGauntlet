@@ -112,7 +112,7 @@ namespace FF4FabulGauntlet.Inventory
 				reMap(areaEntryScripts[1], new List<newPoint> { new newPoint(33, 1), new newPoint(172, 1), new newPoint(178, 1), new newPoint(33, 2) });
 				reMap(areaEntryScripts[2], new List<newPoint> { new newPoint(35, 1), new newPoint(181, 1), new newPoint(182, 1), new newPoint(35, 2) });
 				reMap(areaEntryScripts[3], new List<newPoint> { new newPoint(-1, 1), new newPoint(185, 1), new newPoint(186, 1), new newPoint(36, 2) });
-				reMap(areaEntryScripts[4], new List<newPoint> { new newPoint(58, 1), new newPoint(9, 1), new newPoint(199, 2), new newPoint(58, 2) });
+				reMap(areaEntryScripts[4], new List<newPoint> { new newPoint(58, 1), new newPoint(9, 1), new newPoint(199, 3), new newPoint(58, 2) });
 				reMap(areaEntryScripts[5], new List<newPoint> { new newPoint(59, 1), new newPoint(192, 1), new newPoint(202, 1), new newPoint(59, 2) });
 				reMap(areaEntryScripts[6], new List<newPoint> { new newPoint(118, 1), new newPoint(206, 1), new newPoint(210, 1), new newPoint(128, 1) });
 				reMap(areaEntryScripts[7], new List<newPoint> { new newPoint(226, 1), new newPoint(-1, 1), new newPoint(-1, 1), new newPoint(223, 1) });

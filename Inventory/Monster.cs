@@ -143,16 +143,16 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 27, 2, 28, 1, 23, 21, 36, 35, 37, 48, 38, 86, 87, 22, 32 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
 			new List<int> { 1, 8, 28, 9, 32, 37, 41, 35, 47, 48, 49, 51, 94, 36, 16 }, // Mysidia, Mt. Ordeals
 			new List<int> { 43, 74, 55, 58, 15, 56, 44, 57 }, // Old Baron Waterway
-			new List<int> { 67, 6, 62, 64, 61, 66, 52, 43, 74, 55, 58, 15, 56, 44, 57, 1, 8, 28, 9, 32, 37, 41, 35, 47, 48, 49, 51, 94, 36, 16 }, // Magnes Cave - Include easier zones from Old Baron and Mysidia
+			new List<int> { 67, 6, 62, 64, 61, 66, 52, 43, 74, 55, 58, 15, 56, 44, 57, 1, 8, 28, 9, 32, 37, 41, 35, 47, 48, 49, 51, 53, 94, 36, 16 }, // Magnes Cave - Include easier zones from Old Baron and Mysidia
 			new List<int> { 61, 62, 67, 7, 34, 71, 72, 29, 118, 89, 121, 68, 69, 123, 113, 78 }, // Troia / Zot Tower
-			new List<int> { 25, 83, 77, 26, 71, 101, 104, 91, 88, 130, 93, 81 }, // Dwarf Castle, Lower Babil
+			new List<int> { 25, 83, 77, 26, 71, 65, 101, 104, 91, 88, 130, 93, 81, 117 }, // Dwarf Castle, Lower Babil
 			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133 }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133 }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 119, 24, 18, 122, 116, 40, 103, 158, 143, 76 }, // Cave Of Summons, other underground locations
-			new List<int> { 140, 126, 85, 125, 96, 114, 152, 139, 147, 54, 141, 161, 144, 154, 131, 128, 107, 106 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 33, 82 }, // Lunar Subterrane / Giant Of Babil
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 33, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 33, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
+			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133, 95 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 119, 24, 18, 122, 116, 40, 103, 158, 143, 76, 70, 73, 75, 80, 92, 112, 120, 127, 142 }, // Cave Of Summons, other underground locations
+			new List<int> { 140, 126, 85, 125, 96, 114, 152, 139, 147, 54, 141, 161, 144, 154, 131, 128, 107, 106, 112, 115, 127 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109 }, // Lunar Subterrane / Giant Of Babil
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
 				162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 180, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
@@ -194,7 +194,7 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 20000 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 30000 }, // Cave Of Summons, other underground locations
 			new List<int> { 2500, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 40000 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
-			new List<int> { 5000, 6000, 7000, 8000, 9000, 10000, 12000, 15000, 20000, 55000 }, // Lunar Subterrane / Giant Of Babil
+			new List<int> { 10000, 12000, 15000, 17500, 20000, 22500, 25000, 27500, 30000, 60000 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 20000, 25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 100000 }, // Lunar Subterrane Part 2  (2 rounds)
 			new List<int> { 50000, 60000, 70000, 80000, 90000, 100000, 125000, 150000, 200000, 0 }, // Lunar Subterrane Part 2  (2 rounds)
 			new List<int> { 5000, 5000, 6000, 7000, 8000, 8000, 10000, 12000, 15000, 20000 }, // Monster in a box, part 1
@@ -233,6 +233,8 @@ namespace FF4FabulGauntlet.Inventory
 			restrictedMonsters.Add(new limitedMonsters { id = 173, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 153, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 108, monsterLimit = 1, followUp = -1 });
+			restrictedMonsters.Add(new limitedMonsters { id = 156, monsterLimit = 2, followUp = -1 });
+			restrictedMonsters.Add(new limitedMonsters { id = 160, monsterLimit = 2, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 190, hpPercentage = 25 });
 			restrictedMonsters.Add(new limitedMonsters { id = 88, hpPercentage = 20 });
 			restrictedMonsters.Add(new limitedMonsters { id = 111, hpPercentage = 20 });
@@ -243,7 +245,9 @@ namespace FF4FabulGauntlet.Inventory
 			// Do not also choose Golbez or the Shadow Dragons... that's just going to get screwy in a hurry. (177, 274, 181, 182)
 			// No Zemus or Zeromus either for obvious reasons.  :) (200, 201, 202, 217)
 			// No Dark Elves unless they transition to the Dark Dragon. (172, 225)
-			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225 };
+			// No Li'l Murderer's.  They wind up crashing the game with their mere existance, sadly. (33)
+			// Let's avoid trap doors for now.  (124)
+			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124 };
 
 			List<singleGroup> groups = new List<singleGroup>();
 
@@ -304,7 +308,7 @@ namespace FF4FabulGauntlet.Inventory
 							limitedMonsters monsterLimit = restrictedMonsters.Where(c => c.id == chosenMonster.id).FirstOrDefault();
 							if (monsterLimit != null)
 							{
-								if (monsterLimit.monsterLimit == 1 && monster.Contains(chosenMonster.id))
+								if (monsterLimit.monsterLimit >= 1 && monster.Where(c => c == chosenMonster.id).Count() >= monsterLimit.monsterLimit)
 								{
 									// If there is "no follow-up", just redraw.
 									if (monsterLimit.followUp == -1)

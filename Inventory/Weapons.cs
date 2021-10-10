@@ -153,9 +153,9 @@ namespace FF4FabulGauntlet.Inventory
 			  new List<int> { mythrilSword, sleepBlade, bloodLance, dancingDagger, fairyClaw, kunai, lilithRod, elvenBow, fireArrow, iceArrow, thunderArrow, whip  },
 			  new List<int> { flameSword, icebrand, gorgonBlade, fireLance, iceLance, mageMasher, hellClaw, gaiaHammer, dwarfAxe, ashura, kotetsu,
 				changeRod, powerStaff, kinesisStaff, blindingArrow, poisonArrow, chainWhip, boomerang, shuriken },
-			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade },
+			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, knife },
 			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken },
-			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, knife },
+			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker },
 			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, knife }
 		};
 

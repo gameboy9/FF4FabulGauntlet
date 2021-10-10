@@ -120,7 +120,7 @@ namespace FF4FabulGauntlet
 			// NewChecksum
 			// 
 			this.NewChecksum.AutoSize = true;
-			this.NewChecksum.Location = new System.Drawing.Point(12, 413);
+			this.NewChecksum.Location = new System.Drawing.Point(12, 456);
 			this.NewChecksum.Name = "NewChecksum";
 			this.NewChecksum.Size = new System.Drawing.Size(267, 20);
 			this.NewChecksum.TabIndex = 8;
@@ -433,6 +433,7 @@ namespace FF4FabulGauntlet
 			this.shopItemTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.shopItemTypes.FormattingEnabled = true;
 			this.shopItemTypes.Items.AddRange(new object[] {
+            "Relaxed",
             "Standard",
             "Pro",
             "Wild"});
@@ -560,7 +561,7 @@ namespace FF4FabulGauntlet
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(800, 485);
 			this.Controls.Add(this.BrowseForGameAssets);
 			this.Controls.Add(this.extractGameAssets);
 			this.Controls.Add(this.linkLabel1);

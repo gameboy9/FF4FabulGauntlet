@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
+using System.Security.Cryptography;
 
 namespace FF4FabulGauntlet
 {
@@ -138,7 +139,6 @@ namespace FF4FabulGauntlet
 					//VisualFlags.Text = reader.ReadLine();
 					determineChecks(null, null);
 
-					//runChecksum();
 					loading = false;
 				}
 			}
@@ -161,19 +161,40 @@ namespace FF4FabulGauntlet
 		private void Randomize_Click(object sender, EventArgs e)
 		{
 			if (!File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll")) || !File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb"))
-				|| !File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")) || !Directory.Exists(Path.Combine(FF4PRFolder.Text, "StreamingAssets", "Assets", "GameAssets")))
+				|| !File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")) || !Directory.Exists(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets")))
 			{
 				MessageBox.Show("Randomizer assets have not been extracted.  Please extract, then try randomization again.");
 				return;
 			}
 
+			update();
 			randomizeParty();
 			randomizeShops();
 			randomizeTreasures();
 			priceAdjustment();
 			randomizeMonstersWithBoost();
 
-			NewChecksum.Text = "COMPLETE";
+			try
+			{
+				using (var sha1Crypto = SHA1.Create())
+				{
+					using (var stream = File.OpenRead(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "monster_party.csv")))
+					{
+						string checkSum = BitConverter.ToString(sha1Crypto.ComputeHash(stream)).ToLower().Replace("-", "").Substring(0, 16);
+						Clipboard.SetText(checkSum);
+						NewChecksum.Text = "COMPLETE - checksum " + checkSum + " (copied to clipboard)";
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				NewChecksum.Text = "COMPLETE - checksum ????????????????";
+			}
+		}
+
+		private void update()
+		{
+			new Inventory.Updater(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial"));
 		}
 
 		private void establishAreas()
@@ -250,7 +271,7 @@ namespace FF4FabulGauntlet
 		{
 			int buyMultiplier = shopBuyPrice.SelectedIndex == 0 ? 0 : shopBuyPrice.SelectedIndex == 1 ? 1 : shopBuyPrice.SelectedIndex == 2 ? 2 : shopBuyPrice.SelectedIndex == 3 ? 4 : shopBuyPrice.SelectedIndex == 4 ? 8 : 20;
 			new Weapons().adjustPrices(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), buyMultiplier, 20);
-			new Items().adjustPrices(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), buyMultiplier, 20);
+			new Items().adjustPrices(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), buyMultiplier, 20, shopItemTypes.SelectedIndex);
 			new Armor().adjustPrices(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), buyMultiplier, 20);
 		}
 
@@ -288,14 +309,17 @@ namespace FF4FabulGauntlet
 					return;
 				}
 				NewChecksum.Text = "Extracting...";
+				if (!Directory.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx")))
+					ZipFile.ExtractToDirectory(Path.Combine("install", "BepInEx.zip"), Path.Combine(FF4PRFolder.Text), true);
+
 				if (!File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll")))
 					File.Copy(Path.Combine("install", "Memoria.FF4.dll"), Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll"));
 				if (!File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb")))
 					File.Copy(Path.Combine("install", "Memoria.FF4.pdb"), Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb"));
 				if (!File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")))
 					File.Copy(Path.Combine("install", "Memoria.ffpr.cfg"), Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg"));
-				if (!Directory.Exists(Path.Combine(FF4PRFolder.Text, "StreamingAssets", "Assets", "GameAssets")))
-					ZipFile.ExtractToDirectory(gameAssetsFile.Text, Path.Combine(FF4PRFolder.Text, "StreamingAssets", "Assets"));
+				if (!Directory.Exists(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets")))
+					ZipFile.ExtractToDirectory(gameAssetsFile.Text, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets"));
 				NewChecksum.Text = "Extraction complete!";
 			}
 			catch (Exception ex)
@@ -316,8 +340,10 @@ namespace FF4FabulGauntlet
 					File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb"));
 				if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")))
 					File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg"));
-				if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "StreamingAssets", "Assets")))
-					Directory.Delete(Path.Combine(FF4PRFolder.Text, "StreamingAssets", "Assets"), true);
+				if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx")))
+					Directory.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx"), true);
+				if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets")))
+					Directory.Delete(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets"), true);
 				NewChecksum.Text = "Revert complete!";
 			}
 			catch (Exception ex)

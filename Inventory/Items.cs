@@ -116,7 +116,7 @@ namespace FF4FabulGauntlet.Inventory
 			silverApple, somaDrop, silverHourglass, goldenApple, goldenHourglass, lunarCurtain
 		};
 
-		public void adjustPrices(string directory, int multiplier, int divisor)
+		public void adjustPrices(string directory, int multiplier, int divisor, int shopType)
 		{
 			List<singleItem> records;
 
@@ -126,6 +126,13 @@ namespace FF4FabulGauntlet.Inventory
 
 			foreach (singleItem item in records)
 			{
+				if (item.id == 51 || item.id == 52 || item.id == 53)
+				{
+					if (shopType == 1)
+						item.buy *= 5;
+					else if (shopType == 2)
+						item.buy *= 25;
+				}
 				item.buy *= multiplier;
 				item.buy /= divisor;
 				item.sell *= Math.Min(multiplier, 4);

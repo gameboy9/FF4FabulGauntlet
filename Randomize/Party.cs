@@ -270,6 +270,21 @@ namespace FF4FabulGauntlet.Randomize
 							singleScript.operands.sValues[0] = "";
 						}
 					}
+					else if (k == 2)
+					{
+						if (characters.Contains(tellah))
+						{
+							singleScript.mnemonic = "SysCall";
+							singleScript.operands.rValues[0] = 0;
+							singleScript.operands.sValues[0] = "メテオを習得"; // Tellah learns Meteo
+						}
+						else
+						{
+							singleScript.mnemonic = "Wait";
+							singleScript.operands.rValues[0] = 0.1f;
+							singleScript.operands.sValues[0] = "";
+						}
+					}
 					k++;
 				}
 			}

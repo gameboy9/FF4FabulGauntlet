@@ -29,7 +29,8 @@ namespace FF4FabulGauntlet.Randomize
 				Path.Combine(directory, "Map_20151"),
 				Path.Combine(directory, "Map_30151"),
 				Path.Combine(directory, "Map_30161"),
-				Path.Combine(directory, "Map_30171"), //
+				Path.Combine(directory, "Map_20131"), //
+				Path.Combine(directory, "Map_30171"), 
 				Path.Combine(directory, "Map_30191"), 
 				Path.Combine(directory, "Map_30221"),
 				Path.Combine(directory, "Map_30251")
@@ -39,16 +40,16 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				3, 3, 4, 3, 3, 
 				4, 4, 4, 4, 5, 
-				5, 6, 6, 6, 7, 
-				7, 7, 8
+				5, 6, 6, 6, 6, 
+				7, 7, 7, 8
 			};
 
 			List<int> proMaxTier = new List<int>
 			{
 				2, 2, 3, 2, 2,
 				3, 3, 3, 3, 4,
-				4, 5, 5, 5, 6,
-				6, 6, 7
+				4, 5, 5, 5, 6, 
+				6, 6, 6, 7
 			};
 
 			List<string> Booster1 = new List<string>
