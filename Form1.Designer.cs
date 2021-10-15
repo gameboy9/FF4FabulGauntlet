@@ -72,6 +72,7 @@ namespace FF4FabulGauntlet
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.extractGameAssets = new System.Windows.Forms.Button();
 			this.BrowseForGameAssets = new System.Windows.Forms.Button();
+			this.dupCharactersAllowed = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// Randomize
@@ -557,11 +558,22 @@ namespace FF4FabulGauntlet
 			this.BrowseForGameAssets.UseVisualStyleBackColor = true;
 			this.BrowseForGameAssets.Click += new System.EventHandler(this.BrowseForGameAssets_Click);
 			// 
+			// dupCharactersAllowed
+			// 
+			this.dupCharactersAllowed.AutoSize = true;
+			this.dupCharactersAllowed.Location = new System.Drawing.Point(12, 386);
+			this.dupCharactersAllowed.Name = "dupCharactersAllowed";
+			this.dupCharactersAllowed.Size = new System.Drawing.Size(223, 24);
+			this.dupCharactersAllowed.TabIndex = 48;
+			this.dupCharactersAllowed.Text = "Duplicate characters allowed";
+			this.dupCharactersAllowed.UseVisualStyleBackColor = true;
+			// 
 			// FF4FabulGauntlet
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 485);
+			this.Controls.Add(this.dupCharactersAllowed);
 			this.Controls.Add(this.BrowseForGameAssets);
 			this.Controls.Add(this.extractGameAssets);
 			this.Controls.Add(this.linkLabel1);
@@ -659,6 +671,7 @@ namespace FF4FabulGauntlet
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.Button extractGameAssets;
 		private System.Windows.Forms.Button BrowseForGameAssets;
+		private System.Windows.Forms.CheckBox dupCharactersAllowed;
 	}
 }
 

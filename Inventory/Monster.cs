@@ -153,7 +153,7 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
 			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
-				162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 180, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
+				162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
 		List<List<int>> monsterBosses = new List<List<int>> {
@@ -164,20 +164,20 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 59, 168, 171, 173, 196 }, // Old Baron Waterway (or 173)
 			new List<int> { }, // Magnes Cave
 			new List<int> { 175, 178 }, // Troia / Zot Tower
-			new List<int> { 179, 180, 211, 185, 183, 184 }, // Dwarf Castle, Lower Babil
+			new List<int> { 179, 211, 185, 183, 184 }, // Dwarf Castle, Lower Babil
 			new List<int> { }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 188 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 189, 190, 193 }, // Cave Of Summons, other underground locations
 			new List<int> { 189, 190, 193, 191 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 192, 194, 198 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 108, 150, 153, 159 }, // Lunar Subterrane Part 2  (2 rounds)
-			new List<int> { 162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 180, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
+			new List<int> { 162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
 			// Final boss:  217
 		};
 
 		List<int> allBosses = new List<int>
 		{
-			162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 180, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159
+			162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159
 		};
 
 		List<List<int>> xpLimits = new List<List<int>>
@@ -247,7 +247,9 @@ namespace FF4FabulGauntlet.Inventory
 			// No Dark Elves unless they transition to the Dark Dragon. (172, 225)
 			// No Li'l Murderer's.  They wind up crashing the game with their mere existance, sadly. (33)
 			// Let's avoid trap doors for now.  (124)
-			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124 };
+			// Remove the King and Queen of Eblan (186, 187)
+			// Calcobrena cannot show up in a monster group.  (but the dolls can combine into Calcobrena) (180)
+			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180 };
 
 			List<singleGroup> groups = new List<singleGroup>();
 

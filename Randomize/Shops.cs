@@ -163,7 +163,7 @@ namespace FF4FabulGauntlet.Randomize
 				shopWorking = new List<shopItem>();
 				// Alternate between weapons, armor, and item stores, so each place has at least one of each.
 				int itemType = i % 3;
-				int freq = (freqLevel == 0 ? 4 : freqLevel == 1 ? 8 : freqLevel == 2 ? 12 : freqLevel == 3 ? 16 : 20);
+				int freq = freqLevel == 0 ? 4 : freqLevel == 1 ? 8 : freqLevel == 2 ? 12 : freqLevel == 3 ? 16 : 20;
 				for (int j = 0; j <= freq; j++)
 				{
 					shopItem newItem = new shopItem();

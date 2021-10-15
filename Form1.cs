@@ -30,7 +30,7 @@ namespace FF4FabulGauntlet
 			if (loading) return;
 
 			string flags = "";
-			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper }));
+			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed }));
 			//// Combo boxes time...
 			flags += convertIntToChar(numAreas.SelectedIndex + (8 * numRounds.SelectedIndex));
 			flags += convertIntToChar(shopItemQty.SelectedIndex + (8 * shopBuyPrice.SelectedIndex));
@@ -60,7 +60,7 @@ namespace FF4FabulGauntlet
 			loading = true;
 
 			string flags = RandoFlags.Text;
-			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper });
+			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed });
 			numAreas.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) % 8;
 			numRounds.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) / 8;
 			shopItemQty.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) % 8;
@@ -219,7 +219,7 @@ namespace FF4FabulGauntlet
 				numRounds.SelectedIndex == 5 ? 3 :
 				numRounds.SelectedIndex == 6 ? 2 : 1;
 			r1 = new Random(Convert.ToInt32(RandoSeed.Text));
-			new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles);
+			new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked);
 		}
 
 		private void randomizeShops()
