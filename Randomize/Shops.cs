@@ -162,7 +162,7 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				shopWorking = new List<shopItem>();
 				// Alternate between weapons, armor, and item stores, so each place has at least one of each.
-				int itemType = i % 3;
+				int itemType = allStores[i] % 3;
 				int freq = (freqLevel == 0 ? 4 : freqLevel == 1 ? 8 : freqLevel == 2 ? 12 : freqLevel == 3 ? 16 : 20);
 				for (int j = 0; j <= freq; j++)
 				{
@@ -206,18 +206,19 @@ namespace FF4FabulGauntlet.Randomize
 					sw.WriteLine(finalID + "," + si.content_id + "," + si.group_id + "," + si.coefficient + "," + si.purchase_limit);
 				}
 				finalID++;
-				sw.WriteLine("236,0,101,10,0");
-				sw.WriteLine("237,0,102,10,0");
-				sw.WriteLine("238,0,103,10,0");
-				sw.WriteLine("239,0,104,20,0");
-				sw.WriteLine("240,0,105,40,0");
-				sw.WriteLine("241,0,106,10,0");
-				sw.WriteLine("242,0,107,100,0");
-				sw.WriteLine("243,0,108,80,0");
-				sw.WriteLine("244,0,109,100,0");
-				sw.WriteLine("245,0,110,100,0");
-				sw.WriteLine("246,0,111,60,0");
-				sw.WriteLine("247,0,112,200,0");
+				// Inn prices
+				sw.WriteLine(finalID + ",0,101,10,0");  finalID++;
+				sw.WriteLine(finalID + ",0,102,10,0");  finalID++;
+				sw.WriteLine(finalID + ",0,103,10,0");  finalID++;
+				sw.WriteLine(finalID + ",0,104,20,0");  finalID++;
+				sw.WriteLine(finalID + ",0,105,40,0");  finalID++;
+				sw.WriteLine(finalID + ",0,106,10,0");  finalID++;
+				sw.WriteLine(finalID + ",0,107,100,0"); finalID++;
+				sw.WriteLine(finalID + ",0,108,80,0");  finalID++;
+				sw.WriteLine(finalID + ",0,109,100,0"); finalID++;
+				sw.WriteLine(finalID + ",0,110,100,0"); finalID++;
+				sw.WriteLine(finalID + ",0,111,60,0");  finalID++;
+				sw.WriteLine(finalID + ",0,112,200,0"); finalID++;
 			}
 		}
 	}
