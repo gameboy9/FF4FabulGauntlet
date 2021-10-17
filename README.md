@@ -24,6 +24,7 @@ Also... expect the game to be a bit unbalanced.  With some input, it should beco
 - Albeoris - author of Memoria for the Pixel Remaster, which really helped me create this randomizer
 - Silvris - Creating the FF4 version of Memoria
 ## Beta helpers
+(These have either reported bugs or offered an improvement that was implemented)
 - Invenerable
 - LQFleury14
 - Eatitup_86
