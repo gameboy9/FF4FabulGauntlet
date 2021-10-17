@@ -90,17 +90,13 @@ namespace FF4FabulGauntlet.Inventory
 		public const int decoy = 56; // t3
 		public const int lightCurtain = 57; // t6
 		public const int lunarCurtain = 58; // t8
-		public const int goblin = 76; // t1
-		public const int bomb = 77; // t2
-		public const int cockatrice = 78; // t4
-		public const int mindFlayer = 79; // t4
 
 		public List<List<int>> tiers = new List<List<int>>
 			{ new List<int> { potion, phoenixDown, maidensKiss, mallet, dietFood, echoHerbs, eyeDrops, antidote,
-					bombFragment, antarcticWind, zeusWrath, bestiary, goblin },
-			  new List<int> { phoenixDown, bellOfSilence, bomb },
+					bombFragment, antarcticWind, zeusWrath, bestiary },
+			  new List<int> { phoenixDown, bellOfSilence },
 			  new List<int> { hiPotion, goldNeedle, ether, cross, alarmClock, tent, bombCore, lilithKiss, spiderSilk, decoy },
-			  new List<int> { hiPotion, bombArm, arcticWind, rageOfTheGods, gaiaDrum, stardust, vampireFang, bacchusCider, hermesShoes, cockatrice, mindFlayer },
+			  new List<int> { hiPotion, bombArm, arcticWind, rageOfTheGods, gaiaDrum, stardust, vampireFang, bacchusCider, hermesShoes },
 			  new List<int> { remedy, unicornHorn, siren, redFang, whiteFang, blueFang, hourglass },
 			  new List<int> { xPotion, dryEther, cottage, coeurlWhisker, lightCurtain },
 			  new List<int> { xPotion, silverApple, somaDrop, silverHourglass },
@@ -111,7 +107,7 @@ namespace FF4FabulGauntlet.Inventory
 		List<int> jItems = new List<int>
 		{
 			maidensKiss, mallet, dietFood, echoHerbs, eyeDrops, antidote, bombFragment, antarcticWind, zeusWrath, bestiary, bellOfSilence,
-				bomb, cross, alarmClock, bombCore, lilithKiss, spiderSilk, decoy, bombArm, arcticWind, rageOfTheGods, gaiaDrum, stardust,
+				cross, alarmClock, bombCore, lilithKiss, spiderSilk, decoy, bombArm, arcticWind, rageOfTheGods, gaiaDrum, stardust,
 			vampireFang, bacchusCider, hermesShoes, unicornHorn, siren, redFang, whiteFang, blueFang, hourglass, coeurlWhisker, lightCurtain,
 			silverApple, somaDrop, silverHourglass, goldenApple, goldenHourglass, lunarCurtain
 		};

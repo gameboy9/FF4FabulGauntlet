@@ -13,7 +13,7 @@ namespace FF4FabulGauntlet.Randomize
 {
 	public class Party
 	{
-		private class character
+		private class character : ICloneable
 		{
 			public int id { get; set; }
 			public int gender { get; set; }
@@ -64,20 +64,24 @@ namespace FF4FabulGauntlet.Randomize
 			public int ability_random_group_id { get; set; }
 			public int initial_condition_group { get; set; }
 			public int character_asset_id { get; set; }
+
+			public object Clone()
+			{
+				return this.MemberwiseClone();
+			}
 		}
 
-
-		const int dkCecil = 0;
-		const int cecil = 1;
+		const int dkCecil = 1;
+		const int cecil = 13;
 		const int kain = 2;
-		const int rydia = 3;
-		const int tellah = 4;
-		const int edward = 5;
-		const int rosa = 6;
-		const int yang = 7;
-		const int palom = 8;
-		const int porom = 9;
-		const int cid = 10;
+		const int rosa = 3;
+		const int rydia = 4;
+		const int cid = 5;
+		const int tellah = 6;
+		const int edward = 7;
+		const int yang = 8;
+		const int palom = 9;
+		const int porom = 10;
 		const int edge = 11;
 		const int fusoya = 12;
 
@@ -92,23 +96,33 @@ namespace FF4FabulGauntlet.Randomize
 			List<int> characters = new List<int>();
 			if (duplicates)
 			{
-				for (int i = 0; i < 14; i++)
-					characters.Add(r1.Next() % 13);
+				for (int i = 0; i < 12; i++)
+				{
+					int charID = r1.Next() % 13 + 1;
+					if (charID != cecil)
+						characters.Add(charID);
+					else 
+						i--;  // redraw if Paladin Cecil is selected
+				}
 			} else
 			{
-				characters = new List<int> { dkCecil, cecil, kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya };
+				characters = new List<int> { dkCecil, kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya };
 				characters.Shuffle(r1);
 			}
-
-			List<character> newRecords = new List<character>();
-			foreach (int singleChar in characters)
-				newRecords.Add(records[singleChar]);
+			// In case of Cecil promotions
+			characters.Add(cecil);
+			characters[5] = characters[6] = characters[7] = characters[8] = cecil;
 
 			int id = 1;
-			foreach (character singleRecord in newRecords)
+			List<character> newRecords = new List<character>();
+			foreach (int singleChar in characters)
 			{
-				singleRecord.id = id;
-				singleRecord.growth_curve_group_id = id;
+				// Next two lines:  Prevents changes done to the single object as well as the list.
+				var oldRecord = records.Where(c => c.id == singleChar).ToList()[0];
+				var newRecord = (character)oldRecord.Clone();
+				newRecord.id = id;
+				newRecord.growth_curve_group_id = id;
+				newRecords.Add(newRecord);
 				id++;
 			}
 
@@ -128,7 +142,7 @@ namespace FF4FabulGauntlet.Randomize
 					growthID = record.job_id == 6 ? 1 : record.job_id == 3 ? 2 : record.job_id == 2 ? 3 : record.job_id == 7 ? 4 : record.job_id == 10 ? 5 :
 						record.job_id == 8 ? 6 : record.job_id == 9 ? 7 : record.job_id == 11 ? 8 : record.job_id == 12 ? 9 : record.job_id == 13 ? 10 :
 						record.job_id == 5 ? 11 : record.job_id == 14 ? 12 : record.job_id == 1 ? 13 : 4;
-					writer.WriteLine(id.ToString().Trim() + "," + id.ToString().Trim() + "," + record.job_id.ToString().Trim() + "," + id.ToString().Trim() + "," + id.ToString().Trim());
+					writer.WriteLine(id.ToString().Trim() + "," + id.ToString().Trim() + "," + record.job_id.ToString().Trim() + "," + growthID.ToString().Trim() + "," + growthID.ToString().Trim());
 					id++;
 				}
 			}
@@ -196,6 +210,13 @@ namespace FF4FabulGauntlet.Randomize
 			}
 
 			JsonSerializer serializer = new JsonSerializer();
+
+			using (StreamWriter sw = new StreamWriter(Path.Combine(directory, "Map_10010", "Map_10010", "sc_e_0001.json")))
+			using (JsonWriter writer = new JsonTextWriter(sw))
+			{
+				serializer.Serialize(writer, jEvents);
+			}
+
 
 			// Then we're going to need to revert the ResetFlags to SetFlags for all of the encounters
 			List<string> battleScripts = new List<string>
@@ -266,50 +287,53 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
 				{
-					if (k == 0) {
-						// Characters always contain Cecil... for now...
-
-						if (characters.Contains(dkCecil))
-						{
-							singleScript.mnemonic = "SysCall";
-							singleScript.operands.rValues[0] = 0;
-							singleScript.operands.sValues[0] = "セシル転職"; // Cecil promotion
-						}
-						else
-						{
-							singleScript.mnemonic = "Wait";
-							singleScript.operands.rValues[0] = 0.1f;
-							singleScript.operands.sValues[0] = "";
-						}
-					}
-					else if (k == 1)
+					switch (k)
 					{
-						if (characters.Contains(tellah))
-						{
-							singleScript.mnemonic = "SysCall";
-							singleScript.operands.rValues[0] = 0;
-							singleScript.operands.sValues[0] = "テラが魔法思い出す"; // Tellah remembers magic
-						} else
-						{
-							singleScript.mnemonic = "Wait";
-							singleScript.operands.rValues[0] = 0.1f;
-							singleScript.operands.sValues[0] = "";
-						}
-					}
-					else if (k == 2)
-					{
-						if (characters.Contains(tellah))
-						{
-							singleScript.mnemonic = "SysCall";
-							singleScript.operands.rValues[0] = 0;
-							singleScript.operands.sValues[0] = "メテオを習得"; // Tellah learns Meteo
-						}
-						else
-						{
-							singleScript.mnemonic = "Wait";
-							singleScript.operands.rValues[0] = 0.1f;
-							singleScript.operands.sValues[0] = "";
-						}
+						case 0:
+							singleScript.mnemonic = characters[0] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[0] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[0] == dkCecil ? "セシル転職" : ""; // Cecil promotion
+							break;
+						case 1:
+							singleScript.mnemonic = characters[1] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "カイン離脱" : ""; // Drop "Kain"
+							break;
+						case 2:
+							singleScript.mnemonic = characters[1] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "テラ加入" : ""; // Add "Tellah"
+							break;
+						case 3:
+							singleScript.mnemonic = characters[2] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "ローザ離脱" : ""; // Drop "Rosa"
+							break;
+						case 4:
+							singleScript.mnemonic = characters[2] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "ギルバート加入" : ""; // Add "Edward"
+							break;
+						case 5:
+							singleScript.mnemonic = characters[3] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "リディア離脱" : ""; // Drop "Rydia"
+							break;
+						case 6:
+							singleScript.mnemonic = characters[3] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "ヤン加入" : ""; // Add "Yang"
+							break;
+						case 7:
+							singleScript.mnemonic = characters[4] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "シド離脱" : ""; // Drop "Cid"
+							break;
+						case 8:
+							singleScript.mnemonic = characters[4] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "パロム加入" : ""; // Add "Palom"
+							break;
 					}
 					k++;
 				}
