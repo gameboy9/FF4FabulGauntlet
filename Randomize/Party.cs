@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper;
 using FF4FabulGauntlet.Common;
 using FF4FabulGauntlet.Inventory;
 using Newtonsoft.Json;
@@ -12,28 +13,139 @@ namespace FF4FabulGauntlet.Randomize
 {
 	public class Party
 	{
-		const int dkCecil = 0;
-		const int cecil = 1;
+		private class character : ICloneable
+		{
+			public int id { get; set; }
+			public int gender { get; set; }
+			public int dominant_arm { get; set; }
+			public int lv { get; set; }
+			public int exp { get; set; }
+			public int growth_curve_group_id { get; set; }
+			public int job_id { get; set; }
+			public string mes_id_name { get; set; }
+			public int in_type_id { get; set; }
+			public int hp { get; set; }
+			public int mp { get; set; }
+			public int magical_times1 { get; set; }
+			public int magical_times2 { get; set; }
+			public int magical_times3 { get; set; }
+			public int magical_times4 { get; set; }
+			public int magical_times5 { get; set; }
+			public int magical_times6 { get; set; }
+			public int magical_times7 { get; set; }
+			public int magical_times8 { get; set; }
+			public int strength { get; set; }
+			public int vitality { get; set; }
+			public int agility { get; set; }
+			public int intelligence { get; set; }
+			public int spirit { get; set; }
+			public int magic { get; set; }
+			public int luck { get; set; }
+			public int attack { get; set; }
+			public int defense { get; set; }
+			public int accuracy_rate { get; set; }
+			public int dodge_times { get; set; }
+			public int evasion_rate { get; set; }
+			public int ability_defense { get; set; }
+			public int magic_evasion_rate { get; set; }
+			public int corps { get; set; }
+			public int command_id1 { get; set; } // Fight
+			public int command_id2 { get; set; }
+			public int command_id3 { get; set; }
+			public int command_id4 { get; set; }
+			public int command_id5 { get; set; }
+			public int command_id6 { get; set; }
+			public int content_id1 { get; set; }
+			public int content_id2 { get; set; }
+			public int content_id3 { get; set; }
+			public int content_id4 { get; set; }
+			public int content_id5 { get; set; }
+			public int content_id6 { get; set; }
+			public int ability_random_group_id { get; set; }
+			public int initial_condition_group { get; set; }
+			public int character_asset_id { get; set; }
+
+			public object Clone()
+			{
+				return this.MemberwiseClone();
+			}
+		}
+
+		const int dkCecil = 1;
+		const int cecil = 13;
 		const int kain = 2;
-		const int rydia = 3;
-		const int tellah = 4;
-		const int edward = 5;
-		const int rosa = 6;
-		const int yang = 7;
-		const int palom = 8;
-		const int porom = 9;
-		const int cid = 10;
+		const int rosa = 3;
+		const int rydia = 4;
+		const int cid = 5;
+		const int tellah = 6;
+		const int edward = 7;
+		const int yang = 8;
+		const int palom = 9;
+		const int porom = 10;
 		const int edge = 11;
 		const int fusoya = 12;
 
-		public Party(Random r1, string directory, int numberOfBattles)
+		public Party(Random r1, string directory, int numberOfBattles, bool duplicates)
 		{
-			List<int> characters = new List<int> { kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya };
-			characters.Shuffle(r1);
+			List<character> records;
 
-			// Remove the last seven characters off the list.
-			while (characters.Count() > 4)
-				characters.RemoveAt(4);
+			using (StreamReader reader = new StreamReader(Path.Combine("csv", "character_status.csv")))
+			using (CsvReader csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
+				records = csv.GetRecords<character>().ToList();
+
+			List<int> characters = new List<int>();
+			if (duplicates)
+			{
+				for (int i = 0; i < 12; i++)
+				{
+					int charID = r1.Next() % 13 + 1;
+					if (charID != cecil)
+						characters.Add(charID);
+					else 
+						i--;  // redraw if Paladin Cecil is selected
+				}
+			} else
+			{
+				characters = new List<int> { dkCecil, kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya };
+				characters.Shuffle(r1);
+			}
+			// In case of Cecil promotions
+			characters.Add(cecil);
+			characters[5] = characters[6] = characters[7] = characters[8] = cecil;
+
+			int id = 1;
+			List<character> newRecords = new List<character>();
+			foreach (int singleChar in characters)
+			{
+				// Next two lines:  Prevents changes done to the single object as well as the list.
+				var oldRecord = records.Where(c => c.id == singleChar).ToList()[0];
+				var newRecord = (character)oldRecord.Clone();
+				newRecord.id = id;
+				newRecord.growth_curve_group_id = id;
+				newRecords.Add(newRecord);
+				id++;
+			}
+
+			using (StreamWriter writer = new StreamWriter(Path.Combine(directory, "..", "..", "Data", "Master", "character_status.csv")))
+			using (CsvWriter csv = new CsvWriter(writer, System.Globalization.CultureInfo.InvariantCulture))
+			{
+				csv.WriteRecords(newRecords);
+			}
+
+			using (StreamWriter writer = new StreamWriter(Path.Combine(directory, "..", "..", "Data", "Master", "intermediate_growth_curve.csv")))
+			{
+				writer.WriteLine("id,character_id,job_id,growth_curve_group_id,exp_table_group_id");
+				id = 1;
+				int growthID;
+				foreach (character record in newRecords)
+				{
+					growthID = record.job_id == 6 ? 1 : record.job_id == 3 ? 2 : record.job_id == 2 ? 3 : record.job_id == 7 ? 4 : record.job_id == 10 ? 5 :
+						record.job_id == 8 ? 6 : record.job_id == 9 ? 7 : record.job_id == 11 ? 8 : record.job_id == 12 ? 9 : record.job_id == 13 ? 10 :
+						record.job_id == 5 ? 11 : record.job_id == 14 ? 12 : record.job_id == 1 ? 13 : 4;
+					writer.WriteLine(id.ToString().Trim() + "," + id.ToString().Trim() + "," + record.job_id.ToString().Trim() + "," + growthID.ToString().Trim() + "," + growthID.ToString().Trim());
+					id++;
+				}
+			}
 
 			string json = File.ReadAllText(Path.Combine(directory, "Map_10010", "Map_10010", "sc_e_0001.json"));
 			EventJSON jEvents = JsonConvert.DeserializeObject<EventJSON>(json);
@@ -42,102 +154,37 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
 				{
-					if (j >= 4)
+					switch (j)
 					{
-						singleScript.mnemonic = "Wait";
-						singleScript.operands.rValues[0] = 0.1f;
-						singleScript.operands.sValues[0] = "";
+						case 0:
+							singleScript.mnemonic = "SysCall";
+							singleScript.operands.rValues[0] = 0;
+							singleScript.operands.sValues[0] = "カイン加入"; // Add Kain (ID 2)
+							break;
+						case 1:
+							singleScript.mnemonic = "SysCall";
+							singleScript.operands.rValues[0] = 0;
+							singleScript.operands.sValues[0] = "ローザ加入"; // Add Rosa (ID 3)
+							break;
+						case 2:
+							singleScript.mnemonic = "SysCall";
+							singleScript.operands.rValues[0] = 0;
+							singleScript.operands.sValues[0] = "リディア加入"; // Add Rydia (ID 4)
+							break;
+						case 3:
+							singleScript.mnemonic = "SysCall";
+							singleScript.operands.rValues[0] = 0;
+							singleScript.operands.sValues[0] = "シド加入"; // Add Cid (ID 5)
+							break;
+						default:
+							singleScript.mnemonic = "Wait";
+							singleScript.operands.rValues[0] = 0.1f;
+							singleScript.operands.sValues[0] = "";
+							break;
 					}
-					else
-					{
-						switch (characters[j])
-						{
-							case kain:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "カイン加入"; // Add Kain
-									break;
-								}
-							case rydia:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "リディア加入"; // Add Rydia
-									break;
-								}
-							case edward:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "ギルバート加入"; // Add Edward/Gilbert
-									break;
-								}
-							case rosa:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "ローザ加入"; // Add Rosa
-									break;
-								}
-							case yang:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "ヤン加入"; // Add Yang
-									break;
-								}
-							case palom:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "パロム加入"; // Add Palom
-									break;
-								}
-							case porom:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "ポロム加入"; // Add Porom
-									break;
-								}
-							case cid:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "シド加入"; // Add Cid
-									break;
-								}
-							case edge:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "エッジ加入"; // Add Edge
-									break;
-								}
-							case fusoya:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "フースーヤ加入"; // Add Fusoya
-									break;
-								}
-							case tellah:
-								{
-									singleScript.mnemonic = "SysCall";
-									singleScript.operands.rValues[0] = 0;
-									singleScript.operands.sValues[0] = "テラ加入"; // Add Terra / Tellah
-									break;
-								}
-							default:
-								singleScript.mnemonic = "Wait";
-								singleScript.operands.rValues[0] = 0.1f;
-								singleScript.operands.sValues[0] = "";
-								break;
-						}
-					}
+
 					j++;
-				} 
+				}
 				else if (singleScript.mnemonic == "SetFlag" || singleScript.mnemonic == "ResetFlag")
 				{
 					// Set initial flags
@@ -240,50 +287,53 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
 				{
-					if (k == 0) {
-						// Characters always contain Cecil... for now...
-
-						//if (characters.Contains(cecil))
-						//{
-							singleScript.mnemonic = "SysCall";
-							singleScript.operands.rValues[0] = 0;
-							singleScript.operands.sValues[0] = "セシル転職"; // Cecil promotion
-						//}
-						//else
-						//{
-						//	singleScript.mnemonic = "Wait";
-						//	singleScript.operands.rValues[0] = 0.1f;
-						//	singleScript.operands.sValues[0] = "";
-						//}
-					}
-					else if (k == 1)
+					switch (k)
 					{
-						if (characters.Contains(tellah))
-						{
-							singleScript.mnemonic = "SysCall";
-							singleScript.operands.rValues[0] = 0;
-							singleScript.operands.sValues[0] = "テラが魔法思い出す"; // Tellah remembers magic
-						} else
-						{
-							singleScript.mnemonic = "Wait";
-							singleScript.operands.rValues[0] = 0.1f;
-							singleScript.operands.sValues[0] = "";
-						}
-					}
-					else if (k == 2)
-					{
-						if (characters.Contains(tellah))
-						{
-							singleScript.mnemonic = "SysCall";
-							singleScript.operands.rValues[0] = 0;
-							singleScript.operands.sValues[0] = "メテオを習得"; // Tellah learns Meteo
-						}
-						else
-						{
-							singleScript.mnemonic = "Wait";
-							singleScript.operands.rValues[0] = 0.1f;
-							singleScript.operands.sValues[0] = "";
-						}
+						case 0:
+							singleScript.mnemonic = characters[0] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[0] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[0] == dkCecil ? "セシル転職" : ""; // Cecil promotion
+							break;
+						case 1:
+							singleScript.mnemonic = characters[1] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "カイン離脱" : ""; // Drop "Kain"
+							break;
+						case 2:
+							singleScript.mnemonic = characters[1] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "テラ加入" : ""; // Add "Tellah"
+							break;
+						case 3:
+							singleScript.mnemonic = characters[2] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "ローザ離脱" : ""; // Drop "Rosa"
+							break;
+						case 4:
+							singleScript.mnemonic = characters[2] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "ギルバート加入" : ""; // Add "Edward"
+							break;
+						case 5:
+							singleScript.mnemonic = characters[3] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "リディア離脱" : ""; // Drop "Rydia"
+							break;
+						case 6:
+							singleScript.mnemonic = characters[3] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "ヤン加入" : ""; // Add "Yang"
+							break;
+						case 7:
+							singleScript.mnemonic = characters[4] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "シド離脱" : ""; // Drop "Cid"
+							break;
+						case 8:
+							singleScript.mnemonic = characters[4] == dkCecil ? "SysCall" : "Wait";
+							singleScript.operands.rValues[0] = characters[1] == dkCecil ? 0.0f : 0.1f;
+							singleScript.operands.sValues[0] = characters[1] == dkCecil ? "パロム加入" : ""; // Add "Palom"
+							break;
 					}
 					k++;
 				}
@@ -296,186 +346,6 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				serializer.Serialize(writer, jEvents2);
 			}
-
-
-			// Version 1 - Whenever we can somehow fix the loading script to load non-Cecil parties.
-
-			//int reserveChar = characters[5];
-
-			//bool tellahJoin = false;
-			//bool tellahUsed1 = false;
-			//bool tellahUsed2 = false;
-
-			//	List<int> characters = new List<int> { dkCecil, cecil, kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya };
-			//characters.Shuffle(r1);
-
-			//int reserveChar = characters[5];
-
-			//bool tellahJoin = false;
-			//bool tellahUsed1 = false;
-			//bool tellahUsed2 = false;
-			//// Remove the last seven characters off the list.
-			//while (characters.Count() > 5)
-			//	characters.RemoveAt(5);
-
-			//// Bring back the sixth selected character if both Cecils were selected.  Remove a Cecil randomly in this case.
-			//if (characters.Contains(cecil) && characters.Contains(dkCecil))
-			//{
-			//	characters.Remove(r1.Next() % 2);
-			//	characters.Add(reserveChar);
-			//}
-			//// Things will get screwy if Cecil is the first character.  (Mainly the opening script will not run, locking the game)
-			//if (characters[0] == cecil || characters[0] == dkCecil)
-			//{
-			//	reserveChar = characters[0];
-			//	characters.RemoveAt(0);
-			//	characters.Add(reserveChar);
-			//}
-			//// Things will get screwy if Cecil is the first character.  (Mainly the opening script will not run, locking the game)
-			//if (!characters.Contains(cecil) && !characters.Contains(dkCecil))
-			//{
-			//	tellahJoin = true;
-			//}
-
-			//string json = File.ReadAllText(fileName);
-			//EventJSON jEvents = JsonConvert.DeserializeObject<EventJSON>(json);
-			//int j = 0;
-			//foreach (var singleScript in jEvents.Mnemonics)
-			//{
-			//	if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
-			//	{
-			//		if (tellahJoin && !tellahUsed1 && j == 0)
-			//		{
-			//			singleScript.mnemonic = "SysCall";
-			//			singleScript.operands.rValues[0] = 0;
-			//			singleScript.operands.sValues[0] = "テラ加入"; // Add Terra / Tellah
-			//			tellahUsed1 = true;
-			//			j--;
-			//		}
-			//		else if (tellahJoin && tellahUsed1 && !tellahUsed2 && j == 0)
-			//		{
-			//			singleScript.mnemonic = "SysCall";
-			//			singleScript.operands.rValues[0] = 0;
-			//			singleScript.operands.sValues[0] = "テラvs吟遊詩人戦パーティ"; // Change party to Tellah only
-			//			tellahUsed2 = true;
-			//			j--;
-			//		}
-			//		else if (!characters.Contains(tellah) && j >= 3 && tellahUsed2)
-			//		{
-			//			singleScript.mnemonic = "SysCall";
-			//			singleScript.operands.rValues[0] = 0;
-			//			singleScript.operands.sValues[0] = "テラ離脱"; // Remove Tellah
-			//			tellahUsed2 = false;
-			//			j--;
-			//		}
-			//		else if (j >= 5)
-			//		{
-			//			singleScript.mnemonic = "Wait";
-			//			singleScript.operands.rValues[0] = 0.1f;
-			//			singleScript.operands.sValues[0] = "";
-			//		} 
-			//		else
-			//		{
-			//			switch (characters[j])
-			//			{
-			//				case cecil:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "セシル転職"; // Cecil Change to Paladin
-			//						break;
-			//					}
-			//				case kain:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "カイン加入"; // Add Kain
-			//						break;
-			//					}
-			//				case rydia:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "リディア加入"; // Add Rydia
-			//						break;
-			//					}
-			//				case edward:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "ギルバート加入"; // Add Edward/Gilbert
-			//						break;
-			//					}
-			//				case rosa:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "ローザ加入"; // Add Rosa
-			//						break;
-			//					}
-			//				case yang:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "ヤン加入"; // Add Yang
-			//						break;
-			//					}
-			//				case palom:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "パロム加入"; // Add Palom
-			//						break;
-			//					}
-			//				case porom:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "ポロム加入"; // Add Porom
-			//						break;
-			//					}
-			//				case cid:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "シド加入"; // Add Cid
-			//						break;
-			//					}
-			//				case edge:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "エッジ加入"; // Add Edge
-			//						break;
-			//					}
-			//				case fusoya:
-			//					{
-			//						singleScript.mnemonic = "SysCall";
-			//						singleScript.operands.rValues[0] = 0;
-			//						singleScript.operands.sValues[0] = "フースーヤ加入"; // Add Fusoya
-			//						break;
-			//					}
-			//				case tellah:
-			//					{
-			//						// Only do this if Cecil is in the party.  We do something different, above, if Cecil is not in the party.
-			//						if (characters.Contains(cecil) || characters.Contains(dkCecil))
-			//						{
-			//							singleScript.mnemonic = "SysCall";
-			//							singleScript.operands.rValues[0] = 0;
-			//							singleScript.operands.sValues[0] = "テラ加入"; // Add Terra / Tellah
-			//						}
-			//						break;
-			//					}
-			//				default:
-			//					singleScript.mnemonic = "Wait";
-			//					singleScript.operands.rValues[0] = 0.1f;
-			//					singleScript.operands.sValues[0] = "";
-			//					break;
-			//			}
-			//		}
-			//		j++;
-			//	}
-			//}
 		}
 	}
 }
