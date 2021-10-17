@@ -23,5 +23,9 @@ Also... expect the game to be a bit unbalanced.  With some input, it should beco
 - mcgrew (Dragon Warrior Randomizer author) for inspiring me to create randomizers
 - Albeoris - author of Memoria for the Pixel Remaster, which really helped me create this randomizer
 - Silvris - Creating the FF4 version of Memoria
+## Bug testers
+- Invenerable
+- LQFleury14
+- Eatitup_86
 
 # Enjoy and good luck!
