@@ -40,7 +40,6 @@ namespace FF4FabulGauntlet
 			this.NewSeed = new System.Windows.Forms.Button();
 			this.BrowseForFolder = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.monsterAreaAppropriate = new System.Windows.Forms.CheckBox();
 			this.label8 = new System.Windows.Forms.Label();
@@ -51,7 +50,6 @@ namespace FF4FabulGauntlet
 			this.label13 = new System.Windows.Forms.Label();
 			this.shopItemQty = new System.Windows.Forms.ComboBox();
 			this.shopBuyPrice = new System.Windows.Forms.ComboBox();
-			this.numAreas = new System.Windows.Forms.ComboBox();
 			this.numRounds = new System.Windows.Forms.ComboBox();
 			this.monsterDifficulty = new System.Windows.Forms.ComboBox();
 			this.xpMultiplier = new System.Windows.Forms.ComboBox();
@@ -172,15 +170,6 @@ namespace FF4FabulGauntlet
 			this.label5.TabIndex = 15;
 			this.label5.Text = "# of Battles / Area";
 			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(12, 140);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(77, 20);
-			this.label6.TabIndex = 16;
-			this.label6.Text = "# of Areas";
-			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
@@ -287,18 +276,6 @@ namespace FF4FabulGauntlet
 			this.shopBuyPrice.Size = new System.Drawing.Size(151, 28);
 			this.shopBuyPrice.TabIndex = 26;
 			this.shopBuyPrice.SelectedIndexChanged += new System.EventHandler(this.DetermineFlags);
-			// 
-			// numAreas
-			// 
-			this.numAreas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.numAreas.FormattingEnabled = true;
-			this.numAreas.Items.AddRange(new object[] {
-            "11"});
-			this.numAreas.Location = new System.Drawing.Point(162, 136);
-			this.numAreas.Name = "numAreas";
-			this.numAreas.Size = new System.Drawing.Size(148, 28);
-			this.numAreas.TabIndex = 27;
-			this.numAreas.SelectedIndexChanged += new System.EventHandler(this.DetermineFlags);
 			// 
 			// numRounds
 			// 
@@ -594,7 +571,6 @@ namespace FF4FabulGauntlet
 			this.Controls.Add(this.xpMultiplier);
 			this.Controls.Add(this.monsterDifficulty);
 			this.Controls.Add(this.numRounds);
-			this.Controls.Add(this.numAreas);
 			this.Controls.Add(this.shopBuyPrice);
 			this.Controls.Add(this.shopItemQty);
 			this.Controls.Add(this.label13);
@@ -605,7 +581,6 @@ namespace FF4FabulGauntlet
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.monsterAreaAppropriate);
 			this.Controls.Add(this.label7);
-			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.BrowseForFolder);
 			this.Controls.Add(this.NewSeed);
@@ -639,7 +614,6 @@ namespace FF4FabulGauntlet
 		private System.Windows.Forms.Button NewSeed;
 		private System.Windows.Forms.Button BrowseForFolder;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.CheckBox monsterAreaAppropriate;
 		private System.Windows.Forms.Label label8;
@@ -650,7 +624,6 @@ namespace FF4FabulGauntlet
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.ComboBox shopItemQty;
 		private System.Windows.Forms.ComboBox shopBuyPrice;
-		private System.Windows.Forms.ComboBox numAreas;
 		private System.Windows.Forms.ComboBox numRounds;
 		private System.Windows.Forms.ComboBox monsterDifficulty;
 		private System.Windows.Forms.ComboBox xpMultiplier;

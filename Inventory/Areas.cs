@@ -60,8 +60,8 @@ namespace FF4FabulGauntlet.Inventory
 
 				// Area 5 -> 6
 				new List<TransitionPoints> {
-					new TransitionPoints { path = Path.Combine(directory, "Map_30121", "Map_20011_5", "entity_default.json"), orderId = 1, gotoMapId = 2, defaultMapId = 58, defaultPointId = 1 }, // Baron Waterway
-					new TransitionPoints { path = Path.Combine(directory, "Map_20061", "Map_20061_1", "entity_default.json"), orderId = 2, gotoMapId = 1, defaultMapId = 9, defaultPointId = 1 }, // Mysidia-1
+					new TransitionPoints { path = Path.Combine(directory, "Map_20011", "Map_20011_5", "entity_default.json"), orderId = 1, gotoMapId = 2, defaultMapId = 58, defaultPointId = 1 }, // Baron Waterway
+					new TransitionPoints { path = Path.Combine(directory, "Map_20061", "Map_20061_1", "entity_default.json"), orderId = 2, gotoMapId = 1, defaultMapId = 5, defaultPointId = 1 }, // Mysidia-1
 					new TransitionPoints { path = Path.Combine(directory, "Map_20061", "Map_20061_1", "entity_default.json"), orderId = 3, gotoMapId = 1, defaultMapId = 199, defaultPointId = 2 }, // Mysidia-1
 					new TransitionPoints { path = Path.Combine(directory, "Map_30131", "Map_30131_8", "entity_default.json"), orderId = 4, gotoMapId = 1, defaultMapId = 58, defaultPointId = 2 }, // Magnes
 				},

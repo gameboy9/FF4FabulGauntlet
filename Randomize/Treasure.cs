@@ -21,35 +21,39 @@ namespace FF4FabulGauntlet.Randomize
 				Path.Combine(directory, "Map_20070"),
 				Path.Combine(directory, "Map_30021"), //
 				Path.Combine(directory, "Map_30050"),
+				Path.Combine(directory, "Map_30060"),
 				Path.Combine(directory, "Map_30080"),
 				Path.Combine(directory, "Map_30100"),
-				Path.Combine(directory, "Map_30121"),
-				Path.Combine(directory, "Map_30131"), //
+				Path.Combine(directory, "Map_30121"), //
+				Path.Combine(directory, "Map_20011"),
+				Path.Combine(directory, "Map_30131"),
 				Path.Combine(directory, "Map_30141"),
 				Path.Combine(directory, "Map_20151"),
-				Path.Combine(directory, "Map_30151"),
+				Path.Combine(directory, "Map_30151"), //
 				Path.Combine(directory, "Map_30161"),
-				Path.Combine(directory, "Map_20131"), //
+				Path.Combine(directory, "Map_20131"),
 				Path.Combine(directory, "Map_30171"), 
 				Path.Combine(directory, "Map_30191"), 
-				Path.Combine(directory, "Map_30221"),
+				Path.Combine(directory, "Map_30221"), //
 				Path.Combine(directory, "Map_30251")
 			};
 
 			List<int> stdMaxTier = new List<int>
 			{
-				3, 3, 4, 3, 3, 
-				4, 4, 4, 4, 5, 
-				5, 6, 6, 6, 6, 
-				7, 7, 7, 8
+				3, 3, 4, 3, 4, 
+				4, 3, 4, 4, 4, 
+				4, 5, 5, 6, 6, 
+				6, 6, 7, 7, 7, 
+				8
 			};
 
 			List<int> proMaxTier = new List<int>
 			{
-				2, 2, 3, 2, 2,
-				3, 3, 3, 3, 4,
-				4, 5, 5, 5, 6, 
-				6, 6, 6, 7
+				2, 2, 3, 2, 3,
+				3, 2, 3, 3, 3, 
+				3, 4, 4, 5, 5, 
+				5, 6, 6, 6, 6, 
+				7
 			};
 
 			List<string> Booster1 = new List<string>
@@ -77,7 +81,9 @@ namespace FF4FabulGauntlet.Randomize
 								gold = sObject.properties.Where(c => c.name == "content_id" && (long)c.value == 1).Count() >= 1;
 							if (process)
 							{
-								int trMaxTier = randoLevel == 0 ? stdMaxTier[i] : randoLevel == 1 ? proMaxTier[i] : noSuper ? 8 : 9 + (monster ? 2 : 0);
+								int trMaxTier = randoLevel == 0 ? stdMaxTier[i] : 
+												randoLevel == 1 ? proMaxTier[i] : 
+												noSuper ? 8 : 9 + (monster ? 2 : 0);
 								trMaxTier += fileName.Contains(Booster1[0]) ? 1 : 0;
 								trMaxTier += fileName.Contains(Booster1[1]) ? 1 : 0;
 								trMaxTier += fileName.Contains(Booster1[2]) ? 1 : 0;
@@ -85,7 +91,7 @@ namespace FF4FabulGauntlet.Randomize
 								int trMinTier = randoLevel == 2 ? 1 : trMaxTier - 2;
 								// No super-items unless you're in the Lunar Subterranne
 								trMaxTier = Math.Min(fileName.Contains("Map_30251") && !noSuper ? 9 : 8, trMaxTier);
-								trMinTier = Math.Min(noSuper ? 8 : 9, trMinTier);
+								trMinTier = Math.Min(8, trMinTier);
 								int trType = gold ? 0 : r1.Next() % 12;
 								int finalType = 0;
 								if (monster) // Only weapons and armor in monster chests
