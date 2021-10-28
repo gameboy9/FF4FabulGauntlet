@@ -193,6 +193,26 @@ namespace FF4FabulGauntlet.Randomize
 						id++;
 					}
 				}
+				// The store after Upper Babil must have a hi-Potion in case there are no white mages in the party. (damage floors)
+				if (allStores[i] == upperBabil2 && shopWorking.Where(c => c.id == Inventory.Items.hiPotion).Count() == 0)
+				{
+					shopItem newItem = new shopItem();
+					newItem.group_id = allStores[i];
+					newItem.id = id;
+					newItem.content_id = Inventory.Items.hiPotion;
+					shopWorking.Add(newItem);
+					id++;
+				}
+				// The Crystal Palace must have an X-Potion in case there are no white mages in the party. (Zeromus)
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.xPotion).Count() == 0) 
+				{
+					shopItem newItem = new shopItem();
+					newItem.group_id = allStores[i];
+					newItem.id = id;
+					newItem.content_id = Inventory.Items.xPotion;
+					shopWorking.Add(newItem);
+					id++;
+				}
 				shopDB.AddRange(shopWorking.OrderBy(c => c.content_id));
 			}
 

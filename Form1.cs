@@ -32,7 +32,7 @@ namespace FF4FabulGauntlet
 			string flags = "";
 			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed }));
 			//// Combo boxes time...
-			flags += convertIntToChar(numAreas.SelectedIndex + (8 * numRounds.SelectedIndex));
+			flags += convertIntToChar(0 + (8 * numRounds.SelectedIndex));
 			flags += convertIntToChar(shopItemQty.SelectedIndex + (8 * shopBuyPrice.SelectedIndex));
 			flags += convertIntToChar(shopItemTypes.SelectedIndex + (8 * treasureTypes.SelectedIndex));
 			flags += convertIntToChar(xpMultiplier.SelectedIndex + (8 * xpBoost.SelectedIndex));
@@ -61,7 +61,7 @@ namespace FF4FabulGauntlet
 
 			string flags = RandoFlags.Text;
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed });
-			numAreas.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) % 8;
+			// ?????? = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) % 8;
 			numRounds.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) / 8;
 			shopItemQty.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) % 8;
 			shopBuyPrice.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) / 8;
@@ -197,16 +197,10 @@ namespace FF4FabulGauntlet
 			new Inventory.Updater(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial"));
 		}
 
+		// Currently not in use...
 		private void establishAreas()
 		{
-			int areas = numAreas.SelectedIndex == 0 ? 11 :
-				numAreas.SelectedIndex == 1 ? 10 :
-				numAreas.SelectedIndex == 2 ? 9 :
-				numAreas.SelectedIndex == 3 ? 8 :
-				numAreas.SelectedIndex == 4 ? 7 :
-				numAreas.SelectedIndex == 5 ? 6 :
-				numAreas.SelectedIndex == 6 ? 5 : 4;
-			new Inventory.Areas(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), areas);
+			new Inventory.Areas(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), 11);
 		}
 
 		private void randomizeParty()
