@@ -11,7 +11,7 @@ namespace FF4FabulGauntlet.Randomize
 {
 	public class Treasure
 	{
-		public Treasure(Random r1, int randoLevel, string directory, bool noJItems, bool noSuper)
+		public Treasure(Random r1, int randoLevel, string directory, bool noJItems, bool noSuper, bool includeBonus)
 		{
 			List<string> treasureDirectories = new List<string>
 			{
@@ -81,14 +81,14 @@ namespace FF4FabulGauntlet.Randomize
 								gold = sObject.properties.Where(c => c.name == "content_id" && (long)c.value == 1).Count() >= 1;
 							if (process)
 							{
-								int trMaxTier = randoLevel == 0 ? stdMaxTier[i] : 
+								int trMaxTier = (randoLevel == 0 ? stdMaxTier[i] : 
 												randoLevel == 1 ? proMaxTier[i] : 
-												noSuper ? 8 : 9 + (monster ? 2 : 0);
+												noSuper ? 8 : 9) + (monster ? 2 : 0);
 								trMaxTier += fileName.Contains(Booster1[0]) ? 1 : 0;
 								trMaxTier += fileName.Contains(Booster1[1]) ? 1 : 0;
 								trMaxTier += fileName.Contains(Booster1[2]) ? 1 : 0;
 
-								int trMinTier = randoLevel == 2 ? 1 : trMaxTier - 2;
+								int trMinTier = Math.Max(1, randoLevel == 2 ? 1 : trMaxTier - 2);
 								// No super-items unless you're in the Lunar Subterranne
 								trMaxTier = Math.Min(fileName.Contains("Map_30251") && !noSuper ? 9 : 8, trMaxTier);
 								trMinTier = Math.Min(8, trMinTier);
@@ -120,7 +120,7 @@ namespace FF4FabulGauntlet.Randomize
 								else if (finalType == 2)
 								{
 									foreach (var prop in sObject.properties.Where(c => c.name == "content_id"))
-										prop.value = new Weapons().selectItem(r1, trMinTier, trMaxTier, false);
+										prop.value = new Weapons().selectItem(r1, trMinTier, trMaxTier, false, includeBonus);
 									foreach (var prop in sObject.properties.Where(c => c.name == "content_num"))
 										prop.value = 1;
 									foreach (var prop in sObject.properties.Where(c => c.name == "message_key"))

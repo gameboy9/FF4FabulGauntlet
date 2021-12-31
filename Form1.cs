@@ -37,7 +37,11 @@ namespace FF4FabulGauntlet
 			flags += convertIntToChar(shopItemTypes.SelectedIndex + (8 * treasureTypes.SelectedIndex));
 			flags += convertIntToChar(xpMultiplier.SelectedIndex + (8 * xpBoost.SelectedIndex));
 			flags += convertIntToChar(gpMultiplier.SelectedIndex + (8 * gpBoost.SelectedIndex));
-			flags += convertIntToChar(monsterDifficulty.SelectedIndex);
+			flags += convertIntToChar(monsterDifficulty.SelectedIndex + (8 * numHeroes.SelectedIndex));
+			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { removeBonusItems, exCecil, exCid, exEdge, exEdward, exFusoya }));
+			flags += convertIntToChar(firstHero.SelectedIndex);
+			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exKain, exPalom, exPorom, exRosa, exRydia, exTellah }));
+			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exYang }));
 			RandoFlags.Text = flags;
 
 			//flags = "";
@@ -47,9 +51,9 @@ namespace FF4FabulGauntlet
 
 		private void determineChecks(object sender, EventArgs e)
 		{
-			if (loading && RandoFlags.Text.Length < 7)
-				RandoFlags.Text = "";
-			else if (RandoFlags.Text.Length < 7)
+			if (loading && RandoFlags.Text.Length < 11)
+				RandoFlags.Text = "1OQ15520000"; // Default flags here
+			else if (RandoFlags.Text.Length < 11)
 				return;
 
 			//if (loading && VisualFlags.Text.Length < 1)
@@ -61,7 +65,6 @@ namespace FF4FabulGauntlet
 
 			string flags = RandoFlags.Text;
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed });
-			// ?????? = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) % 8;
 			numRounds.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) / 8;
 			shopItemQty.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) % 8;
 			shopBuyPrice.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) / 8;
@@ -72,11 +75,14 @@ namespace FF4FabulGauntlet
 			gpMultiplier.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(5, 1))) % 8;
 			gpBoost.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(5, 1))) / 8;
 			monsterDifficulty.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(6, 1))) % 8;
+			numHeroes.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(6, 1))) / 8;
+			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(7, 1))), new CheckBox[] { removeBonusItems, exCecil, exCid, exEdge, exEdward, exFusoya });
+			firstHero.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(8, 1))) % 16;
+			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(9, 1))), new CheckBox[] { exKain, exPalom, exPorom, exRosa, exRydia, exTellah });
+			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(10, 1))), new CheckBox[] { exYang });
 
 			//flags = VisualFlags.Text;
 			//numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { CuteHats });
-
-			// TEMPORARY:  Keep commented; we will be using combo boxes eventually
 
 			loading = false;
 		}
@@ -128,6 +134,8 @@ namespace FF4FabulGauntlet
 		{
 			RandoSeed.Text = (DateTime.Now.Ticks % 2147483647).ToString();
 
+			hpAdjustTooltip.SetToolTip(hpBoost, "HP Boosts for Tellah, Edward, and DK Cecil, HP penalty for Fusoya pre-level 50  (good for limited hero runs)");
+
 			try
 			{
 				using (TextReader reader = File.OpenText("lastFF4FG.txt"))
@@ -144,7 +152,8 @@ namespace FF4FabulGauntlet
 			}
 			catch
 			{
-				RandoFlags.Text = "50R0222";
+				// Default flags here
+				RandoFlags.Text = "1OQ15520000";
 				//VisualFlags.Text = "0";
 				// ignore error
 				loading = false;
@@ -164,6 +173,25 @@ namespace FF4FabulGauntlet
 				|| !File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")) || !Directory.Exists(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets")))
 			{
 				MessageBox.Show("Randomizer assets have not been extracted.  Please extract, then try randomization again.");
+				return;
+			}
+
+			int included = (exCecil.Checked ? 0 : 1) +
+				(exCid.Checked ? 0 : 1) +
+				(exEdge.Checked ? 0 : 1) +
+				(exEdward.Checked ? 0 : 1) +
+				(exFusoya.Checked ? 0 : 1) +
+				(exKain.Checked ? 0 : 1) +
+				(exPalom.Checked ? 0 : 1) +
+				(exPorom.Checked ? 0 : 1) +
+				(exRosa.Checked ? 0 : 1) +
+				(exRydia.Checked ? 0 : 1) +
+				(exTellah.Checked ? 0 : 1) +
+				(exYang.Checked ? 0 : 1);
+
+			if (included < Convert.ToInt32(numHeroes.SelectedItem) && !dupCharactersAllowed.Checked)
+            {
+				MessageBox.Show("Included heroes exceed number of heroes and duplicate heroes is not checked.  Please try again.");
 				return;
 			}
 
@@ -213,19 +241,20 @@ namespace FF4FabulGauntlet
 				numRounds.SelectedIndex == 5 ? 3 :
 				numRounds.SelectedIndex == 6 ? 2 : 1;
 			r1 = new Random(Convert.ToInt32(RandoSeed.Text));
-			new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked);
+			new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked, Convert.ToInt32(numHeroes.SelectedItem), doNotPromoteCecil.Checked, 
+				new bool[] { exCecil.Checked, exKain.Checked, exRydia.Checked, exTellah.Checked, exEdward.Checked, exRosa.Checked, exYang.Checked, exPalom.Checked, exPorom.Checked, exCid.Checked, exEdge.Checked, exFusoya.Checked });
 		}
 
 		private void randomizeShops()
 		{
 			// RandoShop.SelectedIndex
 			Shops randoShops = new Shops(r1, shopItemTypes.SelectedIndex, shopItemQty.SelectedIndex, shopNoJ.Checked, shopNoSuper.Checked, 
-				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "product.csv"));
+				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "product.csv"), !removeBonusItems.Checked);
 		}
 
 		private void randomizeTreasures()
 		{
-			new Randomize.Treasure(r1, treasureTypes.SelectedIndex, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), treasureNoJ.Checked, treasureNoSuper.Checked);
+			new Randomize.Treasure(r1, treasureTypes.SelectedIndex, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), treasureNoJ.Checked, treasureNoSuper.Checked, !removeBonusItems.Checked);
 		}
 
 		private void randomizeMonstersWithBoost()
@@ -325,25 +354,28 @@ namespace FF4FabulGauntlet
 
 		private void revertToDefault_click(object sender, EventArgs e)
 		{
-			try
+			if (MessageBox.Show("Are you sure you want to revert Final Fantasy IV back to vanilla?", "Final Fantasy IV: Fabul Gauntlet", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
-				NewChecksum.Text = "Reverting...";
-				if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll")))
-					File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll"));
-				if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb")))
-					File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb"));
-				if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")))
-					File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg"));
-				if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx")))
-					Directory.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx"), true);
-				if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets")))
-					Directory.Delete(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets"), true);
-				NewChecksum.Text = "Revert complete!";
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Unable to revert - " + ex.Message);
-				NewChecksum.Text = "Revert failed...";
+				try
+				{
+					NewChecksum.Text = "Reverting...";
+					if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll")))
+						File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.dll"));
+					if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb")))
+						File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "plugins", "Memoria.FF4.pdb"));
+					if (File.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg")))
+						File.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx", "config", "Memoria.ffpr.cfg"));
+					if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "BepInEx")))
+						Directory.Delete(Path.Combine(FF4PRFolder.Text, "BepInEx"), true);
+					if (Directory.Exists(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets")))
+						Directory.Delete(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets"), true);
+					NewChecksum.Text = "Revert complete!";
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("Unable to revert - " + ex.Message);
+					NewChecksum.Text = "Revert failed...";
+				}
 			}
 		}
 

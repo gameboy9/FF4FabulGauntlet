@@ -81,7 +81,7 @@ namespace FF4FabulGauntlet.Inventory
 		public const int mythrilKnife = 156; // t3
 		public const int dancingDagger = 157; // t4
 		public const int mageMasher = 158; // t5
-		public const int knife = 159; // t1
+		public const int knife = 159; // t9
 		public const int dreamerHarp = 160; // t1
 		public const int lamiaHarp = 161; // t2
 		public const int fireClaw = 162; // t2
@@ -146,17 +146,51 @@ namespace FF4FabulGauntlet.Inventory
 		public const int shuriken = 222; // t5
 		public const int fumaShuriken = 223; // t7
 
+		public const int excalipoor = 799; // t2
+		public const int flandango = 800; // t4
+		public const int lightbringer = 801; // t9
+		public const int piggyStick = 802; // t6
+		public const int abelsLance = 803; // t9
+		public const int gigantAxe = 804; // t9
+		public const int perseusBow = 805; // t9
+		public const int perseusArrow = 806; // t9
+		public const int mysticWhip = 807; // t8
+		public const int tritonDagger = 808; // t8
+		public const int assassinDagger = 809; // t9
+		public const int sasukeKatana = 810; // t9
+		public const int mutsunokami = 811; // t9
+		public const int scrapMetal = 812; // t2
+		public const int risingSun = 813; // t8
+		public const int tigerFangs = 814; // t7
+		public const int dragonClaws = 815; // t8
+		public const int godhand = 816; // t9
+		public const int thorHammer = 817; // t8
+		public const int fieryHammer = 818; // t9
+		public const int asuraRod = 819; // t9
+		public const int seraphimMace = 820; // t8
+		public const int nirvana = 821; // t9
+		public const int apolloHarp = 822; // t6
+		public const int requiemHarp = 823; // t8
+		public const int lokiHarp = 824; // t9
+
 		public List<List<int>> tiers = new List<List<int>>
 			{ new List<int> { darkSword, shadowblade, spear, dreamerHarp, rod, staff, bow, ironArrow },
-			  new List<int> { deathbringer, lamiaHarp, fireClaw, iceClaw, thunderClaw, woodenHammer, flameRod, iceRod, thunderRod, healingStaff, greatBow, holyArrow },
+			  new List<int> { deathbringer, lamiaHarp, fireClaw, iceClaw, thunderClaw, woodenHammer, flameRod, iceRod, thunderRod, healingStaff, greatBow, holyArrow, excalipoor, scrapMetal },
 			  new List<int> { legendSword, ancientSword, bloodSword, windSpear, mythrilKnife, mythrilHammer, mythrilStaff, killerBow, medusaArrow },
-			  new List<int> { mythrilSword, sleepBlade, bloodLance, dancingDagger, fairyClaw, kunai, lilithRod, elvenBow, fireArrow, iceArrow, thunderArrow, whip  },
+			  new List<int> { mythrilSword, sleepBlade, bloodLance, dancingDagger, fairyClaw, kunai, lilithRod, elvenBow, fireArrow, iceArrow, thunderArrow, whip, flandango },
 			  new List<int> { flameSword, icebrand, gorgonBlade, fireLance, iceLance, mageMasher, hellClaw, gaiaHammer, dwarfAxe, ashura, kotetsu,
 				changeRod, powerStaff, kinesisStaff, blindingArrow, poisonArrow, chainWhip, boomerang, shuriken },
-			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, knife },
-			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken },
-			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker },
-			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, knife }
+			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, piggyStick, apolloHarp },
+			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken, tigerFangs },
+			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp },
+			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp, knife,
+				lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, lokiHarp }
+		};
+
+		public List<int> bonusWeapons = new List<int>
+		{
+			excalipoor, flandango, lightbringer, piggyStick, abelsLance, gigantAxe, perseusArrow, perseusBow, mysticWhip, tritonDagger, assassinDagger, sasukeKatana, mutsunokami,
+			scrapMetal, risingSun, tigerFangs, dragonClaws, godhand, thorHammer, fieryHammer, asuraRod, seraphimMace, nirvana, apolloHarp, requiemHarp, lokiHarp
 		};
 
 		public void adjustPrices(string directory, int multiplier, int divisor)
@@ -185,7 +219,7 @@ namespace FF4FabulGauntlet.Inventory
 			}
 		}
 
-		public int selectItem(Random r1, int minTier, int maxTier, bool highTierReduction)
+		public int selectItem(Random r1, int minTier, int maxTier, bool highTierReduction, bool includeBonus)
 		{
 			List<int> selection = new List<int>();
 			for (int i = minTier - 1; i <= maxTier - 1; i++)
@@ -194,7 +228,15 @@ namespace FF4FabulGauntlet.Inventory
 				for (int j = 0; j < repetition; j++)
 					selection.AddRange(tiers[i]);
 			}
-			return selection[r1.Next() % selection.Count];
+			bool bad = true;
+			int finalSelection = -1;
+			while (bad)
+			{
+				finalSelection = selection[r1.Next() % selection.Count];
+				if (includeBonus || !bonusWeapons.Contains(finalSelection))
+					bad = false;
+			}
+			return finalSelection;
 		}
 	}
 }

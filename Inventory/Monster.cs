@@ -151,8 +151,8 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 119, 24, 18, 122, 116, 40, 103, 158, 143, 76, 70, 73, 75, 80, 92, 112, 120, 127, 142 }, // Cave Of Summons, other underground locations
 			new List<int> { 140, 126, 85, 125, 96, 114, 152, 139, 147, 54, 141, 161, 144, 154, 131, 128, 107, 106, 112, 115, 127 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109 }, // Lunar Subterrane / Giant Of Babil
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 132, 189, 190, 155,
 				162, 164, 165, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
@@ -255,7 +255,10 @@ namespace FF4FabulGauntlet.Inventory
 			// Remove the King and Queen of Eblan (186, 187)
 			// Calcobrena cannot show up in a monster group.  (but the dolls can combine into Calcobrena) (180)
 			// Do not include "character" fights (203, 204, 205, 206, 207)
-			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 205, 206, 207 };
+			// Remove Barnabas-Z and Attack Node since they're worth 20 and 0 XP respectively; not appropriate for "non-area appropriate" flags. (212, 213)
+			// Remove Zemus's Breath since they don't do anything except really slow down a battle.  (129)
+			// Do not include the Edge Rubicante fight because it's scripted.  (226)
+			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 205, 206, 207, 212, 213, 129, 226 };
 
 			List<singleGroup> groups = new List<singleGroup>();
 
@@ -267,6 +270,7 @@ namespace FF4FabulGauntlet.Inventory
 			for (int i = 1; i <= 174; i++)
 			{
 				int j = 0;
+				int origXpLimit = xpLimits[(i - 1) / 10][(i - 1) % 10] * (difficulty == 3 ? 3 : difficulty == 4 ? 5 : 2) / 2;
 				int xpLimit = xpLimits[(i - 1) / 10][(i - 1) % 10] * (difficulty == 3 ? 3 : difficulty == 4 ? 5 : 2) / 2;
 				int lastXP = 0;
 				maxPercentHP = 0;
@@ -281,7 +285,7 @@ namespace FF4FabulGauntlet.Inventory
 					if (lastMonster == -1 || r1.Next() % 2 == 0)
 					{
 						List<singleMonster> iMonsterList;
-						if (i < 149 && areaAppropriate)
+						if (i <= 149 && areaAppropriate)
 						{
 							List<singleMonster> iMonsterList2;
 							// Combine bosses and monsters if we're in the last battle of a segment.

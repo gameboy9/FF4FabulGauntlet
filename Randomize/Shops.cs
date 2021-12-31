@@ -152,7 +152,7 @@ namespace FF4FabulGauntlet.Randomize
 			return shopDB;
 		}
 
-		public Shops(Random r1, int randoLevel, int freqLevel, bool noJ, bool noSuper, string fileName)
+		public Shops(Random r1, int randoLevel, int freqLevel, bool noJ, bool noSuper, string fileName, bool includeBonus)
 		{
 			List<shopItem> shopDB = new List<shopItem>();
 			List<shopItem> shopWorking = new List<shopItem>();
@@ -179,7 +179,7 @@ namespace FF4FabulGauntlet.Randomize
 							newItem.content_id = new Inventory.Armor().selectItem(r1, minTier, maxTier, true);
 							break;
 						case 1:
-							newItem.content_id = new Inventory.Weapons().selectItem(r1, minTier, maxTier, true);
+							newItem.content_id = new Inventory.Weapons().selectItem(r1, minTier, maxTier, true, includeBonus);
 							break;
 						case 2:
 							newItem.content_id = new Inventory.Items().selectItem(r1, minTier, maxTier, true, noJ);
@@ -193,7 +193,7 @@ namespace FF4FabulGauntlet.Randomize
 						id++;
 					}
 				}
-				// The store after Upper Babil must have a hi-Potion in case there are no white mages in the party. (damage floors)
+				// The store after Upper Babil must have a hi-Potion(in case there are no white mages in the party) and a tent(in case you are forced to grind between gauntlets). (damage floors)
 				if (allStores[i] == upperBabil2 && shopWorking.Where(c => c.id == Inventory.Items.hiPotion).Count() == 0)
 				{
 					shopItem newItem = new shopItem();
@@ -203,13 +203,31 @@ namespace FF4FabulGauntlet.Randomize
 					shopWorking.Add(newItem);
 					id++;
 				}
-				// The Crystal Palace must have an X-Potion in case there are no white mages in the party. (Zeromus)
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.tent).Count() == 0)
+				{
+					shopItem newItem = new shopItem();
+					newItem.group_id = allStores[i];
+					newItem.id = id;
+					newItem.content_id = Inventory.Items.tent;
+					shopWorking.Add(newItem);
+					id++;
+				}
+				// The Crystal Palace must have an X-Potion(in case there are no white mages in the party) and a Cottage(in case you are forced to grind between gauntlets). (Zeromus)
 				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.xPotion).Count() == 0) 
 				{
 					shopItem newItem = new shopItem();
 					newItem.group_id = allStores[i];
 					newItem.id = id;
 					newItem.content_id = Inventory.Items.xPotion;
+					shopWorking.Add(newItem);
+					id++;
+				}
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.cottage).Count() == 0)
+				{
+					shopItem newItem = new shopItem();
+					newItem.group_id = allStores[i];
+					newItem.id = id;
+					newItem.content_id = Inventory.Items.cottage;
 					shopWorking.Add(newItem);
 					id++;
 				}
