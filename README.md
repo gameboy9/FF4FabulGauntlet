@@ -30,5 +30,6 @@ Also... expect the game to be a bit unbalanced.  With some input, it should beco
 - LQFleury14
 - Eatitup_86
 - PoorlyDrawnBees
+- Infinious
 
 # Enjoy and good luck!
