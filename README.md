@@ -31,6 +31,7 @@ Also... expect the game to be a bit unbalanced.  With some input, it should beco
 - Eatitup_86
 - PoorlyDrawnBees
 - FrançoiseHarpie
+- sorbius
 - Infinious
 
 # Enjoy and good luck!
