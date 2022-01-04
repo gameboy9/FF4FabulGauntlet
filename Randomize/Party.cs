@@ -409,6 +409,50 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				serializer.Serialize(writer, jEvents2);
 			}
+
+			// We need to randomize the sprite that is at each gauntlet spot.
+			// Then we're going to need to revert the ResetFlags to SetFlags for all of the encounters
+			List<string> gauntletScripts = new List<string>
+				{
+					Path.Combine(directory, "Map_20011", "Map_20011_1", "entity_default.json"), // Baron Castle
+					Path.Combine(directory, "Map_30011", "Map_30011_1", "ev_e_0007.json"), // Mist Cave
+					Path.Combine(directory, "Map_30021", "Map_30021_10", "ev_e_0014.json"), // Underground Waterway
+					Path.Combine(directory, "Map_30060", "Map_30060", "entity_default.json"),
+					Path.Combine(directory, "Map_30110", "Map_30110", "entity_default.json"),
+					Path.Combine(directory, "Map_30131", "Map_30131_1", "ev_e_0036.json"), // Magnes Cave
+					Path.Combine(directory, "Map_30141", "Map_30141_5", "ev_e_0041.json"), // Tower of Zot
+					Path.Combine(directory, "Map_30151", "Map_30151_14", "entity_default.json"), // Lower Tower of Babil
+					Path.Combine(directory, "Map_30161", "Map_30161_3", "ev_e_0056.json"), // Cave Eblan
+					Path.Combine(directory, "Map_30171", "Map_30171_6", "ev_e_0058.json"), // Upper Tower of Babil
+					Path.Combine(directory, "Map_30191", "Map_30191_3", "entity_default.json"), // Cave of Summoned Monsters
+					Path.Combine(directory, "Map_30221", "Map_30221_2", "ev_e_0123.json"), // Cave Bahamut
+					Path.Combine(directory, "Map_30251", "Map_30251_6", "entity_default.json"), // Lunar Subterranne Part 1
+					Path.Combine(directory, "Map_30251", "Map_30251_14", "entity_default.json"), // Lunar Subterranne Part 2
+					Path.Combine(directory, "Map_30251", "Map_30251_22", "ev_e_0074.json") // Lunar Subterranne Part 3
+				};
+
+			foreach(string script in gauntletScripts)
+            {
+				string json3 = File.ReadAllText(script);
+				EntityJSON jEvents3 = JsonConvert.DeserializeObject<EntityJSON>(json3);
+
+				foreach (var layer in jEvents3.layers)
+					foreach (var sObject in layer.objects)
+					{
+						if (sObject.properties.Where(p => p.name == "script_id" && (long)p.value > 0).Any())
+						{
+							EntityJSON.Property1 singleProp = sObject.properties.Where(p => p.name == "asset_id" && (long)p.value > 0).SingleOrDefault();
+							if (singleProp != null)
+								singleProp.value = r1.Next() % 247 + 1;
+						}
+					}
+
+				using (StreamWriter sw = new StreamWriter(script))
+				using (JsonWriter writer = new JsonTextWriter(sw))
+				{
+					serializer.Serialize(writer, jEvents3);
+				}
+			}
 		}
 	}
 }

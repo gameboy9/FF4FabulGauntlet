@@ -13,7 +13,7 @@ namespace FF4FabulGauntlet.Randomize
 	{
 		public Treasure(Random r1, int randoLevel, string directory, bool noJItems, bool noSuper, bool includeBonus)
 		{
-			List<string> treasureDirectories = new List<string>
+			List<string> treasureDirectories = new()
 			{
 				Path.Combine(directory, "Map_20021"),
 				Path.Combine(directory, "Map_30011"),
@@ -38,7 +38,7 @@ namespace FF4FabulGauntlet.Randomize
 				Path.Combine(directory, "Map_30251")
 			};
 
-			List<int> stdMaxTier = new List<int>
+			List<int> stdMaxTier = new()
 			{
 				3, 3, 4, 3, 4, 
 				4, 3, 4, 4, 4, 
@@ -47,7 +47,7 @@ namespace FF4FabulGauntlet.Randomize
 				8
 			};
 
-			List<int> proMaxTier = new List<int>
+			List<int> proMaxTier = new()
 			{
 				2, 2, 3, 2, 3,
 				3, 2, 3, 3, 3, 
@@ -56,7 +56,7 @@ namespace FF4FabulGauntlet.Randomize
 				7
 			};
 
-			List<string> Booster1 = new List<string>
+			List<string> Booster1 = new()
 			{
 				"Map_20071_4",
 				"Map_30021_2",
@@ -74,11 +74,11 @@ namespace FF4FabulGauntlet.Randomize
 					foreach (var layer in jEvents.layers)
 						foreach (var sObject in layer.objects)
 						{
-							bool process = sObject.properties.Where(c => c.name == "action_id" && (long)c.value == 6).Count() >= 1;
-							bool monster = sObject.properties.Where(c => c.name == "script_id" && (long)c.value != 0).Count() >= 1;
+							bool process = sObject.properties.Where(c => c.name == "action_id" && (long)c.value == 6).Any();
+							bool monster = sObject.properties.Where(c => c.name == "script_id" && (long)c.value != 0).Any();
 							bool gold = false;
 							if (fileName.Contains("Map_20021_7"))
-								gold = sObject.properties.Where(c => c.name == "content_id" && (long)c.value == 1).Count() >= 1;
+								gold = sObject.properties.Where(c => c.name == "content_id" && (long)c.value == 1).Any();
 							if (process)
 							{
 								int trMaxTier = (randoLevel == 0 ? stdMaxTier[i] : 
@@ -138,14 +138,12 @@ namespace FF4FabulGauntlet.Randomize
 							}
 						}
 
-					JsonSerializer serializer = new JsonSerializer();
+					JsonSerializer serializer = new();
 
-					using (StreamWriter sw = new StreamWriter(fileName))
-					using (JsonWriter writer = new JsonTextWriter(sw))
-					{
-						serializer.Serialize(writer, jEvents);
-					}
-				}
+                    using StreamWriter sw = new(fileName);
+                    using JsonWriter writer = new JsonTextWriter(sw);
+                    serializer.Serialize(writer, jEvents);
+                }
 				i++;
 			}
 		}

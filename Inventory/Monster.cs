@@ -137,7 +137,8 @@ namespace FF4FabulGauntlet.Inventory
 			public int monster9_group { get; set; }
 		}
 
-		List<List<int>> monsterTiers = new List<List<int>> { 
+        readonly List<List<int>> monsterTiers = new()
+        { 
 			new List<int> { 1, 3, 4, 8, 5, 11, 10, 12, 13 }, // Outside Baron, Mist Cave, Mist/Kaipo
 			new List<int> { 43, 42, 13, 14, 1, 17, 20, 22, 8, 9, 19, 16, 12, 13, 28 }, // Underground Waterway / Damcyan
 			new List<int> { 27, 2, 28, 1, 23, 21, 36, 35, 37, 48, 38, 86, 87, 22, 32 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
@@ -156,7 +157,8 @@ namespace FF4FabulGauntlet.Inventory
 				162, 164, 165, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
-		List<List<int>> monsterBosses = new List<List<int>> {
+        readonly List<List<int>> monsterBosses = new()
+        {
 			new List<int> { 162, 31 }, // Outside Baron, Mist Cave, Mist/Kaipo
 			new List<int> { 163, 31 }, // Underground Waterway / Damcyan
 			new List<int> { 164, 165, 46 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
@@ -175,13 +177,13 @@ namespace FF4FabulGauntlet.Inventory
 			// Final boss:  217
 		};
 
-		List<int> allBosses = new List<int>
-		{
+        readonly List<int> allBosses = new()
+        {
 			162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159
 		};
 
-		List<List<int>> xpLimits = new List<List<int>>
-		{
+        readonly List<List<int>> xpLimits = new()
+        {
 			new List<int> { 100, 125, 150, 175, 200, 225, 250, 275, 300, 900 }, // Outside Baron, Mist Cave, Mist/Kaipo
 			new List<int> { 300, 350, 400, 450, 500, 550, 600, 700, 800, 1400 }, // Underground Waterway / Damcyan
 			new List<int> { 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 2500 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
@@ -214,27 +216,27 @@ namespace FF4FabulGauntlet.Inventory
 		{
 			List<singleMonster> allMonsters;
 
-			using (StreamReader reader = new StreamReader(Path.Combine("csv", "monster.csv")))
-			using (CsvReader csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
+			using (StreamReader reader = new(Path.Combine("csv", "monster.csv")))
+			using (CsvReader csv = new(reader, System.Globalization.CultureInfo.InvariantCulture))
 				allMonsters = csv.GetRecords<singleMonster>().ToList();
 
-			List<limitedMonsters> restrictedMonsters = new List<limitedMonsters>();
-			restrictedMonsters.Add(new limitedMonsters { id = 31, monsterLimit = 1, followUp = 30 });
-			restrictedMonsters.Add(new limitedMonsters { id = 46, monsterLimit = 1, followUp = 45 });
-			restrictedMonsters.Add(new limitedMonsters { id = 163, monsterLimit = 1, followUp = 17 });
-			restrictedMonsters.Add(new limitedMonsters { id = 165, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 166, monsterLimit = 1, followUp = 212 });
-			restrictedMonsters.Add(new limitedMonsters { id = 174, monsterLimit = 1, followUp = -1 });
+			List<limitedMonsters> restrictedMonsters = new();
+			restrictedMonsters.Add(new limitedMonsters { id = 31, monsterLimit = 1, followUp = 30 }); // General -> Baron Soldier
+			restrictedMonsters.Add(new limitedMonsters { id = 46, monsterLimit = 1, followUp = 45 }); // Captain -> Baron Warrior
+			restrictedMonsters.Add(new limitedMonsters { id = 163, monsterLimit = 1, followUp = -1 }); // Octomammoth
+			restrictedMonsters.Add(new limitedMonsters { id = 165, monsterLimit = 1, followUp = -1 }); // Mom Bomb
+			restrictedMonsters.Add(new limitedMonsters { id = 166, monsterLimit = 1, followUp = 212 }); // Milon -> Skullnant
+			restrictedMonsters.Add(new limitedMonsters { id = 174, monsterLimit = 1, followUp = -1 }); // Sandy, Cindy, Mindy
 			restrictedMonsters.Add(new limitedMonsters { id = 175, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 176, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 188, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 178, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 171, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 173, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 153, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 108, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 156, monsterLimit = 2, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 160, monsterLimit = 2, followUp = -1 });
+			restrictedMonsters.Add(new limitedMonsters { id = 188, monsterLimit = 1, followUp = -1 }); // Rubicante
+			restrictedMonsters.Add(new limitedMonsters { id = 178, monsterLimit = 1, followUp = -1 }); // Barbariccia
+			restrictedMonsters.Add(new limitedMonsters { id = 171, monsterLimit = 1, followUp = -1 }); // Cagnazzo
+			restrictedMonsters.Add(new limitedMonsters { id = 173, monsterLimit = 1, followUp = -1 }); // Dark Elf
+			restrictedMonsters.Add(new limitedMonsters { id = 153, monsterLimit = 1, followUp = -1 }); // Dark Bahamut - also put an HP percentage on that... Meganuke + HP percentage attack would be BRUTAL
+			restrictedMonsters.Add(new limitedMonsters { id = 108, monsterLimit = 1, followUp = -1 }); // Plague
+			restrictedMonsters.Add(new limitedMonsters { id = 156, monsterLimit = 2, followUp = -1 }); // Blue Dragon - 2 monster limit
+			restrictedMonsters.Add(new limitedMonsters { id = 160, monsterLimit = 2, followUp = -1 }); // Red Dragon - 2 monster limit
 			// Chimera, Mech Dragon, Silver Dragon, and Lunasaurs all have a 20% HP to all characters attack (Blaze typically)
 			restrictedMonsters.Add(new limitedMonsters { id = 88, hpPercentage = 20 });
 			restrictedMonsters.Add(new limitedMonsters { id = 111, hpPercentage = 20 });
@@ -258,11 +260,11 @@ namespace FF4FabulGauntlet.Inventory
 			// Remove Barnabas-Z and Attack Node since they're worth 20 and 0 XP respectively; not appropriate for "non-area appropriate" flags. (212, 213)
 			// Remove Zemus's Breath since they don't do anything except really slow down a battle.  (129)
 			// Do not include the Edge Rubicante fight because it's scripted.  (226)
-			List<int> badMonsters = new List<int> { 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 205, 206, 207, 212, 213, 129, 226 };
+			List<int> badMonsters = new(){ 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 205, 206, 207, 212, 213, 129, 226 };
 
-			List<singleGroup> groups = new List<singleGroup>();
+			List<singleGroup> groups = new();
 
-			List<int> monster = new List<int>();
+			List<int> monster = new();
 			int lastMonster;
 			int maxPercentHP;
 			bool valid;
@@ -276,9 +278,11 @@ namespace FF4FabulGauntlet.Inventory
 				maxPercentHP = 0;
 				valid = i < 168;
 				lastMonster = -1;
+				// Repeat this check 100 times before moving onto the next monster group.
 				int loops = 100;
 
 				monster = new List<int>();
+				// Limit monster count to 3 in very easy, 5 in easy, 7 in normal, and 9 in hard and very hard difficulties.
 				while (valid && monster.Count < (difficulty == 0 ? 3 : difficulty == 1 ? 5 : difficulty == 2 ? 7 : 9) && loops > 0)
 				{
 					loops--;
@@ -295,15 +299,17 @@ namespace FF4FabulGauntlet.Inventory
 								iMonsterList2 = allMonsters.Where(c => monsterTiers[(i - 1) / 10].Contains(c.id)).ToList();
 
 							// Must have a boss to start if a boss exists in that zone
-							if (i % 10 == 0 && j == 0 && monsterBosses[(i - 1) / 10].Count() > 0) 
+							if (i % 10 == 0 && j == 0 && monsterBosses[(i - 1) / 10].Count > 0) 
 								iMonsterList = iMonsterList2.Where(c => c.exp < xpLimit && monsterBosses[(i - 1) / 10].Contains(c.id)).ToList();
 							else
 								iMonsterList = iMonsterList2.Where(c => c.exp < xpLimit).ToList();
 						}
 						else
 						{
-							iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .6)).ToList();
+							iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
 						}
+
+						iMonsterList = iMonsterList.Where(c => !badMonsters.Contains(c.id)).ToList();
 
 						if (iMonsterList.Count >= 1)
 						{
@@ -344,7 +350,7 @@ namespace FF4FabulGauntlet.Inventory
 								}
 
 								maxPercentHP += monsterLimit.hpPercentage;
-								if (maxPercentHP > 60)
+								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
 								{
 									lastMonster = -1;
 									continue;
@@ -424,34 +430,62 @@ namespace FF4FabulGauntlet.Inventory
 								xpLimit -= allMonsters.Where(c => c.id == 150).First().exp;
 								j++;
 							}
-							else if (allBosses.Contains(chosenMonster.id)) // Do not add 50/50 chance of duplicating a boss unless addressed above.  This will avoid something like 7 Odins or 7 Evil Walls.
+							// Do not add 50/50 chance of duplicating a boss unless addressed above.  This will avoid something like 7 Odins or 7 Evil Walls.
+							// ... unless you're in very hard difficulty... in which case you're on your own.  :P
+							else if (allBosses.Contains(chosenMonster.id) && difficulty < 4)
 							{
 								lastMonster = -1;
 							}
 						}
 						else
 						{
+							// No monsters left... usually because the xpLimit has gone below 0.  Invalidate the loop and move onto the next group.
 							valid = false;
 						}
 					} else
 					{
-						limitedMonsters monsterLimit = restrictedMonsters.Where(c => c.id == lastMonster).FirstOrDefault();
-						if (monsterLimit != null)
-						{
-							if (monsterLimit.monsterLimit == 1)
-								lastMonster = monsterLimit.followUp;
+						bool normalDup = false;
+						// Do not further duplicate monsters in easy, or very easy difficulty.
+						if (xpLimit < 0 && difficulty < 2)
+                        {
+							valid = false;
+							continue;
+                        }
+						// Allow one duplication of a monster in normal difficulty.
+						if (xpLimit < 0 && difficulty == 2)
+							normalDup = true;
 
-							maxPercentHP += monsterLimit.hpPercentage;
-							if (maxPercentHP > 60)
+						bool veryHard = true;
+						while (veryHard)
+                        {
+							limitedMonsters monsterLimit = restrictedMonsters.Where(c => c.id == lastMonster).FirstOrDefault();
+							if (monsterLimit != null)
 							{
-								lastMonster = -1;
-								continue;
+								if (monsterLimit.monsterLimit == 1)
+									lastMonster = monsterLimit.followUp;
+
+								maxPercentHP += monsterLimit.hpPercentage;
+								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
+								{
+									lastMonster = -1;
+									continue;
+								}
 							}
+
+							monster.Add(lastMonster);
+							j++;
+							xpLimit -= lastXP;
+
+							// If the XP remaining goes under zero, but you're in very hard difficulty,
+							// keep repeating the monster until you reach 9 monsters,
+							// unless we had to terminate via HP percentage monsters or had to follow up with a "-1" monster.
+							if (xpLimit > 0 || difficulty < 4 || monster.Count >= 9 || lastMonster == -1)
+								veryHard = false;
 						}
 
-						monster.Add(lastMonster);
-						j++;
-						xpLimit -= lastXP;
+						// In normal difficulty, now complete the group after the single duplication.
+						if (normalDup)
+							valid = false;
 					}
 				}
 
@@ -473,7 +507,7 @@ namespace FF4FabulGauntlet.Inventory
 				if (i == 174)
 					monster = new List<int>() { 180 };
 
-				singleGroup newGroup = new singleGroup();
+				singleGroup newGroup = new();
 				newGroup.id = i == 151 ? 452
 					: i == 152 ? 291
 					: i == 153 ? 288
@@ -523,19 +557,26 @@ namespace FF4FabulGauntlet.Inventory
 				newGroup.appearance_production = 1;
 				newGroup.script_name = 0;
 				int attackMode = r1.Next() % 10;
+				// Mandatory neutral fight if XP is greater than or equal to 100000/150000/250000...
+				if (origXpLimit - xpLimit >= (difficulty <= 2 ? 100000 : difficulty == 3 ? 150000 : 250000)
+					// ... or the HP percentage attacks of monsters exceed 20/35/50%...
+					|| maxPercentHP > (difficulty <= 2 ? 20 : difficulty == 3 ? 35 : 50)
+					// ... or it's the Zeromus fight
+					|| monster.Contains(202))
+					attackMode = 0;
 				newGroup.battle_pattern1 = attackMode < 7 ? 1 : 0;
 				newGroup.battle_pattern2 = attackMode == 7 ? 1 : 0; // Back Attack
 				newGroup.battle_pattern3 = 0;
 				newGroup.battle_pattern4 = 0;
-				newGroup.battle_pattern5 = attackMode == 8 ? 1 : 0;
+				newGroup.battle_pattern5 = attackMode == 8 ? 1 : 0; // Preemptive fight
 				newGroup.battle_pattern6 = attackMode == 9 ? 1 : 0; // Ambush
 				newGroup.not_escape = 1;
-				newGroup.battle_flag_group_id = 0;
+				newGroup.battle_flag_group_id = monster.Contains(202) ? 7 : 0; // I think that will skip the XP gain screen in the final fight
 				newGroup.get_value = 0;
 				newGroup.get_ap = 0;
 
-				if (monster.Count() == 1) newGroup.monster5 = monster[0];
-				else if (monster.Count() == 4)
+				if (monster.Count == 1) newGroup.monster5 = monster[0];
+				else if (monster.Count == 4)
 				{
 					if (i % 10 == 0)
 						newGroup.monster5 = monster[0];
@@ -551,17 +592,17 @@ namespace FF4FabulGauntlet.Inventory
 						newGroup.monster5 = monster[0];
 					else
 						newGroup.monster1 = monster[0];
-					newGroup.monster9 = monster.Count() >= 2 ? monster[1] : 0;
+					newGroup.monster9 = monster.Count >= 2 ? monster[1] : 0;
 					if (i % 10 == 0)
-						newGroup.monster1 = monster.Count() >= 3 ? monster[2] : 0;
+						newGroup.monster1 = monster.Count >= 3 ? monster[2] : 0;
 					else
-						newGroup.monster5 = monster.Count() >= 3 ? monster[2] : 0;
-					newGroup.monster3 = monster.Count() >= 4 ? monster[3] : 0;
-					newGroup.monster7 = monster.Count() >= 5 ? monster[4] : 0;
-					newGroup.monster2 = monster.Count() >= 6 ? monster[5] : 0;
-					newGroup.monster4 = monster.Count() >= 7 ? monster[6] : 0;
-					newGroup.monster6 = monster.Count() >= 8 ? monster[7] : 0;
-					newGroup.monster8 = monster.Count() >= 9 ? monster[8] : 0;
+						newGroup.monster5 = monster.Count >= 3 ? monster[2] : 0;
+					newGroup.monster3 = monster.Count >= 4 ? monster[3] : 0;
+					newGroup.monster7 = monster.Count >= 5 ? monster[4] : 0;
+					newGroup.monster2 = monster.Count >= 6 ? monster[5] : 0;
+					newGroup.monster4 = monster.Count >= 7 ? monster[6] : 0;
+					newGroup.monster6 = monster.Count >= 8 ? monster[7] : 0;
+					newGroup.monster8 = monster.Count >= 9 ? monster[8] : 0;
 				}
 
 				// If Sandy is in this group, we'll want to swap her into monster 9.
@@ -604,6 +645,19 @@ namespace FF4FabulGauntlet.Inventory
 				if (newGroup.monster7 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster7 = temp; }
 				if (newGroup.monster8 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster8 = temp; }
 
+				// Dark Bahamut needs to be in position 5, or he won't reflect Flares..
+				if (newGroup.monster1 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster1 = temp; }
+				if (newGroup.monster2 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster2 = temp; }
+				if (newGroup.monster3 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster3 = temp; }
+				if (newGroup.monster4 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster4 = temp; }
+				if (newGroup.monster6 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster6 = temp; }
+				if (newGroup.monster7 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster7 = temp; }
+				if (newGroup.monster8 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster8 = temp; }
+				if (newGroup.monster9 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster9 = temp; }
+
+				// Move Zeromus to position 9.
+				if (newGroup.monster5 == 202) { newGroup.monster5 = 0; newGroup.monster9 = 202; }
+
 				newGroup.monster1_group = newGroup.monster2_group = newGroup.monster3_group = newGroup.monster4_group = newGroup.monster5_group = 
 					newGroup.monster6_group = newGroup.monster7_group = newGroup.monster8_group = newGroup.monster9_group = 1;
 				newGroup.monster1_x_position = 60;
@@ -620,8 +674,8 @@ namespace FF4FabulGauntlet.Inventory
 				groups.Add(newGroup);
 			}
 
-			using (StreamWriter writer = new StreamWriter(Path.Combine(directory, "monster_party.csv")))
-			using (CsvWriter csv = new CsvWriter(writer, System.Globalization.CultureInfo.InvariantCulture))
+			using (StreamWriter writer = new(Path.Combine(directory, "monster_party.csv")))
+			using (CsvWriter csv = new(writer, System.Globalization.CultureInfo.InvariantCulture))
 			{
 				csv.WriteRecords(groups);
 			}
@@ -634,8 +688,8 @@ namespace FF4FabulGauntlet.Inventory
 				iMonster.gill += gpBoost;
 			}
 
-			using (StreamWriter writer = new StreamWriter(Path.Combine(directory, "monster.csv")))
-			using (CsvWriter csv = new CsvWriter(writer, System.Globalization.CultureInfo.InvariantCulture))
+			using (StreamWriter writer = new(Path.Combine(directory, "monster.csv")))
+			using (CsvWriter csv = new(writer, System.Globalization.CultureInfo.InvariantCulture))
 			{
 				csv.WriteRecords(allMonsters);
 			}
