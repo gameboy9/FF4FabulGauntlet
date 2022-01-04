@@ -33,5 +33,6 @@ Also... expect the game to be a bit unbalanced.  With some input, it should beco
 - FrançoiseHarpie
 - sorbius
 - Infinious
+- Buffalax
 
 # Enjoy and good luck!
