@@ -334,6 +334,12 @@ namespace FF4FabulGauntlet.Inventory
 								lastMonster = -1;
 								continue;
 							}
+							// Cagnazzo can't be with Rubicante; it breaks the latter's script.
+							if ((monster.Contains(188) && chosenMonster.id == 171) || (monster.Contains(171) && chosenMonster.id == 188))
+							{
+								lastMonster = -1;
+								continue;
+							}
 
 							limitedMonsters monsterLimit = restrictedMonsters.Where(c => c.id == chosenMonster.id).FirstOrDefault();
 							if (monsterLimit != null)
