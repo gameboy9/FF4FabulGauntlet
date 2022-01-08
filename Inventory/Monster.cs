@@ -474,7 +474,7 @@ namespace FF4FabulGauntlet.Inventory
 								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
 								{
 									lastMonster = -1;
-									continue;
+									break;
 								}
 							}
 
