@@ -444,8 +444,14 @@ namespace FF4FabulGauntlet.Randomize
 						if (sObject.properties.Where(p => p.name == "script_id" && (long)p.value > 0).Any())
 						{
 							EntityJSON.Property1 singleProp = sObject.properties.Where(p => p.name == "asset_id" && (long)p.value > 0).SingleOrDefault();
+							int assetID = -1;
 							if (singleProp != null)
-								singleProp.value = r1.Next() % 247 + 1;
+                            {
+								while (assetID <= 0 || assetID == 134) // We can't have assetID 134; it crashes the game.
+									assetID = r1.Next() % 247 + 1;
+								singleProp.value = assetID;
+							}
+
 						}
 					}
 
