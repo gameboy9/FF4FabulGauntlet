@@ -98,7 +98,7 @@ namespace FF4FabulGauntlet.Randomize
 			{
 				for (int i = 0; i < 12; i++)
 				{
-					int charID = r1.Next() % 12 + 1; // Do not include "[paladin] cecil", ID 13
+					int charID = r1.Next() % 13 + 1;
 					if ((charID == dkCecil && !exclude[0]) ||
 						(charID == kain && !exclude[1]) ||
 						(charID == rydia && !exclude[2]) ||
@@ -110,14 +110,15 @@ namespace FF4FabulGauntlet.Randomize
 						(charID == porom && !exclude[8]) ||
 						(charID == cid && !exclude[9]) ||
 						(charID == edge && !exclude[10]) ||
-						(charID == fusoya && !exclude[11]))
+						(charID == fusoya && !exclude[11]) ||
+						(charID == cecil && !exclude[12]))
 							characters.Add(charID);
 					else 
 						i--;  // redraw if a character is checked as excluded
 				}
 			} else
 			{
-				characters = new List<int> { dkCecil, kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya };
+				characters = new List<int> { dkCecil, kain, rydia, tellah, edward, rosa, yang, palom, porom, cid, edge, fusoya, cecil };
 				if (exclude[0])	characters.Remove(dkCecil);
 				if (exclude[1])	characters.Remove(kain);
 				if (exclude[2])	characters.Remove(rydia);
@@ -130,13 +131,14 @@ namespace FF4FabulGauntlet.Randomize
 				if (exclude[9])	characters.Remove(cid);
 				if (exclude[10]) characters.Remove(edge);
 				if (exclude[11]) characters.Remove(fusoya);
+				if (exclude[12]) characters.Remove(cecil);
 				characters.Shuffle(r1);
 				while (characters.Count < 12)
 					characters.Add(cecil);
 			}
 			// In case of Cecil promotions
 			characters.Add(cecil); // Add this to make it the "13th character" - otherwise the "Cecil Career Change" SysCall doesn't work.
-			characters[5] = characters[6] = characters[7] = characters[8] = cecil;
+			//characters[5] = characters[6] = characters[7] = characters[8] = cecil;
 
 			int id = 1;
 			List<character> newRecords = new List<character>();
@@ -342,73 +344,73 @@ namespace FF4FabulGauntlet.Randomize
 				}
 			}
 
-			// Mt. Ordeals - promote all Cecils to Paladins
-			string json2 = File.ReadAllText(Path.Combine(directory, "Map_30110", "Map_30110", "sc_e_0029.json"));
-			EventJSON jEvents2 = JsonConvert.DeserializeObject<EventJSON>(json2);
-			int k = 0;
-			foreach (var singleScript in jEvents2.Mnemonics)
-			{
-				if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
-				{
-					switch (k)
-					{
-						case 0:
-							singleScript.mnemonic = characters[0] == dkCecil && !noPromote ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[0] == dkCecil && !noPromote ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[0] == dkCecil && !noPromote ? "セシル転職" : ""; // Cecil promotion
-							break;
-						case 1:
-							singleScript.mnemonic = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "カイン離脱" : ""; // Drop "Kain"
-							break;
-						case 2:
-							singleScript.mnemonic = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "テラ加入" : ""; // Add "Tellah"
-							break;
-						case 3:
-							singleScript.mnemonic = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "ローザ離脱" : ""; // Drop "Rosa"
-							break;
-						case 4:
-							singleScript.mnemonic = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "ギルバート加入" : ""; // Add "Edward"
-							break;
-						case 5:
-							singleScript.mnemonic = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "リディア離脱" : ""; // Drop "Rydia"
-							break;
-						case 6:
-							singleScript.mnemonic = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "ヤン加入" : ""; // Add "Yang"
-							break;
-						case 7:
-							singleScript.mnemonic = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "シド離脱" : ""; // Drop "Cid"
-							break;
-						case 8:
-							singleScript.mnemonic = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "SysCall" : "Wait";
-							singleScript.operands.rValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? 0.0f : 0.1f;
-							singleScript.operands.sValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "パロム加入" : ""; // Add "Palom"
-							break;
-					}
-					k++;
-				}
-			}
+			//// Mt. Ordeals - promote all Cecils to Paladins
+			//string json2 = File.ReadAllText(Path.Combine(directory, "Map_30110", "Map_30110", "sc_e_0029.json"));
+			//EventJSON jEvents2 = JsonConvert.DeserializeObject<EventJSON>(json2);
+			//int k = 0;
+			//foreach (var singleScript in jEvents2.Mnemonics)
+			//{
+			//	if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
+			//	{
+			//		switch (k)
+			//		{
+			//			case 0:
+			//				singleScript.mnemonic = characters[0] == dkCecil && !noPromote ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[0] == dkCecil && !noPromote ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[0] == dkCecil && !noPromote ? "セシル転職" : ""; // Cecil promotion
+			//				break;
+			//			case 1:
+			//				singleScript.mnemonic = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "カイン離脱" : ""; // Drop "Kain"
+			//				break;
+			//			case 2:
+			//				singleScript.mnemonic = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[1] == dkCecil && !noPromote && numHeroes >= 2 ? "テラ加入" : ""; // Add "Tellah"
+			//				break;
+			//			case 3:
+			//				singleScript.mnemonic = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "ローザ離脱" : ""; // Drop "Rosa"
+			//				break;
+			//			case 4:
+			//				singleScript.mnemonic = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[2] == dkCecil && !noPromote && numHeroes >= 3 ? "ギルバート加入" : ""; // Add "Edward"
+			//				break;
+			//			case 5:
+			//				singleScript.mnemonic = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "リディア離脱" : ""; // Drop "Rydia"
+			//				break;
+			//			case 6:
+			//				singleScript.mnemonic = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[3] == dkCecil && !noPromote && numHeroes >= 4 ? "ヤン加入" : ""; // Add "Yang"
+			//				break;
+			//			case 7:
+			//				singleScript.mnemonic = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "シド離脱" : ""; // Drop "Cid"
+			//				break;
+			//			case 8:
+			//				singleScript.mnemonic = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "SysCall" : "Wait";
+			//				singleScript.operands.rValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? 0.0f : 0.1f;
+			//				singleScript.operands.sValues[0] = characters[4] == dkCecil && !noPromote && numHeroes == 5 ? "パロム加入" : ""; // Add "Palom"
+			//				break;
+			//		}
+			//		k++;
+			//	}
+			//}
 
-			serializer = new JsonSerializer();
+			//serializer = new JsonSerializer();
 
-			using (StreamWriter sw = new StreamWriter(Path.Combine(directory, "Map_30110", "Map_30110", "sc_e_0029.json")))
-			using (JsonWriter writer = new JsonTextWriter(sw))
-			{
-				serializer.Serialize(writer, jEvents2);
-			}
+			//using (StreamWriter sw = new StreamWriter(Path.Combine(directory, "Map_30110", "Map_30110", "sc_e_0029.json")))
+			//using (JsonWriter writer = new JsonTextWriter(sw))
+			//{
+			//	serializer.Serialize(writer, jEvents2);
+			//}
 
 			// We need to randomize the sprite that is at each gauntlet spot.
 			// Then we're going to need to revert the ResetFlags to SetFlags for all of the encounters

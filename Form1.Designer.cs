@@ -68,7 +68,7 @@ namespace FF4FabulGauntlet
             this.firstHero = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.hpBoost = new System.Windows.Forms.CheckBox();
-            this.doNotPromoteCecil = new System.Windows.Forms.CheckBox();
+            this.exPaladinCecil = new System.Windows.Forms.CheckBox();
             this.exFusoya = new System.Windows.Forms.CheckBox();
             this.exRosa = new System.Windows.Forms.CheckBox();
             this.exPorom = new System.Windows.Forms.CheckBox();
@@ -469,7 +469,7 @@ namespace FF4FabulGauntlet
             this.settingHero.Controls.Add(this.firstHero);
             this.settingHero.Controls.Add(this.label16);
             this.settingHero.Controls.Add(this.hpBoost);
-            this.settingHero.Controls.Add(this.doNotPromoteCecil);
+            this.settingHero.Controls.Add(this.exPaladinCecil);
             this.settingHero.Controls.Add(this.exFusoya);
             this.settingHero.Controls.Add(this.exRosa);
             this.settingHero.Controls.Add(this.exPorom);
@@ -549,16 +549,16 @@ namespace FF4FabulGauntlet
             this.hpBoost.Visible = false;
             this.hpBoost.CheckedChanged += new System.EventHandler(this.DetermineFlags);
             // 
-            // doNotPromoteCecil
+            // exPaladinCecil
             // 
-            this.doNotPromoteCecil.AutoSize = true;
-            this.doNotPromoteCecil.Location = new System.Drawing.Point(6, 196);
-            this.doNotPromoteCecil.Name = "doNotPromoteCecil";
-            this.doNotPromoteCecil.Size = new System.Drawing.Size(175, 24);
-            this.doNotPromoteCecil.TabIndex = 69;
-            this.doNotPromoteCecil.Text = "Do not promote Cecil";
-            this.doNotPromoteCecil.UseVisualStyleBackColor = true;
-            this.doNotPromoteCecil.CheckedChanged += new System.EventHandler(this.DetermineFlags);
+            this.exPaladinCecil.AutoSize = true;
+            this.exPaladinCecil.Location = new System.Drawing.Point(6, 196);
+            this.exPaladinCecil.Name = "exPaladinCecil";
+            this.exPaladinCecil.Size = new System.Drawing.Size(170, 24);
+            this.exPaladinCecil.TabIndex = 69;
+            this.exPaladinCecil.Text = "Exclude Paladin Cecil";
+            this.exPaladinCecil.UseVisualStyleBackColor = true;
+            this.exPaladinCecil.CheckedChanged += new System.EventHandler(this.DetermineFlags);
             // 
             // exFusoya
             // 
@@ -675,9 +675,9 @@ namespace FF4FabulGauntlet
             this.exCecil.AutoSize = true;
             this.exCecil.Location = new System.Drawing.Point(6, 78);
             this.exCecil.Name = "exCecil";
-            this.exCecil.Size = new System.Drawing.Size(118, 24);
+            this.exCecil.Size = new System.Drawing.Size(187, 24);
             this.exCecil.TabIndex = 58;
-            this.exCecil.Text = "Exclude Cecil";
+            this.exCecil.Text = "Exclude Dk Knight Cecil";
             this.exCecil.UseVisualStyleBackColor = true;
             this.exCecil.CheckedChanged += new System.EventHandler(this.DetermineFlags);
             // 
@@ -973,7 +973,7 @@ namespace FF4FabulGauntlet
         private System.Windows.Forms.CheckBox monsterAreaAppropriate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox hpBoost;
-        private System.Windows.Forms.CheckBox doNotPromoteCecil;
+        private System.Windows.Forms.CheckBox exPaladinCecil;
         private System.Windows.Forms.CheckBox exFusoya;
         private System.Windows.Forms.CheckBox exRosa;
         private System.Windows.Forms.CheckBox exPorom;
