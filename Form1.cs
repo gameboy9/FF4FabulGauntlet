@@ -263,31 +263,31 @@ namespace FF4FabulGauntlet
 			double xpMulti = xpMultiplier.SelectedIndex == 0 ? 0.5 :
 				xpMultiplier.SelectedIndex == 1 ? 0.75 :
 				xpMultiplier.SelectedIndex == 2 ? 1.0 :
-				xpMultiplier.SelectedIndex == 3 ? 1.25 :
-				xpMultiplier.SelectedIndex == 4 ? 1.5 :
-				xpMultiplier.SelectedIndex == 5 ? 2.0 :
-				xpMultiplier.SelectedIndex == 6 ? 3.0 : 4.0;
+				xpMultiplier.SelectedIndex == 3 ? 1.5 :
+				xpMultiplier.SelectedIndex == 4 ? 2.0 :
+				xpMultiplier.SelectedIndex == 5 ? 3.0 :
+				xpMultiplier.SelectedIndex == 6 ? 4.0 : 5.0;
 			int xpBoostInt = xpBoost.SelectedIndex == 0 ? 0 :
-				xpBoost.SelectedIndex == 1 ? 25 :
-				xpBoost.SelectedIndex == 2 ? 50 :
-				xpBoost.SelectedIndex == 3 ? 100 :
-				xpBoost.SelectedIndex == 4 ? 150 :
-				xpBoost.SelectedIndex == 5 ? 200 :
-				xpBoost.SelectedIndex == 6 ? 300 : 400;
+				xpBoost.SelectedIndex == 1 ? 50 :
+				xpBoost.SelectedIndex == 2 ? 100 :
+				xpBoost.SelectedIndex == 3 ? 200 :
+				xpBoost.SelectedIndex == 4 ? 300 :
+				xpBoost.SelectedIndex == 5 ? 400 :
+				xpBoost.SelectedIndex == 6 ? 500 : 1000;
 			double gpMulti = gpMultiplier.SelectedIndex == 0 ? 0.5 :
 				gpMultiplier.SelectedIndex == 1 ? 0.75 :
 				gpMultiplier.SelectedIndex == 2 ? 1.0 :
-				gpMultiplier.SelectedIndex == 3 ? 1.25 :
-				gpMultiplier.SelectedIndex == 4 ? 1.5 :
-				gpMultiplier.SelectedIndex == 5 ? 2.0 :
-				gpMultiplier.SelectedIndex == 6 ? 3.0 : 4.0;
+				gpMultiplier.SelectedIndex == 3 ? 1.5 :
+				gpMultiplier.SelectedIndex == 4 ? 2.0 :
+				gpMultiplier.SelectedIndex == 5 ? 3.0 :
+				gpMultiplier.SelectedIndex == 6 ? 4.0 : 5.0;
 			int gpBoostInt = gpBoost.SelectedIndex == 0 ? 0 :
-				gpBoost.SelectedIndex == 1 ? 25 :
 				gpBoost.SelectedIndex == 2 ? 50 :
-				gpBoost.SelectedIndex == 3 ? 100 :
-				gpBoost.SelectedIndex == 4 ? 150 :
-				gpBoost.SelectedIndex == 5 ? 200 :
-				gpBoost.SelectedIndex == 6 ? 300 : 400;
+				gpBoost.SelectedIndex == 2 ? 100 :
+				gpBoost.SelectedIndex == 3 ? 200 :
+				gpBoost.SelectedIndex == 4 ? 300 :
+				gpBoost.SelectedIndex == 5 ? 400 :
+				gpBoost.SelectedIndex == 6 ? 500 : 1000;
 			new Monster(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), xpMulti, xpBoostInt, gpMulti, gpBoostInt, 5, monsterDifficulty.SelectedIndex, monsterAreaAppropriate.Checked);
 		}
 

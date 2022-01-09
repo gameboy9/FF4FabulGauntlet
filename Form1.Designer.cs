@@ -743,13 +743,13 @@ namespace FF4FabulGauntlet
             this.gpBoost.FormattingEnabled = true;
             this.gpBoost.Items.AddRange(new object[] {
             "+0",
-            "+25",
             "+50",
             "+100",
-            "+150",
             "+200",
             "+300",
-            "+400"});
+            "+400",
+            "+500",
+            "+1000"});
             this.gpBoost.Location = new System.Drawing.Point(391, 77);
             this.gpBoost.Name = "gpBoost";
             this.gpBoost.Size = new System.Drawing.Size(151, 28);
@@ -762,13 +762,13 @@ namespace FF4FabulGauntlet
             this.xpBoost.FormattingEnabled = true;
             this.xpBoost.Items.AddRange(new object[] {
             "+0",
-            "+25",
             "+50",
             "+100",
-            "+150",
             "+200",
             "+300",
-            "+400"});
+            "+400",
+            "+500",
+            "+1000"});
             this.xpBoost.Location = new System.Drawing.Point(391, 42);
             this.xpBoost.Name = "xpBoost";
             this.xpBoost.Size = new System.Drawing.Size(151, 28);
@@ -783,11 +783,11 @@ namespace FF4FabulGauntlet
             "0.5x",
             "0.75x",
             "1x",
-            "1.25x",
             "1.5x",
             "2.0x",
             "3.0x",
-            "4.0x"});
+            "4.0x",
+            "5.0x"});
             this.gpMultiplier.Location = new System.Drawing.Point(157, 77);
             this.gpMultiplier.Name = "gpMultiplier";
             this.gpMultiplier.Size = new System.Drawing.Size(148, 28);
@@ -802,11 +802,11 @@ namespace FF4FabulGauntlet
             "0.5x",
             "0.75x",
             "1x",
-            "1.25x",
             "1.5x",
             "2.0x",
             "3.0x",
-            "4.0x"});
+            "4.0x",
+            "5.0x"});
             this.xpMultiplier.Location = new System.Drawing.Point(157, 42);
             this.xpMultiplier.Name = "xpMultiplier";
             this.xpMultiplier.Size = new System.Drawing.Size(148, 28);

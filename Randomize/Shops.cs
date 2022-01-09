@@ -169,8 +169,8 @@ namespace FF4FabulGauntlet.Randomize
 					shopItem newItem = new shopItem();
 					newItem.group_id = allStores[i];
 					newItem.id = id;
-					int minTier = randoLevel == 0 ? stdMinTier[i] : randoLevel == 1 ? proMinTier[i] : 1;
-					int maxTier = randoLevel == 0 ? stdMaxTier[i] : randoLevel == 1 ? proMaxTier[i] : noSuper ? 8 : 9;
+					int minTier = randoLevel <= 1 ? stdMinTier[i] : randoLevel == 2 ? proMinTier[i] : 1;
+					int maxTier = randoLevel == 0 ? stdMaxTier[i] + 1 : randoLevel == 1 ? stdMaxTier[i] : randoLevel == 2 ? proMaxTier[i] : noSuper ? 8 : 9;
 
 					// Alternate between weapons, armor, and item stores, so each place has at least one of each.
 					switch (itemType)

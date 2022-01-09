@@ -149,7 +149,7 @@ namespace FF4FabulGauntlet.Inventory
 		public const int excalipoor = 799; // t2
 		public const int flandango = 800; // t4
 		public const int lightbringer = 801; // t9
-		public const int piggyStick = 802; // t6
+		public const int piggyStick = 802; // t8
 		public const int abelsLance = 803; // t9
 		public const int gigantAxe = 804; // t9
 		public const int perseusBow = 805; // t9
@@ -180,11 +180,10 @@ namespace FF4FabulGauntlet.Inventory
 			  new List<int> { mythrilSword, sleepBlade, bloodLance, dancingDagger, fairyClaw, kunai, lilithRod, elvenBow, fireArrow, iceArrow, thunderArrow, whip, flandango },
 			  new List<int> { flameSword, icebrand, gorgonBlade, fireLance, iceLance, mageMasher, hellClaw, gaiaHammer, dwarfAxe, ashura, kotetsu,
 				changeRod, powerStaff, kinesisStaff, blindingArrow, poisonArrow, chainWhip, boomerang, shuriken },
-			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, piggyStick, apolloHarp },
+			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, apolloHarp },
 			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken, tigerFangs },
-			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp },
-			  new List<int> { ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp, knife,
-				lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, lokiHarp }
+			  new List<int> { piggyStick, ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp },
+			  new List<int> { knife, lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, lokiHarp }
 		};
 
 		public List<int> bonusWeapons = new List<int>
