@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -148,13 +149,13 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 61, 62, 67, 7, 34, 71, 72, 29, 118, 89, 121, 68, 69, 123, 113, 78 }, // Troia / Zot Tower
 			new List<int> { 25, 83, 77, 26, 71, 65, 101, 104, 91, 88, 130, 93, 81, 117 }, // Dwarf Castle, Lower Babil
 			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133 }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133, 95 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133, 95, 182 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 119, 24, 18, 122, 116, 40, 103, 158, 143, 76, 70, 73, 75, 80, 92, 112, 120, 127, 142 }, // Cave Of Summons, other underground locations
 			new List<int> { 140, 126, 85, 125, 96, 114, 152, 139, 147, 54, 141, 161, 144, 154, 131, 128, 107, 106, 112, 115, 127 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109 }, // Lunar Subterrane / Giant Of Babil
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 132, 189, 190, 155,
-				162, 164, 165, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109, 182 }, // Lunar Subterrane / Giant Of Babil
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155, 182 }, // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
+				162, 164, 165, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 182, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
         readonly List<List<int>> monsterBosses = new()
@@ -162,24 +163,24 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 162, 31 }, // Outside Baron, Mist Cave, Mist/Kaipo
 			new List<int> { 163, 31 }, // Underground Waterway / Damcyan
 			new List<int> { 164, 165, 46 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
-			new List<int> { 166, 167 }, // Mysidia, Mt. Ordeals
-			new List<int> { 59, 168, 171, 173, 196 }, // Old Baron Waterway (or 173)
+			new List<int> { 166, 167, 206 }, // Mysidia, Mt. Ordeals
+			new List<int> { 59, 168, 171, 173, 196, 205 }, // Old Baron Waterway (or 173)
 			new List<int> { }, // Magnes Cave
 			new List<int> { 175, 178 }, // Troia / Zot Tower
 			new List<int> { 179, 211, 185, 183, 184 }, // Dwarf Castle, Lower Babil
-			new List<int> { }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 188 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 182 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 188, 181 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 189, 190, 193 }, // Cave Of Summons, other underground locations
 			new List<int> { 189, 190, 193, 191 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 192, 194, 198 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 108, 150, 153, 159 }, // Lunar Subterrane Part 2  (2 rounds)
-			new List<int> { 162, 164, 165, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
+			new List<int> { 162, 164, 165, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
 			// Final boss:  217
 		};
 
         readonly List<int> allBosses = new()
         {
-			162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159, // Actual bosses...
+			162, 31, 164, 165, 46, 166, 167, 168, 171, 173, 196, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159, // Actual bosses...
 			156, 160, 161, 145, 129, 132 // ... and Lunar Subteranne Core monsters - Blue Dragon, Red Dragon, Zemus's Breath and Mind, Behemoths, and Wicked Masks.
 		};
 
@@ -231,6 +232,7 @@ namespace FF4FabulGauntlet.Inventory
 			restrictedMonsters.Add(new limitedMonsters { id = 175, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 176, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 188, monsterLimit = 1, followUp = -1 }); // Rubicante
+			restrictedMonsters.Add(new limitedMonsters { id = 182, monsterLimit = 1, followUp = -1 }); // Shadow Dragon
 			restrictedMonsters.Add(new limitedMonsters { id = 178, monsterLimit = 1, followUp = -1 }); // Barbariccia
 			restrictedMonsters.Add(new limitedMonsters { id = 171, monsterLimit = 1, followUp = -1 }); // Cagnazzo
 			restrictedMonsters.Add(new limitedMonsters { id = 173, monsterLimit = 1, followUp = -1 }); // Dark Elf
@@ -248,21 +250,22 @@ namespace FF4FabulGauntlet.Inventory
 			// The Attack Node (from the CPU) deals 10% HP to all / turn
 			restrictedMonsters.Add(new limitedMonsters { id = 214, hpPercentage = 10 });
 
+			randomizeZemusBreath(r1, allMonsters, restrictedMonsters, directory);
+
 			// Do not choose Mystery Eggs... they're going to softlock the game without some serious work. (224)
-			// Do not also choose Golbez or the Shadow Dragons... that's just going to get screwy in a hurry. (177, 274, 181, 182)
+			// Do not also choose Golbez or the Shadow Dragons... that's just going to get screwy in a hurry. (177, 274)
 			// No Zemus or Zeromus either for obvious reasons.  :) (200, 201, 202, 217)
 			// No Dark Elves unless they transition to the Dark Dragon. (172, 225)
 			// No Li'l Murderer's.  They wind up crashing the game with their mere existance, sadly. (33)
 			// Let's avoid trap doors for now.  (124)
 			// Remove the King and Queen of Eblan (186, 187)
 			// Calcobrena cannot show up in a monster group.  (but the dolls can combine into Calcobrena) (180)
-			// Do not include "character" fights (203, 204, 205, 206, 207)
+			// Do not include "character" fights except Dark Knight since we fixed that. (203, 204, 206, 207)
 			// Remove Barnabas-Z and Attack Node since they're worth 20 and 0 XP respectively; not appropriate for "non-area appropriate" flags. (212, 213)
-			// Remove Zemus's Breath since they don't do anything except really slow down a battle.  (129)
 			// Do not include the Edge Rubicante fight because it's scripted.  (226)
 			// Do not include Elemental Lords except the first phase.  (195, 227, 228)
 			// Let's remove "follow up monsters"... Cindy... Mindy... Nodes... Arms... etc. (199, 214, 169, 170, 175, 176)
-			List<int> badMonsters = new(){ 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 205, 206, 207, 212, 213, 129, 226, 195, 227, 228, 199, 214, 169, 170, 175, 176 };
+			List<int> badMonsters = new(){ 224, 177, 274, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 207, 212, 213, 226, 195, 227, 228, 199, 214, 169, 170, 175, 176 };
 
 			List<singleGroup> groups = new();
 
@@ -437,6 +440,21 @@ namespace FF4FabulGauntlet.Inventory
 									continue;
                                 }
 							}
+							else if (chosenMonster.id == 181) // If we see Golbez...
+							{
+								if (monster.Count < 9)
+								{
+									monster.Add(182); // Add a Shadow Dragon
+									xpLimit -= allMonsters.Where(c => c.id == 182).First().exp;
+									lastMonster = -1;
+									j += 1;
+								}
+								else
+								{
+									lastMonster = -1;
+									continue;
+								}
+							}
 							else if (chosenMonster.id == 198 && monster.Count < 8) // If we see CPU...
 							{
 								if (monster.Count < 8)
@@ -505,6 +523,8 @@ namespace FF4FabulGauntlet.Inventory
 							{
 								if (monsterLimit.monsterLimit == 1)
 									lastMonster = monsterLimit.followUp;
+								if (lastMonster == -1)
+									break;
 
 								maxPercentHP += monsterLimit.hpPercentage;
 								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
@@ -531,13 +551,13 @@ namespace FF4FabulGauntlet.Inventory
 					}
 
 					// Remove Scarmiglione if there's a monster stronger than that.
-					if (monster.Contains(166) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 3000).Any())
+					if (monster.Contains(166) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 3000 && c.id != 166).Any())
 					{
 						monster.Remove(166);
 						xpLimit += 3200;
 					}
 					// Remove Octomammoth if there's a monster stronger than that.
-					if (monster.Contains(163) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 1200).Any())
+					if (monster.Contains(163) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 1200 && c.id != 163).Any())
                     {
 						monster.Remove(163);
 						xpLimit += 1200;
@@ -601,20 +621,25 @@ namespace FF4FabulGauntlet.Inventory
 				while (newGroup.battle_background_asset_id == 15)
 					newGroup.battle_background_asset_id = 1 + r1.Next() % 23;
 				// Baron Captain/General = Baron music
-				if (monster.Contains(30) || monster.Contains(31) || monster.Contains(45) || monster.Contains(46))
+				if (monster.Contains(30) || monster.Contains(31) || monster.Contains(45) || monster.Contains(46) || monster.Contains(206))
 					newGroup.battle_bgm_asset_id = 1;
-				else if (monster.Contains(165))
-					// Mom Bomb music?
-					newGroup.battle_bgm_asset_id = 13;
+				else if (monster.Contains(192)) // Demon Wall
+					newGroup.battle_bgm_asset_id = 20;
 				else if (monster.Contains(183) || monster.Contains(184) || monster.Contains(185) || monster.Contains(213) || monster.Contains(180) || monster.Contains(179) || monster.Contains(211))
 					// Lugae / Calcobrena music
 					newGroup.battle_bgm_asset_id = 35;
+				else if (monster.Contains(181)) // Golbez
+					newGroup.battle_bgm_asset_id = 22;
+				else if (monster.Contains(173)) // Dark Elf
+					newGroup.battle_bgm_asset_id = 17;
+				else if (monster.Contains(205)) // Yang
+					newGroup.battle_bgm_asset_id = 19;
 				else if (monster.Contains(166) || monster.Contains(167) || monster.Contains(171) || monster.Contains(178) || monster.Contains(188) || monster.Contains(194) || monster.Contains(195) || monster.Contains(227) || monster.Contains(228))
 					// Fiend music
 					newGroup.battle_bgm_asset_id = 27;
 				else if (monster.Contains(202)) // Zeromus - final battle
 					newGroup.battle_bgm_asset_id = 42;
-				else if ((i >= 141 && i <= 149) || i % 10 == 0) // Regular boss music
+				else if ((i >= 141 && i <= 149) || i % 10 == 0 || allBosses.Where(c => monster.Contains(c)).Any()) // Regular boss music
 					newGroup.battle_bgm_asset_id = 12;
 				else // Regular battle music
 					newGroup.battle_bgm_asset_id = 7;
@@ -669,6 +694,12 @@ namespace FF4FabulGauntlet.Inventory
 					newGroup.monster6 = monster.Count >= 8 ? monster[7] : 0;
 					newGroup.monster8 = monster.Count >= 9 ? monster[8] : 0;
 				}
+
+				// Move Dark Elf to position 1; Dark Elf won't transform otherwise.  (in vanilla it would have to be position 5; an AI change moves it to position 1)
+				monsterSwap(newGroup, 173, 1);
+
+				// Move Octomammoth to position 4; it won't be defeated otherwise.  (in vanilla it would have to be position 5; an AI change moves it to position 4)
+				monsterSwap(newGroup, 163, 4);
 
 				// If Sandy/Cindy/Mindy is in this group, we'll want to swap them into monster 9/6/3.
 				monsterSwap(newGroup, 174, 9);
@@ -784,5 +815,57 @@ namespace FF4FabulGauntlet.Inventory
 
 			return newGroup;
 		}
+
+		private bool randomizeZemusBreath(Random r1, List<singleMonster> allMonsters, List<limitedMonsters> restrictedMonsters, string directory)
+        {
+			// 24, 25, 76, 98, 106, 114, 116
+			// 109, 113, 124, 125, 126, 133, 137
+			int[] eligibleActions = new int[] 
+				{ 1, 23, 33, 34, 35, 36, 37, 38, 39, 40, 41, 
+					47, 48, 49, 51, 52, 54, 55, 56, 57, 
+					58, 59, 61, 65, 66, 67, 68, 69, 71, 73, 
+					75, 85, 86, 87, 88, 94, 95, 96, 99, 100, 
+					101, 103, 106, 109, 111, 113, 114, 116, 118, 120, 
+					122, 124, 125, 126, 127, 128, 133, 134, 135, 137, 138, 139,
+					142, 144, 145, 148, 149, 150, 156, 163, 164, 165, 215, 233, 
+					301, 302, 303, 347, 348, 352, 297, 442 };
+			int[] magicPower = new int[]
+				{ 99, 9, 99, 48, 12, 99, 48, 12, 99, 48, 12,
+					99, 24, 99, 99, 5, 1, 8, 99, 13,
+					8, 25, 99, 99, 25, 25, 25, 13, 51, 7,
+					4, 13, 9, 7, 99, 5, 5, 99, 5, 99,
+					99, 99, 99, 99, 99, 99, 99, 99, 99, 99,
+					99, 99, 99, 99, 99, 51, 99, 51, 2, 99, 99, 99,
+					3, 6, 13, 99, 1, 5, 17, 76, 99, 51, 99, 6,
+					17, 17, 17, 8, 4, 8, 99, 99 };
+
+			string json = File.ReadAllText(Path.Combine("Res", "Battle", "MonsterAI", "sc_ai_129_Zemus'sBreath.json"));
+			MonsterAiJSON zemusBreath = JsonConvert.DeserializeObject<MonsterAiJSON>(json);
+			foreach(var ev in zemusBreath.Mnemonics)
+            {
+				if (ev.mnemonic == "Act")
+				{
+					int i = r1.Next() % eligibleActions.Length;
+					ev.operands.iValues[0] = eligibleActions[i];
+
+					allMonsters[127].magic = magicPower[i];
+					allMonsters[127].spirit = magicPower[i];
+					allMonsters[127].intelligence = magicPower[i];
+
+					if (new int[] { 113, 124, 125, 126, 133, 137 }.Contains(eligibleActions[i]))
+						restrictedMonsters.Add(new limitedMonsters { id = 129, monsterLimit = 1, followUp = -1, hpPercentage = 50 });
+					else
+						restrictedMonsters.Add(new limitedMonsters { id = 129, monsterLimit = 1, followUp = -1 });
+				}
+			}
+
+			JsonSerializer serializer = new();
+
+			using StreamWriter sw = new(Path.Combine(directory, "..", "..", "Res", "Battle", "MonsterAI", "sc_ai_129_Zemus'sBreath.json"));
+			using JsonWriter writer = new JsonTextWriter(sw);
+			serializer.Serialize(writer, zemusBreath);
+
+			return true;
+        }
 	}
 }

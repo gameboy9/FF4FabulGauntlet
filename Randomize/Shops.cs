@@ -212,7 +212,7 @@ namespace FF4FabulGauntlet.Randomize
 					shopWorking.Add(newItem);
 					id++;
 				}
-				// The Crystal Palace must have an X-Potion(in case there are no white mages in the party) and a Cottage(in case you are forced to grind between gauntlets). (Zeromus)
+				// The Crystal Palace must have an X-Potion(in case there are no white mages in the party), a Cottage(in case you are forced to grind between gauntlets) (Zeromus), and a Light Curtain (in case of Meganuke fights). 
 				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.xPotion).Count() == 0) 
 				{
 					shopItem newItem = new shopItem();
@@ -228,6 +228,15 @@ namespace FF4FabulGauntlet.Randomize
 					newItem.group_id = allStores[i];
 					newItem.id = id;
 					newItem.content_id = Inventory.Items.cottage;
+					shopWorking.Add(newItem);
+					id++;
+				}
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.lightCurtain).Count() == 0)
+				{
+					shopItem newItem = new shopItem();
+					newItem.group_id = allStores[i];
+					newItem.id = id;
+					newItem.content_id = Inventory.Items.lightCurtain;
 					shopWorking.Add(newItem);
 					id++;
 				}
