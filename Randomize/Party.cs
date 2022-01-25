@@ -174,6 +174,14 @@ namespace FF4FabulGauntlet.Randomize
 				}
 			}
 
+			// If Palom and Porom are in the group, we need to adjust the Twincast command.
+			while (characters.Count > 5)
+				characters.RemoveAt(characters.Count - 1);
+			if (characters.Where(c => c == palom).Count() == 1 && characters.Where(c => c == porom).Count() == 1)
+				new Inventory.Command().adjustTwinCast(characters.IndexOf(palom) + 1, characters.IndexOf(porom) + 1, Path.Combine(directory, "..", "..", "Data", "Master"));
+			else
+				new Inventory.Command().adjustTwinCast(9, 10, Path.Combine(directory, "..", "..", "Data", "Master")); // Setting Palom and Porom back to their original values will disable Twincast.
+
 			string json = File.ReadAllText(Path.Combine(directory, "Map_10010", "Map_10010", "sc_e_0001.json"));
 			EventJSON jEvents = JsonConvert.DeserializeObject<EventJSON>(json);
 			int j = 0;

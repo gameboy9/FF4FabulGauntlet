@@ -84,6 +84,10 @@ namespace FF4FabulGauntlet
             this.label6 = new System.Windows.Forms.Label();
             this.dupCharactersAllowed = new System.Windows.Forms.CheckBox();
             this.settingEnemies = new System.Windows.Forms.TabPage();
+            this.randomEscape = new System.Windows.Forms.CheckBox();
+            this.requireSirens = new System.Windows.Forms.CheckBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.encounterRate = new System.Windows.Forms.ComboBox();
             this.gpBoost = new System.Windows.Forms.ComboBox();
             this.xpBoost = new System.Windows.Forms.ComboBox();
             this.gpMultiplier = new System.Windows.Forms.ComboBox();
@@ -719,6 +723,10 @@ namespace FF4FabulGauntlet
             // 
             // settingEnemies
             // 
+            this.settingEnemies.Controls.Add(this.randomEscape);
+            this.settingEnemies.Controls.Add(this.requireSirens);
+            this.settingEnemies.Controls.Add(this.label17);
+            this.settingEnemies.Controls.Add(this.encounterRate);
             this.settingEnemies.Controls.Add(this.gpBoost);
             this.settingEnemies.Controls.Add(this.xpBoost);
             this.settingEnemies.Controls.Add(this.gpMultiplier);
@@ -736,6 +744,56 @@ namespace FF4FabulGauntlet
             this.settingEnemies.TabIndex = 2;
             this.settingEnemies.Text = "Enemies";
             this.settingEnemies.UseVisualStyleBackColor = true;
+            // 
+            // randomEscape
+            // 
+            this.randomEscape.AutoSize = true;
+            this.randomEscape.Location = new System.Drawing.Point(326, 145);
+            this.randomEscape.Name = "randomEscape";
+            this.randomEscape.Size = new System.Drawing.Size(287, 24);
+            this.randomEscape.TabIndex = 50;
+            this.randomEscape.Text = "Allow escape from random encounters";
+            this.randomEscape.UseVisualStyleBackColor = true;
+            this.randomEscape.CheckedChanged += new System.EventHandler(this.DetermineFlags);
+            // 
+            // requireSirens
+            // 
+            this.requireSirens.AutoSize = true;
+            this.requireSirens.Location = new System.Drawing.Point(326, 115);
+            this.requireSirens.Name = "requireSirens";
+            this.requireSirens.Size = new System.Drawing.Size(237, 24);
+            this.requireSirens.TabIndex = 49;
+            this.requireSirens.Text = "Require Sirens in all item shops";
+            this.requireSirens.UseVisualStyleBackColor = true;
+            this.requireSirens.CheckedChanged += new System.EventHandler(this.DetermineFlags);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 114);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(109, 20);
+            this.label17.TabIndex = 48;
+            this.label17.Text = "Encounter Rate";
+            // 
+            // encounterRate
+            // 
+            this.encounterRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.encounterRate.FormattingEnabled = true;
+            this.encounterRate.Items.AddRange(new object[] {
+            "2x",
+            "1.5x",
+            "1.0x",
+            "0.75x",
+            "0.5x",
+            "0.25x",
+            "0.125x",
+            "0"});
+            this.encounterRate.Location = new System.Drawing.Point(157, 111);
+            this.encounterRate.Name = "encounterRate";
+            this.encounterRate.Size = new System.Drawing.Size(148, 28);
+            this.encounterRate.TabIndex = 47;
+            this.encounterRate.SelectedIndexChanged += new System.EventHandler(this.DetermineFlags);
             // 
             // gpBoost
             // 
@@ -991,6 +1049,10 @@ namespace FF4FabulGauntlet
         private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.ToolTip hpAdjustTooltip;
         private System.Windows.Forms.CheckBox exYang;
+        private System.Windows.Forms.CheckBox requireSirens;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox encounterRate;
+        private System.Windows.Forms.CheckBox randomEscape;
     }
 }
 

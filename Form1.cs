@@ -32,7 +32,7 @@ namespace FF4FabulGauntlet
 			string flags = "";
 			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed }));
 			//// Combo boxes time...
-			flags += convertIntToChar(0 + (8 * numRounds.SelectedIndex));
+			flags += convertIntToChar(encounterRate.SelectedIndex + (8 * numRounds.SelectedIndex));
 			flags += convertIntToChar(shopItemQty.SelectedIndex + (8 * shopBuyPrice.SelectedIndex));
 			flags += convertIntToChar(shopItemTypes.SelectedIndex + (8 * treasureTypes.SelectedIndex));
 			flags += convertIntToChar(xpMultiplier.SelectedIndex + (8 * xpBoost.SelectedIndex));
@@ -41,7 +41,7 @@ namespace FF4FabulGauntlet
 			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { removeBonusItems, exCecil, exCid, exEdge, exEdward, exFusoya }));
 			flags += convertIntToChar(firstHero.SelectedIndex);
 			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exKain, exPalom, exPorom, exRosa, exRydia, exTellah }));
-			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exYang }));
+			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exYang, requireSirens, randomEscape }));
 			RandoFlags.Text = flags;
 
 			//flags = "";
@@ -65,6 +65,7 @@ namespace FF4FabulGauntlet
 
 			string flags = RandoFlags.Text;
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { monsterAreaAppropriate, shopNoJ, shopNoSuper, treasureNoJ, treasureNoSuper, dupCharactersAllowed });
+			encounterRate.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) % 8;
 			numRounds.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(1, 1))) / 8;
 			shopItemQty.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) % 8;
 			shopBuyPrice.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(2, 1))) / 8;
@@ -79,7 +80,7 @@ namespace FF4FabulGauntlet
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(7, 1))), new CheckBox[] { removeBonusItems, exCecil, exCid, exEdge, exEdward, exFusoya });
 			firstHero.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(8, 1))) % 16;
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(9, 1))), new CheckBox[] { exKain, exPalom, exPorom, exRosa, exRydia, exTellah });
-			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(10, 1))), new CheckBox[] { exYang });
+			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(10, 1))), new CheckBox[] { exYang, requireSirens, randomEscape });
 
 			//flags = VisualFlags.Text;
 			//numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { CuteHats });
@@ -202,6 +203,13 @@ namespace FF4FabulGauntlet
 			randomizeTreasures();
 			priceAdjustment();
 			randomizeMonstersWithBoost();
+			new Inventory.Map(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"),
+					encounterRate.SelectedIndex == 1 || encounterRate.SelectedIndex == 4 ? 2 :
+					encounterRate.SelectedIndex == 3 || encounterRate.SelectedIndex == 5 ? 4 :
+					encounterRate.SelectedIndex == 6 ? 8 : 1,
+					encounterRate.SelectedIndex == 0 ? 2 :
+					encounterRate.SelectedIndex == 1 || encounterRate.SelectedIndex == 3 ? 3 : 1,
+				encounterRate.SelectedIndex == 7);
 
 			try
 			{
@@ -250,7 +258,7 @@ namespace FF4FabulGauntlet
 		{
 			// RandoShop.SelectedIndex
 			Shops randoShops = new Shops(r1, shopItemTypes.SelectedIndex, shopItemQty.SelectedIndex, shopNoJ.Checked, shopNoSuper.Checked, 
-				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "product.csv"), !removeBonusItems.Checked);
+				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "product.csv"), !removeBonusItems.Checked, requireSirens.Checked);
 		}
 
 		private void randomizeTreasures()
@@ -289,6 +297,7 @@ namespace FF4FabulGauntlet
 				gpBoost.SelectedIndex == 5 ? 400 :
 				gpBoost.SelectedIndex == 6 ? 500 : 1000;
 			new Monster(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), xpMulti, xpBoostInt, gpMulti, gpBoostInt, 5, monsterDifficulty.SelectedIndex, monsterAreaAppropriate.Checked);
+			new MonsterSet().escapeAdjust(randomEscape.Checked, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"));
 		}
 
 		private void priceAdjustment()

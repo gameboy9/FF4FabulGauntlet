@@ -272,6 +272,7 @@ namespace FF4FabulGauntlet.Inventory
 			List<int> monster = new();
 			int lastMonster;
 			int maxPercentHP;
+			int lastBackgroundID = -1;
 			bool valid;
 
 			for (int i = 1; i <= 174; i++)
@@ -617,9 +618,22 @@ namespace FF4FabulGauntlet.Inventory
 					: i == 172 ? 540
 					: i == 173 ? 542
 					: i == 174 ? 538 : i;
-				newGroup.battle_background_asset_id = 1 + r1.Next() % 23;
-				while (newGroup.battle_background_asset_id == 15)
-					newGroup.battle_background_asset_id = 1 + r1.Next() % 23;
+
+				// Have a consistent background during each gauntlet.
+				if (lastBackgroundID == -1 || i % 10 == 1 || i > 150)
+                {
+					if (i >= 141 && i <= 150) // Set the last gauntlet to the final boss background.
+						lastBackgroundID = 23;
+					else
+                    {
+						lastBackgroundID = 1 + r1.Next() % 22;
+						// Reroll if 15 is rolled because the program locks up on ID 15.
+						while (lastBackgroundID == 15)
+							lastBackgroundID = 1 + r1.Next() % 22;
+                    }
+				} 
+				newGroup.battle_background_asset_id = lastBackgroundID;
+
 				// Baron Captain/General = Baron music
 				if (monster.Contains(30) || monster.Contains(31) || monster.Contains(45) || monster.Contains(46) || monster.Contains(206))
 					newGroup.battle_bgm_asset_id = 1;
@@ -746,6 +760,62 @@ namespace FF4FabulGauntlet.Inventory
 					newGroup.monster5_y_position = -10;
                 }
 				groups.Add(newGroup);
+
+				singleGroup newGroup2 = new singleGroup();
+                newGroup2.id = newGroup.id + 800;
+                newGroup2.battle_background_asset_id = newGroup.battle_background_asset_id;
+                newGroup2.battle_bgm_asset_id = newGroup.battle_bgm_asset_id;
+                newGroup2.appearance_production = newGroup.appearance_production;
+                newGroup2.script_name = newGroup.script_name;
+				// Make random encounters have various start effects.
+                newGroup2.battle_pattern1 = 1;
+                newGroup2.battle_pattern2 = 1;
+                newGroup2.battle_pattern3 = 0;
+                newGroup2.battle_pattern4 = 0;
+                newGroup2.battle_pattern5 = 1;
+                newGroup2.battle_pattern6 = 1;
+                newGroup2.not_escape = 0;
+                newGroup2.battle_flag_group_id = newGroup.battle_flag_group_id;
+                newGroup2.get_value = newGroup.get_value;
+                newGroup2.get_ap = newGroup.get_ap;
+                newGroup2.monster1 = newGroup.monster1;
+                newGroup2.monster1_x_position = newGroup.monster1_x_position;
+                newGroup2.monster1_y_position = newGroup.monster1_y_position;
+                newGroup2.monster1_group = newGroup.monster1_group;
+                newGroup2.monster2 = newGroup.monster2;
+                newGroup2.monster2_x_position = newGroup.monster2_x_position;
+                newGroup2.monster2_y_position = newGroup.monster2_y_position;
+                newGroup2.monster2_group = newGroup.monster2_group;
+                newGroup2.monster3 = newGroup.monster3;
+                newGroup2.monster3_x_position = newGroup.monster3_x_position;
+                newGroup2.monster3_y_position = newGroup.monster3_y_position;
+                newGroup2.monster3_group = newGroup.monster3_group;
+                newGroup2.monster4 = newGroup.monster4;
+                newGroup2.monster4_x_position = newGroup.monster4_x_position;
+                newGroup2.monster4_y_position = newGroup.monster4_y_position;
+                newGroup2.monster4_group = newGroup.monster4_group;
+                newGroup2.monster5 = newGroup.monster5;
+                newGroup2.monster5_x_position = newGroup.monster5_x_position;
+                newGroup2.monster5_y_position = newGroup.monster5_y_position;
+                newGroup2.monster5_group = newGroup.monster5_group;
+                newGroup2.monster6 = newGroup.monster6;
+                newGroup2.monster6_x_position = newGroup.monster6_x_position;
+                newGroup2.monster6_y_position = newGroup.monster6_y_position;
+                newGroup2.monster6_group = newGroup.monster6_group;
+                newGroup2.monster7 = newGroup.monster7;
+                newGroup2.monster7_x_position = newGroup.monster7_x_position;
+                newGroup2.monster7_y_position = newGroup.monster7_y_position;
+                newGroup2.monster7_group = newGroup.monster7_group;
+                newGroup2.monster8 = newGroup.monster8;
+                newGroup2.monster8_x_position = newGroup.monster8_x_position;
+                newGroup2.monster8_y_position = newGroup.monster8_y_position;
+                newGroup2.monster8_group = newGroup.monster8_group;
+                newGroup2.monster9 = newGroup.monster9;
+                newGroup2.monster9_x_position = newGroup.monster9_x_position;
+                newGroup2.monster9_y_position = newGroup.monster9_y_position;
+                newGroup2.monster9_group = newGroup.monster9_group;
+
+                groups.Add(newGroup2);
 			}
 
 			using (StreamWriter writer = new(Path.Combine(directory, "monster_party.csv")))
