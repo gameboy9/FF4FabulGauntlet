@@ -90,7 +90,7 @@ namespace FF4FabulGauntlet.Randomize
 
 								int trMinTier = Math.Max(1, randoLevel == 2 ? 1 : trMaxTier - 2);
 								// No super-items unless you're in the Lunar Subterranne
-								trMaxTier = Math.Min(fileName.Contains("Map_30251") && !noSuper ? 9 : 8, trMaxTier);
+								trMaxTier = Math.Min(!noSuper ? 9 : 8, trMaxTier);
 								trMinTier = Math.Min(8, trMinTier);
 								int trType = gold ? 0 : r1.Next() % 12;
 								int finalType = 0;

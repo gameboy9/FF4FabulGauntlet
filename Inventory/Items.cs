@@ -73,16 +73,16 @@ namespace FF4FabulGauntlet.Inventory
 		public const int arcticWind = 39; // t4
 		public const int zeusWrath = 40; // t1
 		public const int rageOfTheGods = 41; // t4
-		public const int gaiaDrum = 42; // t4
+		public const int gaiaDrum = 42; // t6
 		public const int bombCore = 43; // t3
-		public const int stardust = 44; // t4
+		public const int stardust = 44; // t5
 		public const int lilithKiss = 45; // t3
 		public const int vampireFang = 46; // t4
 		public const int spiderSilk = 47; // t3
 		public const int bellOfSilence = 48; // t2
 		public const int coeurlWhisker = 49; // t6
 		public const int bestiary = 50; // t1
-		public const int hourglass = 51; // t5
+		public const int hourglass = 51; // t6
 		public const int silverHourglass = 52; // t7
 		public const int goldenHourglass = 53; // t8
 		public const int bacchusCider = 54; // t4
@@ -96,9 +96,9 @@ namespace FF4FabulGauntlet.Inventory
 					bombFragment, antarcticWind, zeusWrath, bestiary },
 			  new List<int> { phoenixDown, bellOfSilence },
 			  new List<int> { hiPotion, goldNeedle, ether, cross, alarmClock, tent, bombCore, lilithKiss, spiderSilk, decoy },
-			  new List<int> { hiPotion, bombArm, arcticWind, rageOfTheGods, gaiaDrum, stardust, vampireFang, bacchusCider, hermesShoes },
-			  new List<int> { remedy, unicornHorn, siren, redFang, whiteFang, blueFang, hourglass },
-			  new List<int> { xPotion, dryEther, cottage, coeurlWhisker, lightCurtain },
+			  new List<int> { bombArm, arcticWind, rageOfTheGods, vampireFang, bacchusCider, hermesShoes },
+			  new List<int> { remedy, unicornHorn, siren, redFang, whiteFang, stardust, blueFang },
+			  new List<int> { xPotion, dryEther, cottage, coeurlWhisker, lightCurtain, hourglass, gaiaDrum },
 			  new List<int> { xPotion, silverApple, somaDrop, silverHourglass },
 			  new List<int> { elixer, goldenApple, goldenHourglass, lunarCurtain },
 			  new List<int> { elixer, goldenApple, goldenHourglass, lunarCurtain }

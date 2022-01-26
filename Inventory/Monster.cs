@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -148,13 +149,13 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 61, 62, 67, 7, 34, 71, 72, 29, 118, 89, 121, 68, 69, 123, 113, 78 }, // Troia / Zot Tower
 			new List<int> { 25, 83, 77, 26, 71, 65, 101, 104, 91, 88, 130, 93, 81, 117 }, // Dwarf Castle, Lower Babil
 			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133 }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133, 95 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 97, 98, 39, 90, 26, 91, 148, 50, 60, 110, 100, 6, 102, 77, 106, 79, 99, 63, 134, 133, 95, 182 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 119, 24, 18, 122, 116, 40, 103, 158, 143, 76, 70, 73, 75, 80, 92, 112, 120, 127, 142 }, // Cave Of Summons, other underground locations
 			new List<int> { 140, 126, 85, 125, 96, 114, 152, 139, 147, 54, 141, 161, 144, 154, 131, 128, 107, 106, 112, 115, 127 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109 }, // Lunar Subterrane / Giant Of Babil
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 132, 189, 190, 155 }, // Lunar Subterrane Part 2 (2 rounds)
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 132, 189, 190, 155,
-				162, 164, 165, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109, 182 }, // Lunar Subterrane / Giant Of Babil
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155, 182 }, // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
+				162, 164, 165, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 182, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
         readonly List<List<int>> monsterBosses = new()
@@ -162,24 +163,25 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 162, 31 }, // Outside Baron, Mist Cave, Mist/Kaipo
 			new List<int> { 163, 31 }, // Underground Waterway / Damcyan
 			new List<int> { 164, 165, 46 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
-			new List<int> { 166, 167 }, // Mysidia, Mt. Ordeals
-			new List<int> { 59, 168, 171, 173, 196 }, // Old Baron Waterway (or 173)
+			new List<int> { 166, 167, 206 }, // Mysidia, Mt. Ordeals
+			new List<int> { 59, 168, 171, 173, 196, 205 }, // Old Baron Waterway (or 173)
 			new List<int> { }, // Magnes Cave
 			new List<int> { 175, 178 }, // Troia / Zot Tower
 			new List<int> { 179, 211, 185, 183, 184 }, // Dwarf Castle, Lower Babil
-			new List<int> { }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 188 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 182 }, // Eblan Area, Upper Babil (2 rounds)
+			new List<int> { 188, 181 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 189, 190, 193 }, // Cave Of Summons, other underground locations
 			new List<int> { 189, 190, 193, 191 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 192, 194, 198 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 108, 150, 153, 159 }, // Lunar Subterrane Part 2  (2 rounds)
-			new List<int> { 162, 164, 165, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
+			new List<int> { 162, 164, 165, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
 			// Final boss:  217
 		};
 
         readonly List<int> allBosses = new()
         {
-			162, 31, 164, 165, 46, 166, 167, 168, 171, 225, 175, 178, 179, 211, 185, 183, 184, 188, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159
+			162, 31, 164, 165, 46, 166, 167, 168, 171, 173, 196, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159, // Actual bosses...
+			156, 160, 161, 145, 129, 132 // ... and Lunar Subteranne Core monsters - Blue Dragon, Red Dragon, Zemus's Breath and Mind, Behemoths, and Wicked Masks.
 		};
 
         readonly List<List<int>> xpLimits = new()
@@ -230,13 +232,13 @@ namespace FF4FabulGauntlet.Inventory
 			restrictedMonsters.Add(new limitedMonsters { id = 175, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 176, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 188, monsterLimit = 1, followUp = -1 }); // Rubicante
+			restrictedMonsters.Add(new limitedMonsters { id = 182, monsterLimit = 1, followUp = -1 }); // Shadow Dragon
 			restrictedMonsters.Add(new limitedMonsters { id = 178, monsterLimit = 1, followUp = -1 }); // Barbariccia
 			restrictedMonsters.Add(new limitedMonsters { id = 171, monsterLimit = 1, followUp = -1 }); // Cagnazzo
 			restrictedMonsters.Add(new limitedMonsters { id = 173, monsterLimit = 1, followUp = -1 }); // Dark Elf
-			restrictedMonsters.Add(new limitedMonsters { id = 153, monsterLimit = 1, followUp = -1 }); // Dark Bahamut - also put an HP percentage on that... Meganuke + HP percentage attack would be BRUTAL
+			restrictedMonsters.Add(new limitedMonsters { id = 153, monsterLimit = 1, followUp = -1, hpPercentage = 50 }); // Dark Bahamut - also put an HP percentage on that... Meganuke + HP percentage attack would be BRUTAL
 			restrictedMonsters.Add(new limitedMonsters { id = 108, monsterLimit = 1, followUp = -1 }); // Plague
-			restrictedMonsters.Add(new limitedMonsters { id = 156, monsterLimit = 2, followUp = -1 }); // Blue Dragon - 2 monster limit
-			restrictedMonsters.Add(new limitedMonsters { id = 160, monsterLimit = 2, followUp = -1 }); // Red Dragon - 2 monster limit
+			restrictedMonsters.Add(new limitedMonsters { id = 194, monsterLimit = 1, followUp = -1 }); // Elemental Lord (Only 1 target mutates in a 2 Lord situation)
 			// Chimera, Mech Dragon, Silver Dragon, and Lunasaurs all have a 20% HP to all characters attack (Blaze typically)
 			restrictedMonsters.Add(new limitedMonsters { id = 88, hpPercentage = 20 });
 			restrictedMonsters.Add(new limitedMonsters { id = 111, hpPercentage = 20 });
@@ -248,25 +250,29 @@ namespace FF4FabulGauntlet.Inventory
 			// The Attack Node (from the CPU) deals 10% HP to all / turn
 			restrictedMonsters.Add(new limitedMonsters { id = 214, hpPercentage = 10 });
 
+			randomizeZemusBreath(r1, allMonsters, restrictedMonsters, directory);
+
 			// Do not choose Mystery Eggs... they're going to softlock the game without some serious work. (224)
-			// Do not also choose Golbez or the Shadow Dragons... that's just going to get screwy in a hurry. (177, 274, 181, 182)
+			// Do not also choose Golbez or the Shadow Dragons... that's just going to get screwy in a hurry. (177, 274)
 			// No Zemus or Zeromus either for obvious reasons.  :) (200, 201, 202, 217)
 			// No Dark Elves unless they transition to the Dark Dragon. (172, 225)
 			// No Li'l Murderer's.  They wind up crashing the game with their mere existance, sadly. (33)
 			// Let's avoid trap doors for now.  (124)
 			// Remove the King and Queen of Eblan (186, 187)
 			// Calcobrena cannot show up in a monster group.  (but the dolls can combine into Calcobrena) (180)
-			// Do not include "character" fights (203, 204, 205, 206, 207)
+			// Do not include "character" fights except Dark Knight since we fixed that. (203, 204, 206, 207)
 			// Remove Barnabas-Z and Attack Node since they're worth 20 and 0 XP respectively; not appropriate for "non-area appropriate" flags. (212, 213)
-			// Remove Zemus's Breath since they don't do anything except really slow down a battle.  (129)
 			// Do not include the Edge Rubicante fight because it's scripted.  (226)
-			List<int> badMonsters = new(){ 224, 177, 181, 274, 182, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 205, 206, 207, 212, 213, 129, 226 };
+			// Do not include Elemental Lords except the first phase.  (195, 227, 228)
+			// Let's remove "follow up monsters"... Cindy... Mindy... Nodes... Arms... etc. (199, 214, 169, 170, 175, 176)
+			List<int> badMonsters = new(){ 224, 177, 274, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 207, 212, 213, 226, 195, 227, 228, 199, 214, 169, 170, 175, 176 };
 
 			List<singleGroup> groups = new();
 
 			List<int> monster = new();
 			int lastMonster;
 			int maxPercentHP;
+			int lastBackgroundID = -1;
 			bool valid;
 
 			for (int i = 1; i <= 174; i++)
@@ -306,7 +312,10 @@ namespace FF4FabulGauntlet.Inventory
 						}
 						else
 						{
-							iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+							if (i % 10 == 0 && j == 0)
+								iMonsterList = allMonsters.Where(c => allBosses.Contains(c.id) && c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+							else
+								iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
 						}
 
 						iMonsterList = iMonsterList.Where(c => !badMonsters.Contains(c.id)).ToList();
@@ -340,6 +349,14 @@ namespace FF4FabulGauntlet.Inventory
 								lastMonster = -1;
 								continue;
 							}
+							// Do not allow Calco nor Brena to appear unless the original XP limit exceeds 8000.
+							// If we don't include this prohibition, these bosses would appear in the Mist Cave in hard or higher difficulty.
+							// There's hard... and then there's unfair...
+							if ((chosenMonster.id == 179 || chosenMonster.id == 211) && origXpLimit < 8000)
+                            {
+								lastMonster = -1;
+								continue;
+                            }								
 
 							limitedMonsters monsterLimit = restrictedMonsters.Where(c => c.id == chosenMonster.id).FirstOrDefault();
 							if (monsterLimit != null)
@@ -390,32 +407,70 @@ namespace FF4FabulGauntlet.Inventory
 								lastMonster = 212;
 								j++;
 							}
-							else if (chosenMonster.id == 168 && monster.Count < 8) // If we see Baigan...
+							else if (chosenMonster.id == 168) // If we see Baigan...
 							{
-								monster.Add(169); // Add the arms!
-								monster.Add(170);
-								xpLimit -= allMonsters.Where(c => c.id == 169).First().exp;
-								xpLimit -= allMonsters.Where(c => c.id == 170).First().exp;
-								lastMonster = -1;
-								j += 2;
+								if (monster.Count < 8)
+                                {
+									monster.Add(169); // Add the arms!
+									monster.Add(170);
+									xpLimit -= allMonsters.Where(c => c.id == 169).First().exp;
+									xpLimit -= allMonsters.Where(c => c.id == 170).First().exp;
+									lastMonster = -1;
+									j += 2;
+								}
+								else
+								{
+									lastMonster = -1;
+									continue;
+								}
 							}
-							else if (chosenMonster.id == 175 && monster.Count < 8) // If we see Cindy...
+							else if (chosenMonster.id == 175) // If we see Cindy...
 							{
-								monster.Add(174); // Add Sandy and Mindy!
-								monster.Add(176);
-								xpLimit -= allMonsters.Where(c => c.id == 176).First().exp;
-								xpLimit -= allMonsters.Where(c => c.id == 174).First().exp;
-								lastMonster = -1;
-								j += 2;
+								if (monster.Count < 8)
+                                {
+									monster.Add(174); // Add Sandy and Mindy!
+									monster.Add(176);
+									xpLimit -= allMonsters.Where(c => c.id == 176).First().exp;
+									xpLimit -= allMonsters.Where(c => c.id == 174).First().exp;
+									lastMonster = -1;
+									j += 2;
+								} 
+								else
+                                {
+									lastMonster = -1;
+									continue;
+                                }
+							}
+							else if (chosenMonster.id == 181) // If we see Golbez...
+							{
+								if (monster.Count < 9)
+								{
+									monster.Add(182); // Add a Shadow Dragon
+									xpLimit -= allMonsters.Where(c => c.id == 182).First().exp;
+									lastMonster = -1;
+									j += 1;
+								}
+								else
+								{
+									lastMonster = -1;
+									continue;
+								}
 							}
 							else if (chosenMonster.id == 198 && monster.Count < 8) // If we see CPU...
 							{
-								monster.Add(199); // Add the attack and defense nodes!
-								monster.Add(214);
-								xpLimit -= allMonsters.Where(c => c.id == 199).First().exp;
-								xpLimit -= allMonsters.Where(c => c.id == 214).First().exp;
-								lastMonster = -1;
-								j += 2;
+								if (monster.Count < 8)
+                                {
+									monster.Add(199); // Add the attack and defense nodes!
+									monster.Add(214);
+									xpLimit -= allMonsters.Where(c => c.id == 199).First().exp;
+									xpLimit -= allMonsters.Where(c => c.id == 214).First().exp;
+									lastMonster = -1;
+									j += 2;
+								} else
+                                {
+									lastMonster = -1;
+									continue;
+                                }
 							}
 							else if (chosenMonster.id == 179 && monster.Count < 9) // If we see Calco...
 							{
@@ -469,6 +524,8 @@ namespace FF4FabulGauntlet.Inventory
 							{
 								if (monsterLimit.monsterLimit == 1)
 									lastMonster = monsterLimit.followUp;
+								if (lastMonster == -1)
+									break;
 
 								maxPercentHP += monsterLimit.hpPercentage;
 								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
@@ -493,6 +550,29 @@ namespace FF4FabulGauntlet.Inventory
 						if (normalDup)
 							valid = false;
 					}
+
+					// Remove Scarmiglione if there's a monster stronger than that.
+					if (monster.Contains(166) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 3000 && c.id != 166).Any())
+					{
+						monster.Remove(166);
+						xpLimit += 3200;
+					}
+					// Remove Octomammoth if there's a monster stronger than that.
+					if (monster.Contains(163) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 1200 && c.id != 163).Any())
+                    {
+						monster.Remove(163);
+						xpLimit += 1200;
+					}
+					// CPU > Baigan
+					if (monster.Contains(198) && monster.Contains(169))	{ monster.Remove(169); xpLimit += 10; }
+					if (monster.Contains(198) && monster.Contains(168)) { monster.Remove(168); xpLimit += 4800; }
+					if (monster.Contains(198) && monster.Contains(170)) { monster.Remove(170); xpLimit += 10; }
+					// Dr. Lugae/Barnabas > Cindy/Mindy/Sandy > Scarmiglione
+					if (monster.Contains(183) && monster.Contains(174))	{ monster.Remove(174); xpLimit += 2500; }
+					if (monster.Contains(183) && monster.Contains(175))	{ monster.Remove(175); xpLimit += 2500; }
+					if (monster.Contains(183) && monster.Contains(176))	{ monster.Remove(176); xpLimit += 2500; }
+					if (monster.Contains(183) && monster.Contains(166))	{ monster.Remove(166); xpLimit += 3200; }
+					if (monster.Contains(174) && monster.Contains(166))	{ monster.Remove(166); xpLimit += 3200; }
 				}
 
 				if (i == 150)
@@ -538,24 +618,42 @@ namespace FF4FabulGauntlet.Inventory
 					: i == 172 ? 540
 					: i == 173 ? 542
 					: i == 174 ? 538 : i;
-				newGroup.battle_background_asset_id = 1 + r1.Next() % 23;
-				while (newGroup.battle_background_asset_id == 15)
-					newGroup.battle_background_asset_id = 1 + r1.Next() % 23;
+
+				// Have a consistent background during each gauntlet.
+				if (lastBackgroundID == -1 || i % 10 == 1 || i > 150)
+                {
+					if (i >= 141 && i <= 150) // Set the last gauntlet to the final boss background.
+						lastBackgroundID = 23;
+					else
+                    {
+						lastBackgroundID = 1 + r1.Next() % 22;
+						// Reroll if 15 is rolled because the program locks up on ID 15.
+						while (lastBackgroundID == 15)
+							lastBackgroundID = 1 + r1.Next() % 22;
+                    }
+				} 
+				newGroup.battle_background_asset_id = lastBackgroundID;
+
 				// Baron Captain/General = Baron music
-				if (monster.Contains(30) || monster.Contains(31) || monster.Contains(45) || monster.Contains(46))
+				if (monster.Contains(30) || monster.Contains(31) || monster.Contains(45) || monster.Contains(46) || monster.Contains(206))
 					newGroup.battle_bgm_asset_id = 1;
-				else if (monster.Contains(165))
-					// Mom Bomb music?
-					newGroup.battle_bgm_asset_id = 13;
+				else if (monster.Contains(192)) // Demon Wall
+					newGroup.battle_bgm_asset_id = 20;
 				else if (monster.Contains(183) || monster.Contains(184) || monster.Contains(185) || monster.Contains(213) || monster.Contains(180) || monster.Contains(179) || monster.Contains(211))
 					// Lugae / Calcobrena music
 					newGroup.battle_bgm_asset_id = 35;
+				else if (monster.Contains(181)) // Golbez
+					newGroup.battle_bgm_asset_id = 22;
+				else if (monster.Contains(173)) // Dark Elf
+					newGroup.battle_bgm_asset_id = 17;
+				else if (monster.Contains(205)) // Yang
+					newGroup.battle_bgm_asset_id = 19;
 				else if (monster.Contains(166) || monster.Contains(167) || monster.Contains(171) || monster.Contains(178) || monster.Contains(188) || monster.Contains(194) || monster.Contains(195) || monster.Contains(227) || monster.Contains(228))
 					// Fiend music
 					newGroup.battle_bgm_asset_id = 27;
 				else if (monster.Contains(202)) // Zeromus - final battle
 					newGroup.battle_bgm_asset_id = 42;
-				else if ((i >= 141 && i <= 149) || i % 10 == 0) // Regular boss music
+				else if ((i >= 141 && i <= 149) || i % 10 == 0 || allBosses.Where(c => monster.Contains(c)).Any()) // Regular boss music
 					newGroup.battle_bgm_asset_id = 12;
 				else // Regular battle music
 					newGroup.battle_bgm_asset_id = 7;
@@ -611,58 +709,36 @@ namespace FF4FabulGauntlet.Inventory
 					newGroup.monster8 = monster.Count >= 9 ? monster[8] : 0;
 				}
 
-				// If Sandy is in this group, we'll want to swap her into monster 9.
-				if (newGroup.monster1 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster1 = temp; }
-				if (newGroup.monster2 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster2 = temp; }
-				if (newGroup.monster3 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster3 = temp; }
-				if (newGroup.monster4 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster4 = temp; }
-				if (newGroup.monster5 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster5 = temp; }
-				if (newGroup.monster6 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster6 = temp; }
-				if (newGroup.monster7 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster7 = temp; }
-				if (newGroup.monster8 == 174) { int temp = newGroup.monster9; newGroup.monster9 = 174; newGroup.monster8 = temp; }
+				// Move Dark Elf to position 1; Dark Elf won't transform otherwise.  (in vanilla it would have to be position 5; an AI change moves it to position 1)
+				monsterSwap(newGroup, 173, 1);
 
-				// If Cindy is in this group, we'll want to swap her into monster 6.
-				if (newGroup.monster1 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster1 = temp; }
-				if (newGroup.monster2 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster2 = temp; }
-				if (newGroup.monster3 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster3 = temp; }
-				if (newGroup.monster4 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster4 = temp; }
-				if (newGroup.monster5 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster5 = temp; }
-				if (newGroup.monster6 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster6 = temp; }
-				if (newGroup.monster7 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster7 = temp; }
-				if (newGroup.monster8 == 175) { int temp = newGroup.monster6; newGroup.monster6 = 175; newGroup.monster8 = temp; }
+				// Move Octomammoth to position 4; it won't be defeated otherwise.  (in vanilla it would have to be position 5; an AI change moves it to position 4)
+				monsterSwap(newGroup, 163, 4);
 
-				// If Mindy is in this group, we'll want to swap her into monster 3.
-				if (newGroup.monster1 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster1 = temp; }
-				if (newGroup.monster2 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster2 = temp; }
-				if (newGroup.monster3 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster3 = temp; }
-				if (newGroup.monster4 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster4 = temp; }
-				if (newGroup.monster5 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster5 = temp; }
-				if (newGroup.monster6 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster6 = temp; }
-				if (newGroup.monster7 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster7 = temp; }
-				if (newGroup.monster8 == 176) { int temp = newGroup.monster3; newGroup.monster3 = 176; newGroup.monster8 = temp; }
+				// If Sandy/Cindy/Mindy is in this group, we'll want to swap them into monster 9/6/3.
+				monsterSwap(newGroup, 174, 9);
+				monsterSwap(newGroup, 175, 6);
+				monsterSwap(newGroup, 176, 3);
 
-				// If Scarmiglione I is in this group, we'll want to swap him into monster 9. (This has priority over Sandy.  If Scar is anywhere else, it becomes a "free battle".
-				if (newGroup.monster1 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster1 = temp; }
-				if (newGroup.monster2 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster2 = temp; }
-				if (newGroup.monster3 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster3 = temp; }
-				if (newGroup.monster4 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster4 = temp; }
-				if (newGroup.monster5 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster5 = temp; }
-				if (newGroup.monster6 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster6 = temp; }
-				if (newGroup.monster7 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster7 = temp; }
-				if (newGroup.monster8 == 166) { int temp = newGroup.monster9; newGroup.monster9 = 166; newGroup.monster8 = temp; }
+				// If Scarmiglione I is in this group, we'll want to swap him into monster 9. (This has priority over Sandy.  If Scar is anywhere else, it becomes a "free battle".)
+				monsterSwap(newGroup, 166, 9);
 
 				// Dark Bahamut needs to be in position 5, or he won't reflect Flares..
-				if (newGroup.monster1 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster1 = temp; }
-				if (newGroup.monster2 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster2 = temp; }
-				if (newGroup.monster3 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster3 = temp; }
-				if (newGroup.monster4 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster4 = temp; }
-				if (newGroup.monster6 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster6 = temp; }
-				if (newGroup.monster7 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster7 = temp; }
-				if (newGroup.monster8 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster8 = temp; }
-				if (newGroup.monster9 == 153) { int temp = newGroup.monster5; newGroup.monster5 = 153; newGroup.monster9 = temp; }
+				monsterSwap(newGroup, 153, 5);
 
-				// Move Zeromus to position 9.
-				if (newGroup.monster5 == 202) { newGroup.monster5 = 0; newGroup.monster9 = 202; }
+				// If Baigan is in this group, we'll want to swap them into monster 8/5/2.
+				monsterSwap(newGroup, 169, 8);
+				monsterSwap(newGroup, 168, 5);
+				monsterSwap(newGroup, 170, 2);
+
+				// If Dr. Lugae/Balnab is in this group, we'll want to swap them into monster 9/6.
+				monsterSwap(newGroup, 183, 9);
+				monsterSwap(newGroup, 184, 6);
+
+				// If CPU/Attack/Defense is in this group, we'll want to swap her into monster 8/5/2.
+				monsterSwap(newGroup, 198, 8);
+				monsterSwap(newGroup, 199, 5);
+				monsterSwap(newGroup, 214, 2);
 
 				newGroup.monster1_group = newGroup.monster2_group = newGroup.monster3_group = newGroup.monster4_group = newGroup.monster5_group = 
 					newGroup.monster6_group = newGroup.monster7_group = newGroup.monster8_group = newGroup.monster9_group = 1;
@@ -677,7 +753,69 @@ namespace FF4FabulGauntlet.Inventory
 				newGroup.monster9_x_position = 0;
 				newGroup.monster1_y_position = newGroup.monster2_y_position = newGroup.monster3_y_position = newGroup.monster4_y_position = newGroup.monster5_y_position = 
 					newGroup.monster6_y_position = newGroup.monster7_y_position = newGroup.monster8_y_position = newGroup.monster9_y_position = 0;
+
+				if (newGroup.monster5 == 202)
+                {
+					newGroup.monster5_x_position = 0;
+					newGroup.monster5_y_position = -10;
+                }
 				groups.Add(newGroup);
+
+				singleGroup newGroup2 = new singleGroup();
+                newGroup2.id = newGroup.id + 800;
+                newGroup2.battle_background_asset_id = newGroup.battle_background_asset_id;
+                newGroup2.battle_bgm_asset_id = newGroup.battle_bgm_asset_id;
+                newGroup2.appearance_production = newGroup.appearance_production;
+                newGroup2.script_name = newGroup.script_name;
+				// Make random encounters have various start effects.
+                newGroup2.battle_pattern1 = 1;
+                newGroup2.battle_pattern2 = 1;
+                newGroup2.battle_pattern3 = 0;
+                newGroup2.battle_pattern4 = 0;
+                newGroup2.battle_pattern5 = 1;
+                newGroup2.battle_pattern6 = 1;
+                newGroup2.not_escape = 0;
+                newGroup2.battle_flag_group_id = newGroup.battle_flag_group_id;
+                newGroup2.get_value = newGroup.get_value;
+                newGroup2.get_ap = newGroup.get_ap;
+                newGroup2.monster1 = newGroup.monster1;
+                newGroup2.monster1_x_position = newGroup.monster1_x_position;
+                newGroup2.monster1_y_position = newGroup.monster1_y_position;
+                newGroup2.monster1_group = newGroup.monster1_group;
+                newGroup2.monster2 = newGroup.monster2;
+                newGroup2.monster2_x_position = newGroup.monster2_x_position;
+                newGroup2.monster2_y_position = newGroup.monster2_y_position;
+                newGroup2.monster2_group = newGroup.monster2_group;
+                newGroup2.monster3 = newGroup.monster3;
+                newGroup2.monster3_x_position = newGroup.monster3_x_position;
+                newGroup2.monster3_y_position = newGroup.monster3_y_position;
+                newGroup2.monster3_group = newGroup.monster3_group;
+                newGroup2.monster4 = newGroup.monster4;
+                newGroup2.monster4_x_position = newGroup.monster4_x_position;
+                newGroup2.monster4_y_position = newGroup.monster4_y_position;
+                newGroup2.monster4_group = newGroup.monster4_group;
+                newGroup2.monster5 = newGroup.monster5;
+                newGroup2.monster5_x_position = newGroup.monster5_x_position;
+                newGroup2.monster5_y_position = newGroup.monster5_y_position;
+                newGroup2.monster5_group = newGroup.monster5_group;
+                newGroup2.monster6 = newGroup.monster6;
+                newGroup2.monster6_x_position = newGroup.monster6_x_position;
+                newGroup2.monster6_y_position = newGroup.monster6_y_position;
+                newGroup2.monster6_group = newGroup.monster6_group;
+                newGroup2.monster7 = newGroup.monster7;
+                newGroup2.monster7_x_position = newGroup.monster7_x_position;
+                newGroup2.monster7_y_position = newGroup.monster7_y_position;
+                newGroup2.monster7_group = newGroup.monster7_group;
+                newGroup2.monster8 = newGroup.monster8;
+                newGroup2.monster8_x_position = newGroup.monster8_x_position;
+                newGroup2.monster8_y_position = newGroup.monster8_y_position;
+                newGroup2.monster8_group = newGroup.monster8_group;
+                newGroup2.monster9 = newGroup.monster9;
+                newGroup2.monster9_x_position = newGroup.monster9_x_position;
+                newGroup2.monster9_y_position = newGroup.monster9_y_position;
+                newGroup2.monster9_group = newGroup.monster9_group;
+
+                groups.Add(newGroup2);
 			}
 
 			using (StreamWriter writer = new(Path.Combine(directory, "monster_party.csv")))
@@ -700,5 +838,104 @@ namespace FF4FabulGauntlet.Inventory
 				csv.WriteRecords(allMonsters);
 			}
 		}
+
+		private singleGroup monsterSwap(singleGroup newGroup, int monsterID, int newPosition)
+        {
+			int temp = 0;
+			int oldPosition = 0;
+
+			if (newGroup.monster1 == monsterID) oldPosition = 1;
+			else if (newGroup.monster2 == monsterID) oldPosition = 2;
+			else if (newGroup.monster3 == monsterID) oldPosition = 3;
+			else if (newGroup.monster4 == monsterID) oldPosition = 4;
+			else if (newGroup.monster5 == monsterID) oldPosition = 5;
+			else if (newGroup.monster6 == monsterID) oldPosition = 6;
+			else if (newGroup.monster7 == monsterID) oldPosition = 7;
+			else if (newGroup.monster8 == monsterID) oldPosition = 8;
+			else if (newGroup.monster9 == monsterID) oldPosition = 9;
+
+			if (oldPosition != 0)
+            {
+				switch (newPosition)
+				{
+					case 1: temp = newGroup.monster1; newGroup.monster1 = monsterID; break;
+					case 2: temp = newGroup.monster2; newGroup.monster2 = monsterID; break;
+					case 3: temp = newGroup.monster3; newGroup.monster3 = monsterID; break;
+					case 4: temp = newGroup.monster4; newGroup.monster4 = monsterID; break;
+					case 5: temp = newGroup.monster5; newGroup.monster5 = monsterID; break;
+					case 6: temp = newGroup.monster6; newGroup.monster6 = monsterID; break;
+					case 7: temp = newGroup.monster7; newGroup.monster7 = monsterID; break;
+					case 8: temp = newGroup.monster8; newGroup.monster8 = monsterID; break;
+					case 9:	temp = newGroup.monster9; newGroup.monster9 = monsterID; break;
+				}
+
+				switch (oldPosition)
+                {
+					case 1: newGroup.monster1 = temp; break;
+					case 2: newGroup.monster2 = temp; break;
+					case 3: newGroup.monster3 = temp; break;
+					case 4: newGroup.monster4 = temp; break;
+					case 5: newGroup.monster5 = temp; break;
+					case 6: newGroup.monster6 = temp; break;
+					case 7: newGroup.monster7 = temp; break;
+					case 8: newGroup.monster8 = temp; break;
+					case 9: newGroup.monster9 = temp; break;
+                }
+			}
+
+			return newGroup;
+		}
+
+		private bool randomizeZemusBreath(Random r1, List<singleMonster> allMonsters, List<limitedMonsters> restrictedMonsters, string directory)
+        {
+			// 24, 25, 76, 98, 106, 114, 116
+			// 109, 113, 124, 125, 126, 133, 137
+			int[] eligibleActions = new int[] 
+				{ 1, 23, 33, 34, 35, 36, 37, 38, 39, 40, 41, 
+					47, 48, 49, 51, 52, 54, 55, 56, 57, 
+					58, 59, 61, 65, 66, 67, 68, 69, 71, 73, 
+					75, 85, 86, 87, 88, 94, 95, 96, 99, 100, 
+					101, 103, 106, 109, 111, 113, 114, 116, 118, 120, 
+					122, 124, 125, 126, 127, 128, 133, 134, 135, 137, 138, 139,
+					142, 144, 145, 148, 149, 150, 156, 163, 164, 165, 215, 233, 
+					301, 302, 303, 347, 348, 352, 297, 442 };
+			int[] magicPower = new int[]
+				{ 99, 9, 99, 48, 12, 99, 48, 12, 99, 48, 12,
+					99, 24, 99, 99, 5, 1, 8, 99, 13,
+					8, 25, 99, 99, 25, 25, 25, 13, 51, 7,
+					4, 13, 9, 7, 99, 5, 5, 99, 5, 99,
+					99, 99, 99, 99, 99, 99, 99, 99, 99, 99,
+					99, 99, 99, 99, 99, 51, 99, 51, 2, 99, 99, 99,
+					3, 6, 13, 99, 1, 5, 17, 76, 99, 51, 99, 6,
+					17, 17, 17, 8, 4, 8, 99, 99 };
+
+			string json = File.ReadAllText(Path.Combine("Res", "Battle", "MonsterAI", "sc_ai_129_Zemus'sBreath.json"));
+			MonsterAiJSON zemusBreath = JsonConvert.DeserializeObject<MonsterAiJSON>(json);
+			foreach(var ev in zemusBreath.Mnemonics)
+            {
+				if (ev.mnemonic == "Act")
+				{
+					int i = r1.Next() % eligibleActions.Length;
+					ev.operands.iValues[0] = eligibleActions[i];
+
+					allMonsters[127].magic = magicPower[i];
+					allMonsters[127].spirit = magicPower[i];
+					allMonsters[127].intelligence = magicPower[i];
+
+					if (new int[] { 113, 124, 125, 126, 133, 137 }.Contains(eligibleActions[i]))
+						restrictedMonsters.Add(new limitedMonsters { id = 129, monsterLimit = 1, followUp = -1, hpPercentage = 50 });
+					else
+						restrictedMonsters.Add(new limitedMonsters { id = 129, monsterLimit = 1, followUp = -1 });
+				}
+			}
+
+			JsonSerializer serializer = new();
+
+			using StreamWriter sw = new(Path.Combine(directory, "..", "..", "Res", "Battle", "MonsterAI", "sc_ai_129_Zemus'sBreath.json"));
+			using JsonWriter writer = new JsonTextWriter(sw);
+			serializer.Serialize(writer, zemusBreath);
+
+			return true;
+        }
 	}
 }

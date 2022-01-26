@@ -152,7 +152,7 @@ namespace FF4FabulGauntlet.Randomize
 			return shopDB;
 		}
 
-		public Shops(Random r1, int randoLevel, int freqLevel, bool noJ, bool noSuper, string fileName, bool includeBonus)
+		public Shops(Random r1, int randoLevel, int freqLevel, bool noJ, bool noSuper, string fileName, bool includeBonus, bool mandatorySirens)
 		{
 			List<shopItem> shopDB = new List<shopItem>();
 			List<shopItem> shopWorking = new List<shopItem>();
@@ -169,8 +169,8 @@ namespace FF4FabulGauntlet.Randomize
 					shopItem newItem = new shopItem();
 					newItem.group_id = allStores[i];
 					newItem.id = id;
-					int minTier = randoLevel == 0 ? stdMinTier[i] : randoLevel == 1 ? proMinTier[i] : 1;
-					int maxTier = randoLevel == 0 ? stdMaxTier[i] : randoLevel == 1 ? proMaxTier[i] : noSuper ? 8 : 9;
+					int minTier = randoLevel <= 1 ? stdMinTier[i] : randoLevel == 2 ? proMinTier[i] : 1;
+					int maxTier = randoLevel == 0 ? stdMaxTier[i] + 1 : randoLevel == 1 ? stdMaxTier[i] : randoLevel == 2 ? proMaxTier[i] : noSuper ? 8 : 9;
 
 					// Alternate between weapons, armor, and item stores, so each place has at least one of each.
 					switch (itemType)
@@ -193,44 +193,24 @@ namespace FF4FabulGauntlet.Randomize
 						id++;
 					}
 				}
+
 				// The store after Upper Babil must have a hi-Potion(in case there are no white mages in the party) and a tent(in case you are forced to grind between gauntlets). (damage floors)
-				if (allStores[i] == upperBabil2 && shopWorking.Where(c => c.id == Inventory.Items.hiPotion).Count() == 0)
-				{
-					shopItem newItem = new shopItem();
-					newItem.group_id = allStores[i];
-					newItem.id = id;
-					newItem.content_id = Inventory.Items.hiPotion;
-					shopWorking.Add(newItem);
-					id++;
-				}
-				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.tent).Count() == 0)
-				{
-					shopItem newItem = new shopItem();
-					newItem.group_id = allStores[i];
-					newItem.id = id;
-					newItem.content_id = Inventory.Items.tent;
-					shopWorking.Add(newItem);
-					id++;
-				}
-				// The Crystal Palace must have an X-Potion(in case there are no white mages in the party) and a Cottage(in case you are forced to grind between gauntlets). (Zeromus)
-				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.xPotion).Count() == 0) 
-				{
-					shopItem newItem = new shopItem();
-					newItem.group_id = allStores[i];
-					newItem.id = id;
-					newItem.content_id = Inventory.Items.xPotion;
-					shopWorking.Add(newItem);
-					id++;
-				}
-				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.id == Inventory.Items.cottage).Count() == 0)
-				{
-					shopItem newItem = new shopItem();
-					newItem.group_id = allStores[i];
-					newItem.id = id;
-					newItem.content_id = Inventory.Items.cottage;
-					shopWorking.Add(newItem);
-					id++;
-				}
+				if (allStores[i] == upperBabil2 && shopWorking.Where(c => c.content_id == Inventory.Items.hiPotion).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.hiPotion, allStores[i], ref id));
+				if (allStores[i] == upperBabil2 && shopWorking.Where(c => c.content_id == Inventory.Items.tent).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.tent, allStores[i], ref id));
+				// The Crystal Palace must have an X-Potion(in case there are no white mages in the party), a Cottage(in case you are forced to grind between gauntlets) (Zeromus), and a Light Curtain (in case of Meganuke fights). 
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.content_id == Inventory.Items.xPotion).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.xPotion, allStores[i], ref id));
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.content_id == Inventory.Items.cottage).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.cottage, allStores[i], ref id));
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.content_id == Inventory.Items.lightCurtain).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.lightCurtain, allStores[i], ref id));
+				if (allStores[i] == crystalPalace2 && shopWorking.Where(c => c.content_id == Inventory.Items.phoenixDown).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.phoenixDown, allStores[i], ref id));
+				if (mandatorySirens && itemType == 2 && shopWorking.Where(c => c.content_id == Inventory.Items.siren).Count() == 0)
+					shopWorking.Add(addManualItem(Inventory.Items.siren, allStores[i], ref id));
+
 				shopDB.AddRange(shopWorking.OrderBy(c => c.content_id));
 			}
 
@@ -258,6 +238,17 @@ namespace FF4FabulGauntlet.Randomize
 				sw.WriteLine(finalID + ",0,111,60,0");  finalID++;
 				sw.WriteLine(finalID + ",0,112,200,0"); finalID++;
 			}
+		}
+
+		private shopItem addManualItem(int item, int group_id, ref int id)
+        {
+			shopItem newItem = new shopItem();
+			newItem.group_id = group_id;
+			newItem.id = id;
+			newItem.content_id = item;
+			id++;
+
+			return newItem;
 		}
 	}
 }
