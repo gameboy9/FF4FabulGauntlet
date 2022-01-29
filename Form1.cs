@@ -41,7 +41,7 @@ namespace FF4FabulGauntlet
 			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { removeBonusItems, exCecil, exCid, exEdge, exEdward, exFusoya }));
 			flags += convertIntToChar(firstHero.SelectedIndex);
 			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exKain, exPalom, exPorom, exRosa, exRydia, exTellah }));
-			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exYang, requireSirens, randomEscape }));
+			flags += convertIntToChar(checkboxesToNumber(new CheckBox[] { exYang, requireSirens, randomEscape, removeFGExclusiveItems, exPaladinCecil }));
 			RandoFlags.Text = flags;
 
 			//flags = "";
@@ -80,7 +80,7 @@ namespace FF4FabulGauntlet
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(7, 1))), new CheckBox[] { removeBonusItems, exCecil, exCid, exEdge, exEdward, exFusoya });
 			firstHero.SelectedIndex = convertChartoInt(Convert.ToChar(flags.Substring(8, 1))) % 16;
 			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(9, 1))), new CheckBox[] { exKain, exPalom, exPorom, exRosa, exRydia, exTellah });
-			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(10, 1))), new CheckBox[] { exYang, requireSirens, randomEscape });
+			numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(10, 1))), new CheckBox[] { exYang, requireSirens, randomEscape, removeFGExclusiveItems, exPaladinCecil });
 
 			//flags = VisualFlags.Text;
 			//numberToCheckboxes(convertChartoInt(Convert.ToChar(flags.Substring(0, 1))), new CheckBox[] { CuteHats });
@@ -198,9 +198,9 @@ namespace FF4FabulGauntlet
 			}
 
 			update();
-			randomizeParty();
-			randomizeShops();
-			randomizeTreasures();
+			int[] party = randomizeParty();
+			randomizeShops(party);
+			randomizeTreasures(party);
 			priceAdjustment();
 			randomizeMonstersWithBoost();
 			new Inventory.Map(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"),
@@ -240,7 +240,7 @@ namespace FF4FabulGauntlet
 			new Inventory.Areas(Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), 11);
 		}
 
-		private void randomizeParty()
+		private int[] randomizeParty()
 		{
 			int battles = numRounds.SelectedIndex == 0 ? 10 :
 				numRounds.SelectedIndex == 1 ? 8 :
@@ -250,20 +250,21 @@ namespace FF4FabulGauntlet
 				numRounds.SelectedIndex == 5 ? 3 :
 				numRounds.SelectedIndex == 6 ? 2 : 1;
 			r1 = new Random(Convert.ToInt32(RandoSeed.Text));
-			new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked, Convert.ToInt32(numHeroes.SelectedItem), exPaladinCecil.Checked, 
+			Randomize.Party party = new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked, Convert.ToInt32(numHeroes.SelectedItem), exPaladinCecil.Checked, 
 				new bool[] { exCecil.Checked, exKain.Checked, exRydia.Checked, exTellah.Checked, exEdward.Checked, exRosa.Checked, exYang.Checked, exPalom.Checked, exPorom.Checked, exCid.Checked, exEdge.Checked, exFusoya.Checked, exPaladinCecil.Checked });
+			return party.getParty();
 		}
 
-		private void randomizeShops()
+		private void randomizeShops(int[] party)
 		{
 			// RandoShop.SelectedIndex
 			Shops randoShops = new Shops(r1, shopItemTypes.SelectedIndex, shopItemQty.SelectedIndex, shopNoJ.Checked, shopNoSuper.Checked, 
-				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "product.csv"), !removeBonusItems.Checked, requireSirens.Checked);
+				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master", "product.csv"), !removeBonusItems.Checked, requireSirens.Checked, !removeFGExclusiveItems.Checked, party);
 		}
 
-		private void randomizeTreasures()
+		private void randomizeTreasures(int[] party)
 		{
-			new Randomize.Treasure(r1, treasureTypes.SelectedIndex, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), treasureNoJ.Checked, treasureNoSuper.Checked, !removeBonusItems.Checked);
+			new Randomize.Treasure(r1, treasureTypes.SelectedIndex, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), treasureNoJ.Checked, treasureNoSuper.Checked, !removeBonusItems.Checked, !removeFGExclusiveItems.Checked, party);
 		}
 
 		private void randomizeMonstersWithBoost()

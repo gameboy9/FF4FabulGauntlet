@@ -286,6 +286,7 @@ namespace FF4FabulGauntlet.Inventory
 				lastMonster = -1;
 				// Repeat this check 100 times before moving onto the next monster group.
 				int loops = 100;
+				int specialBattle = (i > 149 || !areaAppropriate) && r1.Next() % 100 == 0 ? (r1.Next() % 8 + 1) : 0;
 
 				monster = new List<int>();
 				// Limit monster count to 3 in very easy, 5 in easy, 7 in normal, and 9 in hard and very hard difficulties.
@@ -315,7 +316,52 @@ namespace FF4FabulGauntlet.Inventory
 							if (i % 10 == 0 && j == 0)
 								iMonsterList = allMonsters.Where(c => allBosses.Contains(c.id) && c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
 							else
-								iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+                            {
+								if (specialBattle != 0)
+                                {
+									List<int> specialMonsters;
+									switch (specialBattle)
+									{
+										case 1:
+											specialMonsters = new List<int> { 96, 70, 100, 9, 59, 71, 99, 113, 122, 123, 125, 126, 143, 152, 175, 193, 258 };
+											break;
+										case 2:
+											specialMonsters = new List<int> { 96, 94, 2, 10, 14, 19, 22, 26, 27, 38, 53, 57, 60, 65, 80, 83, 89, 95, 118 };
+											break;
+										case 3:
+											specialMonsters = new List<int> { 23, 35, 40, 47, 79 };
+											break;
+										case 4:
+											specialMonsters = new List<int> { 70, 94, 54, 82, 150, 16, 36, 48, 49, 50, 51, 52, 68, 167, 212 };
+											break;
+										case 5:
+											specialMonsters = new List<int> { 100, 75, 138, 66, 93, 113, 147, 148 };
+											break;
+										case 6:
+											specialMonsters = new List<int> { 54, 82, 150, 111, 134, 141, 142, 153, 156, 157, 158, 159, 160, 182, 196 };
+											break;
+										case 7:
+											specialMonsters = new List<int> { 20, 21, 29, 130, 131, 135 };
+											break;
+										case 8:
+											specialMonsters = new List<int> { 75, 138, 111, 105, 109, 136, 137, 145, 146, 151, 184, 185 };
+											break;
+										default:
+											specialMonsters = new List<int> { };
+											break;
+									}
+
+									iMonsterList = allMonsters.Where(c => specialMonsters.Contains(c.id) && c.exp < xpLimit).ToList();
+									// If there are no special monsters that are below the original XP limit, invalidate the special battle and do a normal battle instead.
+									if (iMonsterList.Count == 0 && monster.Count == 0)
+                                    {
+										specialBattle = 0;
+										iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+									}
+								}
+								else
+									iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+							}
 						}
 
 						iMonsterList = iMonsterList.Where(c => !badMonsters.Contains(c.id)).ToList();

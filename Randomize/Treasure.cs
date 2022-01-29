@@ -11,7 +11,7 @@ namespace FF4FabulGauntlet.Randomize
 {
 	public class Treasure
 	{
-		public Treasure(Random r1, int randoLevel, string directory, bool noJItems, bool noSuper, bool includeBonus)
+		public Treasure(Random r1, int randoLevel, string directory, bool noJItems, bool noSuper, bool includeBonus, bool includeFGExclusive, int[] party)
 		{
 			List<string> treasureDirectories = new()
 			{
@@ -120,7 +120,7 @@ namespace FF4FabulGauntlet.Randomize
 								else if (finalType == 2)
 								{
 									foreach (var prop in sObject.properties.Where(c => c.name == "content_id"))
-										prop.value = new Weapons().selectItem(r1, trMinTier, trMaxTier, false, includeBonus);
+										prop.value = new Weapons().selectItem(r1, trMinTier, trMaxTier, false, includeBonus, includeFGExclusive, party);
 									foreach (var prop in sObject.properties.Where(c => c.name == "content_num"))
 										prop.value = 1;
 									foreach (var prop in sObject.properties.Where(c => c.name == "message_key"))
@@ -129,7 +129,7 @@ namespace FF4FabulGauntlet.Randomize
 								else
 								{
 									foreach (var prop in sObject.properties.Where(c => c.name == "content_id"))
-										prop.value = new Armor().selectItem(r1, trMinTier, trMaxTier, false);
+										prop.value = new Armor().selectItem(r1, trMinTier, trMaxTier, false, includeBonus, includeFGExclusive, party);
 									foreach (var prop in sObject.properties.Where(c => c.name == "content_num"))
 										prop.value = 1;
 									foreach (var prop in sObject.properties.Where(c => c.name == "message_key"))

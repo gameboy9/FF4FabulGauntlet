@@ -128,6 +128,42 @@ namespace FF4FabulGauntlet.Inventory
 		public const int protectRing = 308; // t8
 		public const int crystalRing = 309; // t7
 
+		public const int grandArmor = 830; // t8
+		public const int dragoonPlate = 831; // t8
+		public const int caesarsPlate = 832; // t9
+		public const int maximiillian = 833; // t9
+		public const int redJacket = 834; // t7
+		public const int braveSuit = 835; // t8
+		public const int chocoboSuit = 836; // t8
+		public const int tabbySuit = 837; // t8
+		public const int battleGear = 838; // t9
+		public const int assassinVest = 839; // t9
+		public const int vishnuVest = 840; // t9
+		public const int sageRobe = 841; // t9
+		public const int robeOfLords = 842; // t9
+		public const int rainbowRobe = 843; // t9
+		public const int whiteDress = 844; // t9
+		public const int heroShield = 845; // t9
+		public const int chocoboShield = 846; // t7
+		public const int hypnocrown = 847; // t7
+		public const int catearHood = 848; // t7
+		public const int whiteTigerMask = 849; // t7
+		public const int redCap = 850; // t8
+		public const int rabbitearHood = 851; // t9
+		public const int augustineTiara = 852; // t9
+		public const int starOfKamiKazari = 853; // t9
+		public const int royalCrown = 854; // t9
+		public const int dualMask = 855; // t9
+		public const int demonHat = 856; // t9
+		public const int philosopherHat = 857; // t9
+		public const int grandHelm = 858; // t9
+		public const int caesarHelm = 859; // t9
+		public const int dragoonHelm = 860; // t9
+		public const int edgeDemonHelm = 861; // t9
+		public const int safetyMet = 862; // t9
+		public const int erdrickArmor = 863; // t8
+		public const int silverShield = 864; // t8
+
 		public List<List<int>> tiers = new List<List<int>>
 			{ new List<int> { ironShield, darkShield, leatherCap, ironHelm, clothes, prisonerCloth, leatherGarb, bardTunic, ironArmor, darkArmor, rubyRing, ironGloves, darkGloves, ironArmlet },
 			  new List<int> { demonShield, featherCap, darkHelm, hadesArmor, hadesGloves },
@@ -136,10 +172,46 @@ namespace FF4FabulGauntlet.Inventory
 			  new List<int> { flameShield, iceShield, mythrilHelm, flameMail, iceArmor, runeArmlet, diamondGloves },
 			  new List<int> { diamondShield, sageMiter, blackCowl, lightHelm, goldHairpin, blackBeltGi, powerSash, diamondArmor, diamondArmlet },
 			  new List<int> { aegisShield, genjiShield, dragonShield, diamondHelm, genjiHelm, dragonHelm, whiteRobe, minervaBustier, genjiArmor,
-				dragonMail, blackGarb, gauntlets, genjiGloves, dragonGloves, giantGloves, crystalRing },
-			  new List<int> { crystalShield, ribbon, crystalHelm, glassMask, crystalMail, crystalGloves, protectRing },
-			  new List<int> { adamantArmor }
+				dragonMail, blackGarb, gauntlets, genjiGloves, dragonGloves, giantGloves, crystalRing, redJacket, chocoboShield, hypnocrown, catearHood, whiteTigerMask },
+			  new List<int> { crystalShield, ribbon, crystalHelm, glassMask, crystalMail, crystalGloves, protectRing, grandArmor, dragoonPlate, braveSuit, chocoboSuit, tabbySuit, redCap, erdrickArmor, silverShield },
+			  new List<int> { adamantArmor, caesarsPlate, maximiillian, battleGear, assassinVest, vishnuVest, sageRobe, robeOfLords, rainbowRobe, whiteDress, heroShield, 
+				  rabbitearHood, augustineTiara, starOfKamiKazari, royalCrown, dualMask, demonHat, philosopherHat, grandHelm, caesarHelm, dragonHelm, safetyMet, edgeDemonHelm }
 		};
+
+		public List<int> bonusArmor = new List<int> { grandArmor, dragoonPlate, caesarsPlate, maximiillian, redJacket, braveSuit, chocoboSuit, tabbySuit, battleGear, assassinVest, vishnuVest, 
+			sageRobe, robeOfLords, rainbowRobe, whiteDress, heroShield, chocoboShield, hypnocrown, catearHood, whiteTigerMask, redCap, rabbitearHood, augustineTiara, starOfKamiKazari, royalCrown, 
+			dualMask, demonHat, philosopherHat, grandHelm, caesarHelm, dragoonHelm, edgeDemonHelm, safetyMet, erdrickArmor, silverShield };
+
+		public List<int> fgExclusiveArmor = new List<int> { erdrickArmor, silverShield };
+
+		public List<int> dkCecilOnly = new List<int> { darkHelm, hadesHelm, demonHelm, darkShield, demonShield, darkArmor, hadesArmor, demonArmor, darkGloves, hadesGloves, demonGloves };
+		public List<int> pallyCecilOnly = new List<int> { knightArmor, crystalMail, caesarsPlate, lightShield, crystalShield, lightHelm, crystalHelm, caesarHelm, gauntlets };
+		public List<int> kainOnly = new List<int> { dragoonPlate, dragonHelm };
+		public List<int> rosaOnly = new List<int> { whiteDress, augustineTiara };
+		public List<int> rydiaOnly = new List<int> { rainbowRobe, starOfKamiKazari };
+		public List<int> cidOnly = new List<int> { grandArmor, maximiillian, safetyMet };
+		public List<int> edwardOnly = new List<int> { redJacket, vishnuVest, redCap, royalCrown };
+		public List<int> yangOnly = new List<int> { braveSuit, battleGear, whiteTigerMask, dualMask };
+		public List<int> palomOnly = new List<int> { chocoboSuit, sageRobe, hypnocrown, demonHat };
+		public List<int> poromOnly = new List<int> { tabbySuit, robeOfLords, catearHood, philosopherHat };
+		public List<int> edgeOnly = new List<int> { assassinVest, edgeDemonHelm };
+		public List<int> cecilKainCid = new List<int> { ironArmor, mythrilArmor, flameMail, iceArmor, diamondArmor, dragonMail, ironShield, mythrilShield, flameShield, iceShield, diamondShield, aegisShield, genjiShield, dragonShield, ironHelm, mythrilHelm, diamondHelm, dragonHelm, diamondGloves, dragonGloves };
+		public List<int> cecilKainCidEdge = new List<int> { genjiArmor, ironGloves, mythrilGloves, genjiGloves };
+		public List<int> rydiaRosaPorom = new List<int> { minervaBustier, goldHairpin };
+
+		const int dkCecil = 1;
+		const int cecil = 13;
+		const int kain = 2;
+		const int rosa = 3;
+		const int rydia = 4;
+		const int cid = 5;
+		const int tellah = 6;
+		const int edward = 7;
+		const int yang = 8;
+		const int palom = 9;
+		const int porom = 10;
+		const int edge = 11;
+		const int fusoya = 12;
 
 		public void adjustPrices(string directory, int multiplier, int divisor)
 		{
@@ -167,7 +239,7 @@ namespace FF4FabulGauntlet.Inventory
 			}
 		}
 
-		public int selectItem(Random r1, int minTier, int maxTier, bool highTierReduction)
+		public int selectItem(Random r1, int minTier, int maxTier, bool highTierReduction, bool includeBonus, bool includeExclusive, int[] party)
 		{
 			List<int> selection = new List<int>();
 			for (int i = minTier - 1; i <= maxTier - 1; i++)
@@ -175,7 +247,32 @@ namespace FF4FabulGauntlet.Inventory
 				int repetition = highTierReduction ? maxTier - i : 1;
 				for (int j = 0; j < repetition; j++)
 					selection.AddRange(tiers[i]);
+
+				if (!party.Contains(dkCecil)) selection = selection.Where(c => !dkCecilOnly.Contains(c)).ToList();
+				if (!party.Contains(cecil)) selection = selection.Where(c => !pallyCecilOnly.Contains(c)).ToList();
+				if (!party.Contains(kain)) selection = selection.Where(c => !kainOnly.Contains(c)).ToList();
+				if (!party.Contains(rosa)) selection = selection.Where(c => !rosaOnly.Contains(c)).ToList();
+				if (!party.Contains(rydia)) selection = selection.Where(c => !rydiaOnly.Contains(c)).ToList();
+				if (!party.Contains(cid)) selection = selection.Where(c => !cidOnly.Contains(c)).ToList();
+				if (!party.Contains(edward)) selection = selection.Where(c => !edwardOnly.Contains(c)).ToList();
+				if (!party.Contains(yang)) selection = selection.Where(c => !yangOnly.Contains(c)).ToList();
+				if (!party.Contains(palom)) selection = selection.Where(c => !palomOnly.Contains(c)).ToList();
+				if (!party.Contains(porom)) selection = selection.Where(c => !poromOnly.Contains(c)).ToList();
+				if (!party.Contains(edge)) selection = selection.Where(c => !edgeOnly.Contains(c)).ToList();
+				if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(cid)) selection = selection.Where(c => !cecilKainCid.Contains(c)).ToList();
+				if (!party.Contains(edge) && !party.Contains(kain) && !party.Contains(cid) && !party.Contains(edge)) selection = selection.Where(c => !cecilKainCidEdge.Contains(c)).ToList();
+				if (!party.Contains(rydia) && !party.Contains(rosa) && !party.Contains(porom)) selection = selection.Where(c => !rydiaRosaPorom.Contains(c)).ToList();
 			}
+
+			bool bad = true;
+			int finalSelection = -1;
+			while (bad)
+			{
+				finalSelection = selection[r1.Next() % selection.Count];
+				if (includeBonus || !bonusArmor.Contains(finalSelection)) bad = false;
+				if (includeExclusive || !fgExclusiveArmor.Contains(finalSelection)) bad = false;
+			}
+
 			return selection[r1.Next() % selection.Count];
 		}
 	}

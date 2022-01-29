@@ -152,7 +152,7 @@ namespace FF4FabulGauntlet.Randomize
 			return shopDB;
 		}
 
-		public Shops(Random r1, int randoLevel, int freqLevel, bool noJ, bool noSuper, string fileName, bool includeBonus, bool mandatorySirens)
+		public Shops(Random r1, int randoLevel, int freqLevel, bool noJ, bool noSuper, string fileName, bool includeBonus, bool mandatorySirens, bool includeFGExclusive, int[] party)
 		{
 			List<shopItem> shopDB = new List<shopItem>();
 			List<shopItem> shopWorking = new List<shopItem>();
@@ -176,10 +176,10 @@ namespace FF4FabulGauntlet.Randomize
 					switch (itemType)
 					{
 						case 0:
-							newItem.content_id = new Inventory.Armor().selectItem(r1, minTier, maxTier, true);
+							newItem.content_id = new Inventory.Armor().selectItem(r1, minTier, maxTier, true, includeBonus, includeFGExclusive, party);
 							break;
 						case 1:
-							newItem.content_id = new Inventory.Weapons().selectItem(r1, minTier, maxTier, true, includeBonus);
+							newItem.content_id = new Inventory.Weapons().selectItem(r1, minTier, maxTier, true, includeBonus, includeFGExclusive, party);
 							break;
 						case 2:
 							newItem.content_id = new Inventory.Items().selectItem(r1, minTier, maxTier, true, noJ);

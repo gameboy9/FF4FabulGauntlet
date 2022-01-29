@@ -48,6 +48,7 @@ namespace FF4FabulGauntlet
             this.BrowseForGameAssets = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.settingGeneral = new System.Windows.Forms.TabPage();
+            this.removeFGExclusiveItems = new System.Windows.Forms.CheckBox();
             this.removeBonusItems = new System.Windows.Forms.CheckBox();
             this.treasureNoSuper = new System.Windows.Forms.CheckBox();
             this.shopNoSuper = new System.Windows.Forms.CheckBox();
@@ -57,12 +58,10 @@ namespace FF4FabulGauntlet
             this.shopItemTypes = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numRounds = new System.Windows.Forms.ComboBox();
             this.shopBuyPrice = new System.Windows.Forms.ComboBox();
             this.shopItemQty = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.settingHero = new System.Windows.Forms.TabPage();
             this.exYang = new System.Windows.Forms.CheckBox();
             this.firstHero = new System.Windows.Forms.ComboBox();
@@ -84,6 +83,8 @@ namespace FF4FabulGauntlet
             this.label6 = new System.Windows.Forms.Label();
             this.dupCharactersAllowed = new System.Windows.Forms.CheckBox();
             this.settingEnemies = new System.Windows.Forms.TabPage();
+            this.numRounds = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.randomEscape = new System.Windows.Forms.CheckBox();
             this.requireSirens = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -263,6 +264,7 @@ namespace FF4FabulGauntlet
             // 
             // settingGeneral
             // 
+            this.settingGeneral.Controls.Add(this.removeFGExclusiveItems);
             this.settingGeneral.Controls.Add(this.removeBonusItems);
             this.settingGeneral.Controls.Add(this.treasureNoSuper);
             this.settingGeneral.Controls.Add(this.shopNoSuper);
@@ -272,12 +274,10 @@ namespace FF4FabulGauntlet
             this.settingGeneral.Controls.Add(this.shopItemTypes);
             this.settingGeneral.Controls.Add(this.label14);
             this.settingGeneral.Controls.Add(this.label4);
-            this.settingGeneral.Controls.Add(this.numRounds);
             this.settingGeneral.Controls.Add(this.shopBuyPrice);
             this.settingGeneral.Controls.Add(this.shopItemQty);
             this.settingGeneral.Controls.Add(this.label13);
             this.settingGeneral.Controls.Add(this.label12);
-            this.settingGeneral.Controls.Add(this.label5);
             this.settingGeneral.Location = new System.Drawing.Point(4, 29);
             this.settingGeneral.Name = "settingGeneral";
             this.settingGeneral.Padding = new System.Windows.Forms.Padding(3);
@@ -286,14 +286,25 @@ namespace FF4FabulGauntlet
             this.settingGeneral.Text = "General";
             this.settingGeneral.UseVisualStyleBackColor = true;
             // 
+            // removeFGExclusiveItems
+            // 
+            this.removeFGExclusiveItems.AutoSize = true;
+            this.removeFGExclusiveItems.Location = new System.Drawing.Point(10, 50);
+            this.removeFGExclusiveItems.Name = "removeFGExclusiveItems";
+            this.removeFGExclusiveItems.Size = new System.Drawing.Size(209, 24);
+            this.removeFGExclusiveItems.TabIndex = 65;
+            this.removeFGExclusiveItems.Text = "Remove FG Exclusive Items";
+            this.removeFGExclusiveItems.UseVisualStyleBackColor = true;
+            this.removeFGExclusiveItems.CheckedChanged += new System.EventHandler(this.DetermineFlags);
+            // 
             // removeBonusItems
             // 
             this.removeBonusItems.AutoSize = true;
-            this.removeBonusItems.Location = new System.Drawing.Point(10, 15);
+            this.removeBonusItems.Location = new System.Drawing.Point(10, 19);
             this.removeBonusItems.Name = "removeBonusItems";
-            this.removeBonusItems.Size = new System.Drawing.Size(181, 24);
+            this.removeBonusItems.Size = new System.Drawing.Size(211, 24);
             this.removeBonusItems.TabIndex = 64;
-            this.removeBonusItems.Text = "Remove \"Bonus Items\"";
+            this.removeBonusItems.Text = "Remove GBA/Mobile Items";
             this.removeBonusItems.UseVisualStyleBackColor = true;
             this.removeBonusItems.CheckedChanged += new System.EventHandler(this.DetermineFlags);
             // 
@@ -388,25 +399,6 @@ namespace FF4FabulGauntlet
             this.label4.TabIndex = 56;
             this.label4.Text = "Shop Item Types";
             // 
-            // numRounds
-            // 
-            this.numRounds.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.numRounds.FormattingEnabled = true;
-            this.numRounds.Items.AddRange(new object[] {
-            "10",
-            "8",
-            "6",
-            "5",
-            "4",
-            "3",
-            "2",
-            "1"});
-            this.numRounds.Location = new System.Drawing.Point(160, 50);
-            this.numRounds.Name = "numRounds";
-            this.numRounds.Size = new System.Drawing.Size(148, 28);
-            this.numRounds.TabIndex = 55;
-            this.numRounds.SelectedIndexChanged += new System.EventHandler(this.DetermineFlags);
-            // 
             // shopBuyPrice
             // 
             this.shopBuyPrice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -457,15 +449,6 @@ namespace FF4FabulGauntlet
             this.label12.Size = new System.Drawing.Size(137, 20);
             this.label12.TabIndex = 51;
             this.label12.Text = "Shop Item Quantity";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 54);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 20);
-            this.label5.TabIndex = 50;
-            this.label5.Text = "# of Battles / Area";
             // 
             // settingHero
             // 
@@ -723,6 +706,8 @@ namespace FF4FabulGauntlet
             // 
             // settingEnemies
             // 
+            this.settingEnemies.Controls.Add(this.numRounds);
+            this.settingEnemies.Controls.Add(this.label5);
             this.settingEnemies.Controls.Add(this.randomEscape);
             this.settingEnemies.Controls.Add(this.requireSirens);
             this.settingEnemies.Controls.Add(this.label17);
@@ -745,10 +730,38 @@ namespace FF4FabulGauntlet
             this.settingEnemies.Text = "Enemies";
             this.settingEnemies.UseVisualStyleBackColor = true;
             // 
+            // numRounds
+            // 
+            this.numRounds.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.numRounds.FormattingEnabled = true;
+            this.numRounds.Items.AddRange(new object[] {
+            "10",
+            "8",
+            "6",
+            "5",
+            "4",
+            "3",
+            "2",
+            "1"});
+            this.numRounds.Location = new System.Drawing.Point(157, 7);
+            this.numRounds.Name = "numRounds";
+            this.numRounds.Size = new System.Drawing.Size(148, 28);
+            this.numRounds.TabIndex = 57;
+            this.numRounds.SelectedIndexChanged += new System.EventHandler(this.DetermineFlags);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(130, 20);
+            this.label5.TabIndex = 56;
+            this.label5.Text = "# of Battles / Area";
+            // 
             // randomEscape
             // 
             this.randomEscape.AutoSize = true;
-            this.randomEscape.Location = new System.Drawing.Point(326, 145);
+            this.randomEscape.Location = new System.Drawing.Point(326, 42);
             this.randomEscape.Name = "randomEscape";
             this.randomEscape.Size = new System.Drawing.Size(287, 24);
             this.randomEscape.TabIndex = 50;
@@ -759,7 +772,7 @@ namespace FF4FabulGauntlet
             // requireSirens
             // 
             this.requireSirens.AutoSize = true;
-            this.requireSirens.Location = new System.Drawing.Point(326, 115);
+            this.requireSirens.Location = new System.Drawing.Point(326, 140);
             this.requireSirens.Name = "requireSirens";
             this.requireSirens.Size = new System.Drawing.Size(237, 24);
             this.requireSirens.TabIndex = 49;
@@ -770,7 +783,7 @@ namespace FF4FabulGauntlet
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 114);
+            this.label17.Location = new System.Drawing.Point(7, 144);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(109, 20);
             this.label17.TabIndex = 48;
@@ -789,7 +802,7 @@ namespace FF4FabulGauntlet
             "0.25x",
             "0.125x",
             "0"});
-            this.encounterRate.Location = new System.Drawing.Point(157, 111);
+            this.encounterRate.Location = new System.Drawing.Point(157, 140);
             this.encounterRate.Name = "encounterRate";
             this.encounterRate.Size = new System.Drawing.Size(148, 28);
             this.encounterRate.TabIndex = 47;
@@ -808,7 +821,7 @@ namespace FF4FabulGauntlet
             "+400",
             "+500",
             "+1000"});
-            this.gpBoost.Location = new System.Drawing.Point(391, 77);
+            this.gpBoost.Location = new System.Drawing.Point(391, 105);
             this.gpBoost.Name = "gpBoost";
             this.gpBoost.Size = new System.Drawing.Size(151, 28);
             this.gpBoost.TabIndex = 44;
@@ -827,7 +840,7 @@ namespace FF4FabulGauntlet
             "+400",
             "+500",
             "+1000"});
-            this.xpBoost.Location = new System.Drawing.Point(391, 42);
+            this.xpBoost.Location = new System.Drawing.Point(391, 72);
             this.xpBoost.Name = "xpBoost";
             this.xpBoost.Size = new System.Drawing.Size(151, 28);
             this.xpBoost.TabIndex = 43;
@@ -846,7 +859,7 @@ namespace FF4FabulGauntlet
             "3.0x",
             "4.0x",
             "5.0x"});
-            this.gpMultiplier.Location = new System.Drawing.Point(157, 77);
+            this.gpMultiplier.Location = new System.Drawing.Point(157, 106);
             this.gpMultiplier.Name = "gpMultiplier";
             this.gpMultiplier.Size = new System.Drawing.Size(148, 28);
             this.gpMultiplier.TabIndex = 42;
@@ -865,7 +878,7 @@ namespace FF4FabulGauntlet
             "3.0x",
             "4.0x",
             "5.0x"});
-            this.xpMultiplier.Location = new System.Drawing.Point(157, 42);
+            this.xpMultiplier.Location = new System.Drawing.Point(157, 73);
             this.xpMultiplier.Name = "xpMultiplier";
             this.xpMultiplier.Size = new System.Drawing.Size(148, 28);
             this.xpMultiplier.TabIndex = 41;
@@ -881,7 +894,7 @@ namespace FF4FabulGauntlet
             "Normal",
             "Hard",
             "Very Hard"});
-            this.monsterDifficulty.Location = new System.Drawing.Point(157, 7);
+            this.monsterDifficulty.Location = new System.Drawing.Point(157, 40);
             this.monsterDifficulty.Name = "monsterDifficulty";
             this.monsterDifficulty.Size = new System.Drawing.Size(148, 28);
             this.monsterDifficulty.TabIndex = 40;
@@ -890,7 +903,7 @@ namespace FF4FabulGauntlet
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(326, 46);
+            this.label11.Location = new System.Drawing.Point(326, 76);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(47, 20);
             this.label11.TabIndex = 39;
@@ -899,7 +912,7 @@ namespace FF4FabulGauntlet
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(326, 81);
+            this.label10.Location = new System.Drawing.Point(326, 109);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(47, 20);
             this.label10.TabIndex = 38;
@@ -908,7 +921,7 @@ namespace FF4FabulGauntlet
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 81);
+            this.label9.Location = new System.Drawing.Point(7, 110);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(95, 20);
             this.label9.TabIndex = 37;
@@ -917,7 +930,7 @@ namespace FF4FabulGauntlet
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 46);
+            this.label8.Location = new System.Drawing.Point(7, 77);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(94, 20);
             this.label8.TabIndex = 36;
@@ -937,7 +950,7 @@ namespace FF4FabulGauntlet
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 11);
+            this.label7.Location = new System.Drawing.Point(7, 44);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(127, 20);
             this.label7.TabIndex = 34;
@@ -1010,12 +1023,10 @@ namespace FF4FabulGauntlet
         private System.Windows.Forms.ComboBox shopItemTypes;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox numRounds;
         private System.Windows.Forms.ComboBox shopBuyPrice;
         private System.Windows.Forms.ComboBox shopItemQty;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage settingHero;
         private System.Windows.Forms.CheckBox dupCharactersAllowed;
         private System.Windows.Forms.TabPage settingEnemies;
@@ -1053,6 +1064,9 @@ namespace FF4FabulGauntlet
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox encounterRate;
         private System.Windows.Forms.CheckBox randomEscape;
+        private System.Windows.Forms.CheckBox removeFGExclusiveItems;
+        private System.Windows.Forms.ComboBox numRounds;
+        private System.Windows.Forms.Label label5;
     }
 }
 

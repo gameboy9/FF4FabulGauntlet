@@ -85,6 +85,8 @@ namespace FF4FabulGauntlet.Randomize
 		const int edge = 11;
 		const int fusoya = 12;
 
+		private List<int> characters = new List<int>();
+
 		public Party(Random r1, string directory, int numberOfBattles, bool duplicates, int numHeroes, bool noPromote, bool[] exclude)
 		{
 			List<character> records;
@@ -93,7 +95,6 @@ namespace FF4FabulGauntlet.Randomize
 			using (CsvReader csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
 				records = csv.GetRecords<character>().ToList();
 
-			List<int> characters = new List<int>();
 			if (duplicates)
 			{
 				for (int i = 0; i < 12; i++)
@@ -423,6 +424,11 @@ namespace FF4FabulGauntlet.Randomize
 					serializer.Serialize(writer, jEvents3);
 				}
 			}
+		}
+
+		public int[] getParty()
+        {
+			return new int[] { characters[0], characters[1], characters[2], characters[3], characters[4] };
 		}
 	}
 }

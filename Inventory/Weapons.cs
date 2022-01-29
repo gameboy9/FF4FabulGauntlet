@@ -119,9 +119,10 @@ namespace FF4FabulGauntlet.Inventory
 		public const int sageStaff = 194; // t7
 		public const int runeStaff = 195; // t8
 		public const int bow = 196; // t1
-		public const int greatBow = 198; // t2
-		public const int killerBow = 199; // t3
-		public const int elvenBow = 200; // t4
+		public const int crossBow = 521; // t2
+		public const int greatBow = 198; // t3
+		public const int killerBow = 199; // t4
+		public const int elvenBow = 200; // t5
 		public const int yoichiBow = 201; // t6
 		public const int artemisBow = 202; // t7
 		public const int medusaArrow = 203; // t3
@@ -172,18 +173,24 @@ namespace FF4FabulGauntlet.Inventory
 		public const int apolloHarp = 822; // t6
 		public const int requiemHarp = 823; // t8
 		public const int lokiHarp = 824; // t9
+		public const int bloodDarkSword = 825; // t5
+		public const int golbezSword = 826; // t6
+		public const int vampireSword = 827; // t7
+		public const int megicoSword = 828; // t9
+		public const int erdrickSword = 829; // t7
+		public const int vampireSpear = 865; // t8
 
 		public List<List<int>> tiers = new List<List<int>>
 			{ new List<int> { darkSword, shadowblade, spear, dreamerHarp, rod, staff, bow, ironArrow },
-			  new List<int> { deathbringer, lamiaHarp, fireClaw, iceClaw, thunderClaw, woodenHammer, flameRod, iceRod, thunderRod, healingStaff, greatBow, holyArrow, excalipoor, scrapMetal },
-			  new List<int> { legendSword, ancientSword, bloodSword, windSpear, mythrilKnife, mythrilHammer, mythrilStaff, killerBow, medusaArrow },
-			  new List<int> { mythrilSword, sleepBlade, bloodLance, dancingDagger, fairyClaw, kunai, lilithRod, elvenBow, fireArrow, iceArrow, thunderArrow, whip, flandango },
-			  new List<int> { flameSword, icebrand, gorgonBlade, fireLance, iceLance, mageMasher, hellClaw, gaiaHammer, dwarfAxe, ashura, kotetsu,
-				changeRod, powerStaff, kinesisStaff, blindingArrow, poisonArrow, chainWhip, boomerang, shuriken },
-			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, apolloHarp },
-			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken, tigerFangs },
-			  new List<int> { piggyStick, ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp },
-			  new List<int> { knife, lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, lokiHarp }
+			  new List<int> { deathbringer, lamiaHarp, fireClaw, iceClaw, thunderClaw, woodenHammer, flameRod, iceRod, thunderRod, healingStaff, crossBow, holyArrow, excalipoor, scrapMetal },
+			  new List<int> { legendSword, ancientSword, bloodSword, windSpear, mythrilKnife, mythrilHammer, mythrilStaff, greatBow, medusaArrow },
+			  new List<int> { mythrilSword, sleepBlade, bloodLance, dancingDagger, fairyClaw, kunai, lilithRod, killerBow, fireArrow, iceArrow, thunderArrow, whip, flandango },
+			  new List<int> { flameSword, icebrand, gorgonBlade, fireLance, iceLance, mageMasher, hellClaw, gaiaHammer, dwarfAxe, ashura, kotetsu, elvenBow,
+				changeRod, powerStaff, kinesisStaff, blindingArrow, poisonArrow, chainWhip, boomerang, shuriken, bloodDarkSword },
+			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, apolloHarp, golbezSword },
+			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken, tigerFangs, vampireSword, erdrickSword },
+			  new List<int> { piggyStick, ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp, vampireSpear },
+			  new List<int> { knife, lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, lokiHarp, megicoSword }
 		};
 
 		public List<int> bonusWeapons = new List<int>
@@ -191,6 +198,41 @@ namespace FF4FabulGauntlet.Inventory
 			excalipoor, flandango, lightbringer, piggyStick, abelsLance, gigantAxe, perseusArrow, perseusBow, mysticWhip, tritonDagger, assassinDagger, sasukeKatana, mutsunokami,
 			scrapMetal, risingSun, tigerFangs, dragonClaws, godhand, thorHammer, fieryHammer, asuraRod, seraphimMace, nirvana, apolloHarp, requiemHarp, lokiHarp
 		};
+
+		public List<int> fgExclusiveWeapons = new List<int> { bloodDarkSword, golbezSword, vampireSword, vampireSpear, megicoSword, erdrickSword };
+
+		public List<int> dkCecilOnly = new List<int> { darkSword, shadowblade, deathbringer, bloodDarkSword, golbezSword, vampireSword, megicoSword };
+		public List<int> pallyCecilOnly = new List<int> { excalibur, excalipoor, legendSword, flandango, lightSword, ragnarok, lightbringer };
+		public List<int> kainOnly = new List<int> { vampireSpear, spear, windSpear, fireLance, iceLance, bloodLance, gungnir, wyvernLance, holyLance, abelsLance };
+		public List<int> cecilKain = new List<int> { ancientSword, bloodSword, mythrilSword, sleepBlade, flameSword, icebrand, gorgonBlade, avenger, defender, piggyStick };
+		public List<int> cecilKainCid = new List<int> { dwarfAxe, ogreKiller, poisonAxe, runeAxe, gigantAxe };
+		public List<int> bowUsers = new List<int> { bow, crossBow, greatBow, killerBow, elvenBow, yoichiBow, artemisBow, medusaArrow, ironArrow, holyArrow, fireArrow, iceArrow, thunderArrow, blindingArrow, poisonArrow, muteArrow, angelArrow, yoichiArrow, artemisArrow };
+		public List<int> knifeUsers = new List<int> { mythrilKnife, dancingDagger, mageMasher, assassinDagger };
+		public List<int> clawUsers = new List<int> { fireClaw, iceClaw, thunderClaw, fairyClaw, hellClaw, catClaw };
+		public List<int> rodUsers = new List<int> { rod, iceRod, flameRod, thunderRod, lilithRod, changeRod, fairyRod, stardustRod };
+		public List<int> staffUsers = new List<int> { staff, healingStaff, mythrilStaff, powerStaff, kinesisStaff, sageStaff, runeStaff };
+		public List<int> rosaOnly = new List<int> { perseusArrow, perseusBow };
+		public List<int> rydiaOnly = new List<int> { whip, chainWhip, blitzWhip, flameWhip, dragonWhisker, mysticWhip };
+		public List<int> cidOnly = new List<int> { woodenHammer, mythrilHammer, gaiaHammer, thorHammer, fieryHammer };
+		public List<int> edwardOnly = new List<int> { dreamerHarp, lamiaHarp, apolloHarp, requiemHarp, lokiHarp };
+		public List<int> yangOnly = new List<int> { tigerFangs, dragonClaws, godhand };
+		public List<int> palomOnly = new List<int> { tritonDagger, asuraRod };
+		public List<int> poromOnly = new List<int> { seraphimMace };
+		public List<int> edgeOnly = new List<int> { kunai, ashura, kotetsu, kikuichimonji, murasame, masamune, sasukeKatana, mutsunokami };
+
+		const int dkCecil = 1;
+		const int cecil = 13;
+		const int kain = 2;
+		const int rosa = 3;
+		const int rydia = 4;
+		const int cid = 5;
+		const int tellah = 6;
+		const int edward = 7;
+		const int yang = 8;
+		const int palom = 9;
+		const int porom = 10;
+		const int edge = 11;
+		const int fusoya = 12;
 
 		public void adjustPrices(string directory, int multiplier, int divisor)
 		{
@@ -218,7 +260,7 @@ namespace FF4FabulGauntlet.Inventory
 			}
 		}
 
-		public int selectItem(Random r1, int minTier, int maxTier, bool highTierReduction, bool includeBonus)
+		public int selectItem(Random r1, int minTier, int maxTier, bool highTierReduction, bool includeBonus, bool includeExclusive, int[] party)
 		{
 			List<int> selection = new List<int>();
 			for (int i = minTier - 1; i <= maxTier - 1; i++)
@@ -226,15 +268,37 @@ namespace FF4FabulGauntlet.Inventory
 				int repetition = highTierReduction ? maxTier - i : 1;
 				for (int j = 0; j < repetition; j++)
 					selection.AddRange(tiers[i]);
+
+				if (!party.Contains(dkCecil)) selection = selection.Where(c => !dkCecilOnly.Contains(c)).ToList();
+				if (!party.Contains(cecil)) selection = selection.Where(c => !pallyCecilOnly.Contains(c)).ToList();
+				if (!party.Contains(kain)) selection = selection.Where(c => !kainOnly.Contains(c)).ToList();
+				if (!party.Contains(rosa)) selection = selection.Where(c => !rosaOnly.Contains(c)).ToList();
+				if (!party.Contains(rydia)) selection = selection.Where(c => !rydiaOnly.Contains(c)).ToList();
+				if (!party.Contains(cid)) selection = selection.Where(c => !cidOnly.Contains(c)).ToList();
+				if (!party.Contains(edward)) selection = selection.Where(c => !edwardOnly.Contains(c)).ToList();
+				if (!party.Contains(yang)) selection = selection.Where(c => !yangOnly.Contains(c)).ToList();
+				if (!party.Contains(palom)) selection = selection.Where(c => !palomOnly.Contains(c)).ToList();
+				if (!party.Contains(porom)) selection = selection.Where(c => !poromOnly.Contains(c)).ToList();
+				if (!party.Contains(edge)) selection = selection.Where(c => !edgeOnly.Contains(c)).ToList();
+
+				if (!party.Contains(cecil) && !party.Contains(kain)) selection = selection.Where(c => !cecilKain.Contains(c)).ToList();
+				if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(cid)) selection = selection.Where(c => !cecilKainCid.Contains(c)).ToList();
+				if (!party.Contains(cecil) && !party.Contains(rydia) && !party.Contains(edward) && !party.Contains(rosa) && !party.Contains(palom) && !party.Contains(porom) && !party.Contains(cid)) selection = selection.Where(c => !bowUsers.Contains(c)).ToList();
+				if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(rydia) && !party.Contains(edward) && !party.Contains(palom)) selection = selection.Where(c => !knifeUsers.Contains(c)).ToList();
+				if (!party.Contains(edge) && !party.Contains(yang)) selection = selection.Where(c => !clawUsers.Contains(c)).ToList();
+				if (!party.Contains(rydia) && !party.Contains(tellah) && !party.Contains(palom) && !party.Contains(fusoya)) selection = selection.Where(c => !rodUsers.Contains(c)).ToList();
+				if (!party.Contains(rosa) && !party.Contains(tellah) && !party.Contains(porom) && !party.Contains(fusoya)) selection = selection.Where(c => !staffUsers.Contains(c)).ToList();
 			}
+
 			bool bad = true;
 			int finalSelection = -1;
 			while (bad)
 			{
 				finalSelection = selection[r1.Next() % selection.Count];
-				if (includeBonus || !bonusWeapons.Contains(finalSelection))
-					bad = false;
+				if (includeBonus || !bonusWeapons.Contains(finalSelection)) bad = false;
+				if (includeExclusive || !fgExclusiveWeapons.Contains(finalSelection)) bad = false;
 			}
+
 			return finalSelection;
 		}
 	}
