@@ -250,7 +250,7 @@ namespace FF4FabulGauntlet
 				numRounds.SelectedIndex == 5 ? 3 :
 				numRounds.SelectedIndex == 6 ? 2 : 1;
 			r1 = new Random(Convert.ToInt32(RandoSeed.Text));
-			Randomize.Party party = new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked, Convert.ToInt32(numHeroes.SelectedItem), exPaladinCecil.Checked, 
+			Randomize.Party party = new Randomize.Party(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), battles, dupCharactersAllowed.Checked, Convert.ToInt32(numHeroes.SelectedItem), exPaladinCecil.Checked,
 				new bool[] { exCecil.Checked, exKain.Checked, exRydia.Checked, exTellah.Checked, exEdward.Checked, exRosa.Checked, exYang.Checked, exPalom.Checked, exPorom.Checked, exCid.Checked, exEdge.Checked, exFusoya.Checked, exPaladinCecil.Checked });
 			return party.getParty();
 		}
@@ -264,7 +264,9 @@ namespace FF4FabulGauntlet
 
 		private void randomizeTreasures(int[] party)
 		{
-			new Randomize.Treasure(r1, treasureTypes.SelectedIndex, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"), treasureNoJ.Checked, treasureNoSuper.Checked, !removeBonusItems.Checked, !removeFGExclusiveItems.Checked, party);
+			new Randomize.Treasure(r1, treasureTypes.SelectedIndex, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Res", "Map"),
+				Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Message"),
+				treasureNoJ.Checked, treasureNoSuper.Checked, !removeBonusItems.Checked, !removeFGExclusiveItems.Checked, party);
 		}
 
 		private void randomizeMonstersWithBoost()
@@ -297,7 +299,7 @@ namespace FF4FabulGauntlet
 				gpBoost.SelectedIndex == 4 ? 300 :
 				gpBoost.SelectedIndex == 5 ? 400 :
 				gpBoost.SelectedIndex == 6 ? 500 : 1000;
-			new Monster(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), xpMulti, xpBoostInt, gpMulti, gpBoostInt, 5, monsterDifficulty.SelectedIndex, monsterAreaAppropriate.Checked);
+			new Monster(r1, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"), xpMulti, xpBoostInt, gpMulti, gpBoostInt, 5, monsterDifficulty.SelectedIndex, monsterAreaAppropriate.Checked, Convert.ToInt32(numHeroes.SelectedItem));
 			new MonsterSet().escapeAdjust(randomEscape.Checked, Path.Combine(FF4PRFolder.Text, "FINAL FANTASY IV_Data", "StreamingAssets", "Assets", "GameAssets", "Serial", "Data", "Master"));
 		}
 

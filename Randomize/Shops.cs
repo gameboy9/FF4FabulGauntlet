@@ -49,8 +49,8 @@ namespace FF4FabulGauntlet.Randomize
 		{
 			baron1, baron2, baron3, mist1, mist2, mist3, undergroundWaterway1, undergroundWaterway2, undergroundWaterway3,
 			hobs1, hobs2, hobs3, ordeals1, ordeals2, ordeals3, baronWaterway1, baronWaterway2, baronWaterway3,
-			magnes1, magnes2, magnes3, dwarfCastle1, dwarfCastle2, dwarfCastle3, dwarfCastle4, eblanCave1, eblanCave2, eblanCave3, 
-			upperBabil1, upperBabil2, upperBabil3, crystalPalace1, crystalPalace2, crystalPalace3
+			magnes1, magnes2, magnes3, dwarfCastle1, dwarfCastle2, dwarfCastle3, eblanCave1, eblanCave2, eblanCave3, 
+			upperBabil1, upperBabil2, upperBabil3, crystalPalace1, crystalPalace2, crystalPalace3, dwarfCastle4
 		};
 		List<int> stdMinTier = new List<int>
 		{
@@ -186,8 +186,8 @@ namespace FF4FabulGauntlet.Randomize
 							break;
 					}
 
-					// Do not add if it's a duplicate.
-					if (shopWorking.Where(c => c.content_id == newItem.content_id).Count() == 0)
+					// Do not add if an item couldn't be found or if it's a duplicate.
+					if (newItem.content_id != -1 && shopWorking.Where(c => c.content_id == newItem.content_id).Count() == 0)
 					{
 						shopWorking.Add(newItem);
 						id++;

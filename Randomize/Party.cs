@@ -71,6 +71,14 @@ namespace FF4FabulGauntlet.Randomize
 			}
 		}
 
+		private class init
+        {
+			public int id { get; set; }
+			public string key_name { get; set; }
+			public int value1 { get; set; }
+			public int value2 { get; set; }
+        }
+
 		const int dkCecil = 1;
 		const int cecil = 13;
 		const int kain = 2;
@@ -160,6 +168,26 @@ namespace FF4FabulGauntlet.Randomize
 				csv.WriteRecords(newRecords);
 			}
 
+			List<init> newInits = new List<init>();
+
+			using (StreamReader reader = new StreamReader(Path.Combine("csv", "initialize_data.csv")))
+			using (CsvReader csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
+				newInits = csv.GetRecords<init>().ToList();
+
+			if (numHeroes < 5) newInits.RemoveAll(c => c.id == 5);
+			if (numHeroes < 4) newInits.RemoveAll(c => c.id == 4);
+			if (numHeroes < 3) newInits.RemoveAll(c => c.id == 3);
+			if (numHeroes < 2) newInits.RemoveAll(c => c.id == 2);
+
+			int startingGold = 100 + (r1.Next() % 41 * 10);
+			newInits.Where(c => c.id == 6).Single().value1 = startingGold;
+
+			using (StreamWriter writer = new StreamWriter(Path.Combine(directory, "..", "..", "Data", "Master", "initialize_data.csv")))
+			using (CsvWriter csv = new CsvWriter(writer, System.Globalization.CultureInfo.InvariantCulture))
+			{
+				csv.WriteRecords(newInits);
+			}
+
 			using (StreamWriter writer = new StreamWriter(Path.Combine(directory, "..", "..", "Data", "Master", "intermediate_growth_curve.csv")))
 			{
 				writer.WriteLine("id,character_id,job_id,growth_curve_group_id,exp_table_group_id");
@@ -188,76 +216,7 @@ namespace FF4FabulGauntlet.Randomize
 			int j = 0;
 			foreach (var singleScript in jEvents.Mnemonics)
 			{
-				if (singleScript.mnemonic == "Wait" || singleScript.mnemonic == "SysCall")
-				{
-					switch (j)
-					{
-						case 0:
-							if (numHeroes >= 2)
-                            {
-								singleScript.mnemonic = "SysCall";
-								singleScript.operands.rValues[0] = 0;
-								singleScript.operands.sValues[0] = "カイン加入"; // Add Kain (ID 2)
-							} 
-							else
-                            {
-								singleScript.mnemonic = "Wait";
-								singleScript.operands.rValues[0] = 0.1f;
-								singleScript.operands.sValues[0] = "";
-							}
-							break;
-						case 1:
-							if (numHeroes >= 3)
-							{
-								singleScript.mnemonic = "SysCall";
-								singleScript.operands.rValues[0] = 0;
-								singleScript.operands.sValues[0] = "ローザ加入"; // Add Rosa (ID 3)
-							}
-							else
-							{
-								singleScript.mnemonic = "Wait";
-								singleScript.operands.rValues[0] = 0.1f;
-								singleScript.operands.sValues[0] = "";
-							}
-							break;
-						case 2:
-							if (numHeroes >= 4)
-							{
-								singleScript.mnemonic = "SysCall";
-								singleScript.operands.rValues[0] = 0;
-								singleScript.operands.sValues[0] = "リディア加入"; // Add Rydia (ID 4)
-							}
-							else
-							{
-								singleScript.mnemonic = "Wait";
-								singleScript.operands.rValues[0] = 0.1f;
-								singleScript.operands.sValues[0] = "";
-							}
-							break;
-						case 3:
-							if (numHeroes == 5)
-							{
-								singleScript.mnemonic = "SysCall";
-								singleScript.operands.rValues[0] = 0;
-								singleScript.operands.sValues[0] = "シド加入"; // Add Cid (ID 5)
-							}
-							else
-							{
-								singleScript.mnemonic = "Wait";
-								singleScript.operands.rValues[0] = 0.1f;
-								singleScript.operands.sValues[0] = "";
-							}
-							break;
-						default:
-							singleScript.mnemonic = "Wait";
-							singleScript.operands.rValues[0] = 0.1f;
-							singleScript.operands.sValues[0] = "";
-							break;
-					}
-
-					j++;
-				}
-				else if (singleScript.mnemonic == "SetFlag" || singleScript.mnemonic == "ResetFlag")
+				if (singleScript.mnemonic == "SetFlag" || singleScript.mnemonic == "ResetFlag")
 				{
 					// Set initial flags
 					if (singleScript.operands.iValues[0] == 1001)

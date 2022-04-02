@@ -801,7 +801,7 @@ namespace FF4FabulGauntlet
             "0.5x",
             "0.25x",
             "0.125x",
-            "0"});
+            "1/10000"});
             this.encounterRate.Location = new System.Drawing.Point(157, 140);
             this.encounterRate.Name = "encounterRate";
             this.encounterRate.Size = new System.Drawing.Size(148, 28);

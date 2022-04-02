@@ -185,17 +185,18 @@ namespace FF4FabulGauntlet.Inventory
 		public List<int> fgExclusiveArmor = new List<int> { erdrickArmor, silverShield };
 
 		public List<int> dkCecilOnly = new List<int> { darkHelm, hadesHelm, demonHelm, darkShield, demonShield, darkArmor, hadesArmor, demonArmor, darkGloves, hadesGloves, demonGloves };
-		public List<int> pallyCecilOnly = new List<int> { knightArmor, crystalMail, caesarsPlate, lightShield, crystalShield, lightHelm, crystalHelm, caesarHelm, gauntlets };
+		public List<int> pallyCecilOnly = new List<int> { knightArmor, crystalMail, caesarsPlate, lightShield, crystalShield, lightHelm, crystalHelm, caesarHelm, gauntlets, crystalGloves };
 		public List<int> kainOnly = new List<int> { dragoonPlate, dragonHelm };
 		public List<int> rosaOnly = new List<int> { whiteDress, augustineTiara };
 		public List<int> rydiaOnly = new List<int> { rainbowRobe, starOfKamiKazari };
-		public List<int> cidOnly = new List<int> { grandArmor, maximiillian, safetyMet };
+		public List<int> cidOnly = new List<int> { grandArmor, maximiillian, safetyMet, grandHelm };
 		public List<int> edwardOnly = new List<int> { redJacket, vishnuVest, redCap, royalCrown };
 		public List<int> yangOnly = new List<int> { braveSuit, battleGear, whiteTigerMask, dualMask };
 		public List<int> palomOnly = new List<int> { chocoboSuit, sageRobe, hypnocrown, demonHat };
 		public List<int> poromOnly = new List<int> { tabbySuit, robeOfLords, catearHood, philosopherHat };
 		public List<int> edgeOnly = new List<int> { assassinVest, edgeDemonHelm };
-		public List<int> cecilKainCid = new List<int> { ironArmor, mythrilArmor, flameMail, iceArmor, diamondArmor, dragonMail, ironShield, mythrilShield, flameShield, iceShield, diamondShield, aegisShield, genjiShield, dragonShield, ironHelm, mythrilHelm, diamondHelm, dragonHelm, diamondGloves, dragonGloves };
+		public List<int> cecilKainCid = new List<int> { ironArmor, mythrilArmor, flameMail, iceArmor, diamondArmor, dragonMail, ironShield, mythrilShield, flameShield, iceShield, diamondShield, 
+			aegisShield, genjiShield, dragonShield, ironHelm, mythrilHelm, diamondHelm, dragonHelm, diamondGloves, dragonGloves };
 		public List<int> cecilKainCidEdge = new List<int> { genjiArmor, ironGloves, mythrilGloves, genjiGloves };
 		public List<int> rydiaRosaPorom = new List<int> { minervaBustier, goldHairpin };
 
@@ -247,22 +248,22 @@ namespace FF4FabulGauntlet.Inventory
 				int repetition = highTierReduction ? maxTier - i : 1;
 				for (int j = 0; j < repetition; j++)
 					selection.AddRange(tiers[i]);
-
-				if (!party.Contains(dkCecil)) selection = selection.Where(c => !dkCecilOnly.Contains(c)).ToList();
-				if (!party.Contains(cecil)) selection = selection.Where(c => !pallyCecilOnly.Contains(c)).ToList();
-				if (!party.Contains(kain)) selection = selection.Where(c => !kainOnly.Contains(c)).ToList();
-				if (!party.Contains(rosa)) selection = selection.Where(c => !rosaOnly.Contains(c)).ToList();
-				if (!party.Contains(rydia)) selection = selection.Where(c => !rydiaOnly.Contains(c)).ToList();
-				if (!party.Contains(cid)) selection = selection.Where(c => !cidOnly.Contains(c)).ToList();
-				if (!party.Contains(edward)) selection = selection.Where(c => !edwardOnly.Contains(c)).ToList();
-				if (!party.Contains(yang)) selection = selection.Where(c => !yangOnly.Contains(c)).ToList();
-				if (!party.Contains(palom)) selection = selection.Where(c => !palomOnly.Contains(c)).ToList();
-				if (!party.Contains(porom)) selection = selection.Where(c => !poromOnly.Contains(c)).ToList();
-				if (!party.Contains(edge)) selection = selection.Where(c => !edgeOnly.Contains(c)).ToList();
-				if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(cid)) selection = selection.Where(c => !cecilKainCid.Contains(c)).ToList();
-				if (!party.Contains(edge) && !party.Contains(kain) && !party.Contains(cid) && !party.Contains(edge)) selection = selection.Where(c => !cecilKainCidEdge.Contains(c)).ToList();
-				if (!party.Contains(rydia) && !party.Contains(rosa) && !party.Contains(porom)) selection = selection.Where(c => !rydiaRosaPorom.Contains(c)).ToList();
 			}
+
+			if (!party.Contains(dkCecil)) selection = selection.Where(c => !dkCecilOnly.Contains(c)).ToList();
+			if (!party.Contains(cecil)) selection = selection.Where(c => !pallyCecilOnly.Contains(c)).ToList();
+			if (!party.Contains(kain)) selection = selection.Where(c => !kainOnly.Contains(c)).ToList();
+			if (!party.Contains(rosa)) selection = selection.Where(c => !rosaOnly.Contains(c)).ToList();
+			if (!party.Contains(rydia)) selection = selection.Where(c => !rydiaOnly.Contains(c)).ToList();
+			if (!party.Contains(cid)) selection = selection.Where(c => !cidOnly.Contains(c)).ToList();
+			if (!party.Contains(edward)) selection = selection.Where(c => !edwardOnly.Contains(c)).ToList();
+			if (!party.Contains(yang)) selection = selection.Where(c => !yangOnly.Contains(c)).ToList();
+			if (!party.Contains(palom)) selection = selection.Where(c => !palomOnly.Contains(c)).ToList();
+			if (!party.Contains(porom)) selection = selection.Where(c => !poromOnly.Contains(c)).ToList();
+			if (!party.Contains(edge)) selection = selection.Where(c => !edgeOnly.Contains(c)).ToList();
+			if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(cid)) selection = selection.Where(c => !cecilKainCid.Contains(c)).ToList();
+			if (!party.Contains(edge) && !party.Contains(kain) && !party.Contains(cid) && !party.Contains(edge)) selection = selection.Where(c => !cecilKainCidEdge.Contains(c)).ToList();
+			if (!party.Contains(rydia) && !party.Contains(rosa) && !party.Contains(porom)) selection = selection.Where(c => !rydiaRosaPorom.Contains(c)).ToList();
 
 			bool bad = true;
 			int finalSelection = -1;

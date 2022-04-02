@@ -46,7 +46,9 @@ namespace FF4FabulGauntlet.Inventory
             {
                 if (noEncounters)
                 {
-                    map.required_steps_max = map.required_steps_min = map.subtract_steps = map.monster_set_id = 0;
+                    map.required_steps_max = 9999;
+                    map.required_steps_min = 9999;
+                    map.subtract_steps = 1;
                 } else
                 {
                     map.required_steps_min *= encNumerator;

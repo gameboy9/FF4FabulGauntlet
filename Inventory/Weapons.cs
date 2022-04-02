@@ -188,9 +188,9 @@ namespace FF4FabulGauntlet.Inventory
 			  new List<int> { flameSword, icebrand, gorgonBlade, fireLance, iceLance, mageMasher, hellClaw, gaiaHammer, dwarfAxe, ashura, kotetsu, elvenBow,
 				changeRod, powerStaff, kinesisStaff, blindingArrow, poisonArrow, chainWhip, boomerang, shuriken, bloodDarkSword },
 			  new List<int> { lightSword, avenger, defender, gungnir, catClaw, ogreKiller, poisonAxe, runeAxe, kikuichimonji, fairyRod, yoichiBow, muteArrow, blitzWhip, moonringBlade, apolloHarp, golbezSword },
-			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken, tigerFangs, vampireSword, erdrickSword },
-			  new List<int> { piggyStick, ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, requiemHarp, vampireSpear },
-			  new List<int> { knife, lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, lokiHarp, megicoSword }
+			  new List<int> { excalibur, wyvernLance, holyLance, sageStaff, artemisBow, angelArrow, yoichiArrow, flameWhip, fumaShuriken, tigerFangs, erdrickSword },
+			  new List<int> { piggyStick, ragnarok, murasame, masamune, stardustRod, runeStaff, artemisArrow, dragonWhisker, mysticWhip, tritonDagger, risingSun, dragonClaws, thorHammer, seraphimMace, vampireSword },
+			  new List<int> { knife, lightbringer, abelsLance, gigantAxe, perseusBow, perseusArrow, assassinDagger, sasukeKatana, mutsunokami, godhand, fieryHammer, asuraRod, nirvana, requiemHarp, lokiHarp, megicoSword, vampireSpear }
 		};
 
 		public List<int> bonusWeapons = new List<int>
@@ -217,8 +217,9 @@ namespace FF4FabulGauntlet.Inventory
 		public List<int> edwardOnly = new List<int> { dreamerHarp, lamiaHarp, apolloHarp, requiemHarp, lokiHarp };
 		public List<int> yangOnly = new List<int> { tigerFangs, dragonClaws, godhand };
 		public List<int> palomOnly = new List<int> { tritonDagger, asuraRod };
-		public List<int> poromOnly = new List<int> { seraphimMace };
-		public List<int> edgeOnly = new List<int> { kunai, ashura, kotetsu, kikuichimonji, murasame, masamune, sasukeKatana, mutsunokami };
+		public List<int> poromOnly = new List<int> { seraphimMace, nirvana };
+		public List<int> edgeOnly = new List<int> { kunai, ashura, kotetsu, kikuichimonji, murasame, masamune, sasukeKatana, mutsunokami, scrapMetal, shuriken, fumaShuriken, boomerang, moonringBlade, risingSun };
+		public List<int> edgeEdward = new List<int> { knife };
 
 		const int dkCecil = 1;
 		const int cecil = 13;
@@ -268,27 +269,31 @@ namespace FF4FabulGauntlet.Inventory
 				int repetition = highTierReduction ? maxTier - i : 1;
 				for (int j = 0; j < repetition; j++)
 					selection.AddRange(tiers[i]);
-
-				if (!party.Contains(dkCecil)) selection = selection.Where(c => !dkCecilOnly.Contains(c)).ToList();
-				if (!party.Contains(cecil)) selection = selection.Where(c => !pallyCecilOnly.Contains(c)).ToList();
-				if (!party.Contains(kain)) selection = selection.Where(c => !kainOnly.Contains(c)).ToList();
-				if (!party.Contains(rosa)) selection = selection.Where(c => !rosaOnly.Contains(c)).ToList();
-				if (!party.Contains(rydia)) selection = selection.Where(c => !rydiaOnly.Contains(c)).ToList();
-				if (!party.Contains(cid)) selection = selection.Where(c => !cidOnly.Contains(c)).ToList();
-				if (!party.Contains(edward)) selection = selection.Where(c => !edwardOnly.Contains(c)).ToList();
-				if (!party.Contains(yang)) selection = selection.Where(c => !yangOnly.Contains(c)).ToList();
-				if (!party.Contains(palom)) selection = selection.Where(c => !palomOnly.Contains(c)).ToList();
-				if (!party.Contains(porom)) selection = selection.Where(c => !poromOnly.Contains(c)).ToList();
-				if (!party.Contains(edge)) selection = selection.Where(c => !edgeOnly.Contains(c)).ToList();
-
-				if (!party.Contains(cecil) && !party.Contains(kain)) selection = selection.Where(c => !cecilKain.Contains(c)).ToList();
-				if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(cid)) selection = selection.Where(c => !cecilKainCid.Contains(c)).ToList();
-				if (!party.Contains(cecil) && !party.Contains(rydia) && !party.Contains(edward) && !party.Contains(rosa) && !party.Contains(palom) && !party.Contains(porom) && !party.Contains(cid)) selection = selection.Where(c => !bowUsers.Contains(c)).ToList();
-				if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(rydia) && !party.Contains(edward) && !party.Contains(palom)) selection = selection.Where(c => !knifeUsers.Contains(c)).ToList();
-				if (!party.Contains(edge) && !party.Contains(yang)) selection = selection.Where(c => !clawUsers.Contains(c)).ToList();
-				if (!party.Contains(rydia) && !party.Contains(tellah) && !party.Contains(palom) && !party.Contains(fusoya)) selection = selection.Where(c => !rodUsers.Contains(c)).ToList();
-				if (!party.Contains(rosa) && !party.Contains(tellah) && !party.Contains(porom) && !party.Contains(fusoya)) selection = selection.Where(c => !staffUsers.Contains(c)).ToList();
 			}
+
+			if (!party.Contains(dkCecil)) selection = selection.Where(c => !dkCecilOnly.Contains(c)).ToList();
+			if (!party.Contains(cecil)) selection = selection.Where(c => !pallyCecilOnly.Contains(c)).ToList();
+			if (!party.Contains(kain)) selection = selection.Where(c => !kainOnly.Contains(c)).ToList();
+			if (!party.Contains(rosa)) selection = selection.Where(c => !rosaOnly.Contains(c)).ToList();
+			if (!party.Contains(rydia)) selection = selection.Where(c => !rydiaOnly.Contains(c)).ToList();
+			if (!party.Contains(cid)) selection = selection.Where(c => !cidOnly.Contains(c)).ToList();
+			if (!party.Contains(edward)) selection = selection.Where(c => !edwardOnly.Contains(c)).ToList();
+			if (!party.Contains(yang)) selection = selection.Where(c => !yangOnly.Contains(c)).ToList();
+			if (!party.Contains(palom)) selection = selection.Where(c => !palomOnly.Contains(c)).ToList();
+			if (!party.Contains(porom)) selection = selection.Where(c => !poromOnly.Contains(c)).ToList();
+			if (!party.Contains(edge)) selection = selection.Where(c => !edgeOnly.Contains(c)).ToList();
+
+			if (!party.Contains(cecil) && !party.Contains(kain)) selection = selection.Where(c => !cecilKain.Contains(c)).ToList();
+			if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(cid)) selection = selection.Where(c => !cecilKainCid.Contains(c)).ToList();
+			if (!party.Contains(cecil) && !party.Contains(rydia) && !party.Contains(edward) && !party.Contains(rosa) && !party.Contains(palom) && !party.Contains(porom) && !party.Contains(cid)) selection = selection.Where(c => !bowUsers.Contains(c)).ToList();
+			if (!party.Contains(cecil) && !party.Contains(kain) && !party.Contains(rydia) && !party.Contains(edward) && !party.Contains(palom)) selection = selection.Where(c => !knifeUsers.Contains(c)).ToList();
+			if (!party.Contains(edge) && !party.Contains(yang)) selection = selection.Where(c => !clawUsers.Contains(c)).ToList();
+			if (!party.Contains(rydia) && !party.Contains(tellah) && !party.Contains(palom) && !party.Contains(fusoya)) selection = selection.Where(c => !rodUsers.Contains(c)).ToList();
+			if (!party.Contains(rosa) && !party.Contains(tellah) && !party.Contains(porom) && !party.Contains(fusoya)) selection = selection.Where(c => !staffUsers.Contains(c)).ToList();
+			if (!party.Contains(edge) && !party.Contains(edward)) selection = selection.Where(c => !edgeEdward.Contains(c)).ToList();
+
+			if (selection.Count == 0)
+				return -1;
 
 			bool bad = true;
 			int finalSelection = -1;

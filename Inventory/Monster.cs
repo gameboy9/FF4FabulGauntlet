@@ -141,10 +141,10 @@ namespace FF4FabulGauntlet.Inventory
         readonly List<List<int>> monsterTiers = new()
         { 
 			new List<int> { 1, 3, 4, 8, 5, 11, 10, 12, 13 }, // Outside Baron, Mist Cave, Mist/Kaipo
-			new List<int> { 43, 42, 13, 14, 1, 17, 20, 22, 8, 9, 19, 16, 12, 13, 28 }, // Underground Waterway / Damcyan
+			new List<int> { 43, 42, 13, 14, 1, 17, 20, 22, 8, 9, 19, 16, 12, 13, 28, 27, 2, 23, 21 }, // Underground Waterway / Damcyan / Antlion Cave
 			new List<int> { 27, 2, 28, 1, 23, 21, 36, 35, 37, 48, 38, 86, 87, 22, 32 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
 			new List<int> { 1, 8, 28, 9, 32, 37, 41, 35, 47, 48, 49, 51, 94, 36, 16 }, // Mysidia, Mt. Ordeals
-			new List<int> { 43, 74, 55, 58, 15, 56, 44, 57 }, // Old Baron Waterway
+			new List<int> { 43, 74, 55, 58, 15, 56, 44, 57, 67, 6, 62, 64, 61, 66, 52 }, // Old Baron Waterway, Magnes Cave
 			new List<int> { 67, 6, 62, 64, 61, 66, 52, 43, 74, 55, 58, 15, 56, 44, 57, 1, 8, 28, 9, 32, 37, 41, 35, 47, 48, 49, 51, 53, 94, 36, 16 }, // Magnes Cave - Include easier zones from Old Baron and Mysidia
 			new List<int> { 61, 62, 67, 7, 34, 71, 72, 29, 118, 89, 121, 68, 69, 123, 113, 78 }, // Troia / Zot Tower
 			new List<int> { 25, 83, 77, 26, 71, 65, 101, 104, 91, 88, 130, 93, 81, 117 }, // Dwarf Castle, Lower Babil
@@ -153,57 +153,61 @@ namespace FF4FabulGauntlet.Inventory
 			new List<int> { 119, 24, 18, 122, 116, 40, 103, 158, 143, 76, 70, 73, 75, 80, 92, 112, 120, 127, 142 }, // Cave Of Summons, other underground locations
 			new List<int> { 140, 126, 85, 125, 96, 114, 152, 139, 147, 54, 141, 161, 144, 154, 131, 128, 107, 106, 112, 115, 127 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 109, 182 }, // Lunar Subterrane / Giant Of Babil
-			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155, 182 }, // Lunar Subterrane Part 2 (2 rounds)
+			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155, 182, 124 }, // Lunar Subterrane Part 2 (2 rounds)
 			new List<int> { 138, 137, 111, 105, 146, 152, 139, 147, 54, 141, 161, 157, 156, 149, 82, 141, 157, 111, 161, 160, 156, 145, 129, 132, 189, 190, 155,
-				162, 164, 165, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 182, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2 (2 rounds)
+				162, 207, 163, 164, 165, 203, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 188, 181, 182, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159, 124 } // Lunar Subterrane Part 2 (2 rounds)
 		};
 
         readonly List<List<int>> monsterBosses = new()
         {
-			new List<int> { 162, 31 }, // Outside Baron, Mist Cave, Mist/Kaipo
-			new List<int> { 163, 31 }, // Underground Waterway / Damcyan
-			new List<int> { 164, 165, 46 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
+			new List<int> { 162, 31, 207 }, // Outside Baron, Mist Cave, Mist/Kaipo
+			new List<int> { 163, 164, 165 }, // Underground Waterway / Damcyan / Antlion Cave
+			new List<int> { 165, 46, 203 }, // Mt. Hobs / Fabul / Fabul Gauntlet
 			new List<int> { 166, 167, 206 }, // Mysidia, Mt. Ordeals
 			new List<int> { 59, 168, 171, 173, 196, 205 }, // Old Baron Waterway (or 173)
 			new List<int> { }, // Magnes Cave
 			new List<int> { 175, 178 }, // Troia / Zot Tower
-			new List<int> { 179, 211, 185, 183, 184 }, // Dwarf Castle, Lower Babil
+			new List<int> { 179, 211, 185, 183 }, // Dwarf Castle, Lower Babil
 			new List<int> { 182 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 188, 181 }, // Eblan Area, Upper Babil (2 rounds)
-			new List<int> { 189, 190, 193 }, // Cave Of Summons, other underground locations
+			new List<int> { 189, 190, 193, 124 }, // Cave Of Summons, other underground locations
 			new List<int> { 189, 190, 193, 191 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 192, 194, 198 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 108, 150, 153, 159 }, // Lunar Subterrane Part 2  (2 rounds)
-			new List<int> { 162, 164, 165, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
+			new List<int> { 162, 207, 164, 165, 203, 166, 167, 206, 168, 171, 205, 225, 175, 178, 179, 211, 185, 183, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159 } // Lunar Subterrane Part 2  (2 rounds)
 			// Final boss:  217
 		};
 
         readonly List<int> allBosses = new()
         {
-			162, 31, 164, 165, 46, 166, 167, 168, 171, 173, 196, 205, 225, 175, 178, 179, 211, 185, 183, 184, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159, // Actual bosses...
+			162, 31, 207, 163, 164, 165, 46, 203, 166, 167, 168, 171, 173, 196, 205, 225, 175, 178, 179, 211, 185, 183, 188, 181, 189, 190, 193, 191, 192, 194, 198, 108, 150, 153, 159, // Actual bosses...
 			156, 160, 161, 145, 129, 132 // ... and Lunar Subteranne Core monsters - Blue Dragon, Red Dragon, Zemus's Breath and Mind, Behemoths, and Wicked Masks.
 		};
 
-        readonly List<List<int>> xpLimits = new()
-        {
+		readonly List<List<int>> xpLimits = new()
+		{
 			new List<int> { 100, 125, 150, 175, 200, 225, 250, 275, 300, 900 }, // Outside Baron, Mist Cave, Mist/Kaipo
-			new List<int> { 300, 350, 400, 450, 500, 550, 600, 700, 800, 1400 }, // Underground Waterway / Damcyan
+			new List<int> { 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 2500 }, // Underground Waterway / Damcyan
 			new List<int> { 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 2500 }, // Antlion Cave / Mt. Hobs / Fabul / Fabul Gauntlet
 			new List<int> { 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 4500 }, // Mysidia, Mt. Ordeals
 			new List<int> { 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 6000 }, // Old Baron Waterway (or 173)
+
 			new List<int> { 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500, 1800 }, // Magnes Cave
 			new List<int> { 700, 1000, 1300, 1600, 1900, 2200, 2500, 2800, 3100, 10000 }, // Troia / Zot Tower
 			new List<int> { 2000, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 15000 }, // Dwarf Castle, Lower Babil
 			new List<int> { 1200, 1600, 2000, 2400, 2800, 3200, 3600, 4000, 4400, 4800 }, // Eblan Area, Upper Babil (2 rounds)
 			new List<int> { 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 20000 }, // Eblan Area, Upper Babil (2 rounds)
+
 			new List<int> { 2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 30000 }, // Cave Of Summons, other underground locations
 			new List<int> { 2500, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 40000 }, // Bahamut Cave / Sylvan Cave / Lunar Overworld
 			new List<int> { 10000, 12000, 15000, 17500, 20000, 22500, 25000, 27500, 30000, 60000 }, // Lunar Subterrane / Giant Of Babil
 			new List<int> { 20000, 25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 100000 }, // Lunar Subterrane Part 2  (2 rounds)
 			new List<int> { 50000, 60000, 70000, 80000, 90000, 100000, 125000, 150000, 200000, 0 }, // Lunar Subterrane Part 2  (2 rounds)
-			new List<int> { 5000, 5000, 6000, 7000, 8000, 8000, 10000, 12000, 15000, 20000 }, // Monster in a box, part 1
-			new List<int> { 30000, 40000, 50000, 75000, 100000, 125000, 150000, 0, 0, 0 }, // Monster in a box, part 2
-			new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } // Extra battles
+
+			new List<int> { 5000, 5000, 6000, 7000, 8000, 8000, 10000, 12000, 40000, 50000 }, // Monster in a box, part 1
+			new List<int> { 60000, 70000, 80000, 90000, 100000, 125000, 150000, 125000, 150000, 0 }, // Monster in a box, part 2, Extra battles part 1
+			new List<int> { 0, 0, 0, 0, 0, 0, 200000, 200000, 200000, 300000 }, // Extra battles part 2, Lunar Subterranne superfights
+			new List<int> { 200000, 0, 0, 0, 0, 0, 0, 0, 0, 0 } // Last Lunar Subterranne superfight, nine leftover.
 		};
 
 		class limitedMonsters
@@ -214,7 +218,7 @@ namespace FF4FabulGauntlet.Inventory
 			public int followUp = 0;
 		}
 
-		public Monster(Random r1, string directory, double xpMultiplier, int xpBoost, double gpMultiplier, int gpBoost, int gpDivisor, int difficulty, bool areaAppropriate)
+		public Monster(Random r1, string directory, double xpMultiplier, int xpBoost, double gpMultiplier, int gpBoost, int gpDivisor, int difficulty, bool areaAppropriate, int numHeroes)
 		{
 			List<singleMonster> allMonsters;
 
@@ -225,13 +229,12 @@ namespace FF4FabulGauntlet.Inventory
 			List<limitedMonsters> restrictedMonsters = new();
 			restrictedMonsters.Add(new limitedMonsters { id = 31, monsterLimit = 1, followUp = 30 }); // General -> Baron Soldier
 			restrictedMonsters.Add(new limitedMonsters { id = 46, monsterLimit = 1, followUp = 45 }); // Captain -> Baron Warrior
-			restrictedMonsters.Add(new limitedMonsters { id = 163, monsterLimit = 1, followUp = -1 }); // Octomammoth
 			restrictedMonsters.Add(new limitedMonsters { id = 165, monsterLimit = 1, followUp = -1 }); // Mom Bomb
-			restrictedMonsters.Add(new limitedMonsters { id = 166, monsterLimit = 1, followUp = 212 }); // Milon -> Skullnant
+			restrictedMonsters.Add(new limitedMonsters { id = 166, monsterLimit = 9, followUp = 212 }); // Milon -> Skullnant
 			restrictedMonsters.Add(new limitedMonsters { id = 174, monsterLimit = 1, followUp = -1 }); // Sandy, Cindy, Mindy
 			restrictedMonsters.Add(new limitedMonsters { id = 175, monsterLimit = 1, followUp = -1 });
 			restrictedMonsters.Add(new limitedMonsters { id = 176, monsterLimit = 1, followUp = -1 });
-			restrictedMonsters.Add(new limitedMonsters { id = 188, monsterLimit = 1, followUp = -1 }); // Rubicante
+			restrictedMonsters.Add(new limitedMonsters { id = 188, monsterLimit = 2, followUp = -1 }); // Rubicante
 			restrictedMonsters.Add(new limitedMonsters { id = 182, monsterLimit = 1, followUp = -1 }); // Shadow Dragon
 			restrictedMonsters.Add(new limitedMonsters { id = 178, monsterLimit = 1, followUp = -1 }); // Barbariccia
 			restrictedMonsters.Add(new limitedMonsters { id = 171, monsterLimit = 1, followUp = -1 }); // Cagnazzo
@@ -239,11 +242,14 @@ namespace FF4FabulGauntlet.Inventory
 			restrictedMonsters.Add(new limitedMonsters { id = 153, monsterLimit = 1, followUp = -1, hpPercentage = 50 }); // Dark Bahamut - also put an HP percentage on that... Meganuke + HP percentage attack would be BRUTAL
 			restrictedMonsters.Add(new limitedMonsters { id = 108, monsterLimit = 1, followUp = -1 }); // Plague
 			restrictedMonsters.Add(new limitedMonsters { id = 194, monsterLimit = 1, followUp = -1 }); // Elemental Lord (Only 1 target mutates in a 2 Lord situation)
+			restrictedMonsters.Add(new limitedMonsters { id = 124, monsterLimit = 2, followUp = -1 }); // Trap Door
 			// Chimera, Mech Dragon, Silver Dragon, and Lunasaurs all have a 20% HP to all characters attack (Blaze typically)
 			restrictedMonsters.Add(new limitedMonsters { id = 88, hpPercentage = 20 });
 			restrictedMonsters.Add(new limitedMonsters { id = 111, hpPercentage = 20 });
 			restrictedMonsters.Add(new limitedMonsters { id = 141, hpPercentage = 20 });
 			restrictedMonsters.Add(new limitedMonsters { id = 150, hpPercentage = 20 });
+			// Chimera Brains cast Blaze for a 25% HP attack.
+			restrictedMonsters.Add(new limitedMonsters { id = 127, hpPercentage = 25 });
 			// Leviathan and Ogopogo both have big wave.  The latter casts it twice in succession.
 			restrictedMonsters.Add(new limitedMonsters { id = 190, hpPercentage = 25 });
 			restrictedMonsters.Add(new limitedMonsters { id = 155, hpPercentage = 50 });
@@ -260,12 +266,13 @@ namespace FF4FabulGauntlet.Inventory
 			// Let's avoid trap doors for now.  (124)
 			// Remove the King and Queen of Eblan (186, 187)
 			// Calcobrena cannot show up in a monster group.  (but the dolls can combine into Calcobrena) (180)
-			// Do not include "character" fights except Dark Knight since we fixed that. (203, 204, 206, 207)
+			// Do not include "character" fights except Dark Knight since we fixed that. (204)
 			// Remove Barnabas-Z and Attack Node since they're worth 20 and 0 XP respectively; not appropriate for "non-area appropriate" flags. (212, 213)
 			// Do not include the Edge Rubicante fight because it's scripted.  (226)
 			// Do not include Elemental Lords except the first phase.  (195, 227, 228)
 			// Let's remove "follow up monsters"... Cindy... Mindy... Nodes... Arms... etc. (199, 214, 169, 170, 175, 176)
-			List<int> badMonsters = new(){ 224, 177, 274, 200, 201, 202, 217, 172, 225, 33, 124, 186, 187, 180, 203, 204, 207, 212, 213, 226, 195, 227, 228, 199, 214, 169, 170, 175, 176 };
+			// There are two trap door entries.  Let's skip 248 instead of 124.
+			List<int> badMonsters = new(){ 224, 177, 274, 200, 201, 202, 217, 172, 225, 33, 186, 187, 180, 204, 212, 213, 226, 195, 227, 228, 199, 214, 169, 170, 175, 176, 248 };
 
 			List<singleGroup> groups = new();
 
@@ -275,14 +282,15 @@ namespace FF4FabulGauntlet.Inventory
 			int lastBackgroundID = -1;
 			bool valid;
 
-			for (int i = 1; i <= 174; i++)
+			for (int i = 1; i <= 181; i++)
 			{
 				int j = 0;
 				int origXpLimit = xpLimits[(i - 1) / 10][(i - 1) % 10] * (difficulty == 3 ? 3 : difficulty == 4 ? 5 : 2) / 2;
-				int xpLimit = xpLimits[(i - 1) / 10][(i - 1) % 10] * (difficulty == 3 ? 3 : difficulty == 4 ? 5 : 2) / 2;
+				int minXPLimit = difficulty == 0 ? 0 : origXpLimit / (difficulty == 1 ? 4 : 2);
+				int xpLimit = origXpLimit;
 				int lastXP = 0;
 				maxPercentHP = 0;
-				valid = i < 168;
+				valid = i < 170 || i >= 177;
 				lastMonster = -1;
 				// Repeat this check 100 times before moving onto the next monster group.
 				int loops = 100;
@@ -314,7 +322,7 @@ namespace FF4FabulGauntlet.Inventory
 						else
 						{
 							if (i % 10 == 0 && j == 0)
-								iMonsterList = allMonsters.Where(c => allBosses.Contains(c.id) && c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+								iMonsterList = allMonsters.Where(c => allBosses.Contains(c.id) && c.exp < xpLimit && c.exp >= Math.Pow(origXpLimit, .75)).ToList();
 							else
                             {
 								if (specialBattle != 0)
@@ -356,11 +364,11 @@ namespace FF4FabulGauntlet.Inventory
 									if (iMonsterList.Count == 0 && monster.Count == 0)
                                     {
 										specialBattle = 0;
-										iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+										iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(origXpLimit, .75)).ToList();
 									}
 								}
 								else
-									iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(xpLimits[(i - 1) / 10][i % 10], .7)).ToList();
+									iMonsterList = allMonsters.Where(c => c.exp < xpLimit && c.exp >= Math.Pow(origXpLimit, .75)).ToList();
 							}
 						}
 
@@ -377,14 +385,14 @@ namespace FF4FabulGauntlet.Inventory
 								lastMonster = -1;
 								continue;
 							}
-							// Do not include the Elemental Lords if there is a Captain or General included.
-							if ((monster.Contains(31) || monster.Contains(46)) && (chosenMonster.id == 194 || chosenMonster.id == 195 || chosenMonster.id == 227 || chosenMonster.id == 228))
+							// Do not include the Elemental Lords or Rubicante if there is a Captain or General included.
+							if ((monster.Contains(31) || monster.Contains(46)) && (chosenMonster.id == 194 || chosenMonster.id == 195 || chosenMonster.id == 227 || chosenMonster.id == 228 || chosenMonster.id == 188))
 							{
 								lastMonster = -1;
 								continue;
 							}
 							// ... or vice versa
-							if ((monster.Contains(194) || monster.Contains(195) || monster.Contains(227) || monster.Contains(228)) && (chosenMonster.id == 31 || chosenMonster.id == 46))
+							if ((monster.Contains(194) || monster.Contains(195) || monster.Contains(227) || monster.Contains(228) || monster.Contains(188)) && (chosenMonster.id == 31 || chosenMonster.id == 46))
 							{
 								lastMonster = -1;
 								continue;
@@ -418,12 +426,12 @@ namespace FF4FabulGauntlet.Inventory
 									chosenMonster = allMonsters.Where(c => c.id == monsterLimit.followUp).Single();
 								}
 
-								maxPercentHP += monsterLimit.hpPercentage;
-								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
+								if (maxPercentHP + monsterLimit.hpPercentage > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
 								{
 									lastMonster = -1;
 									continue;
 								}
+								maxPercentHP += monsterLimit.hpPercentage;
 							}
 
 							lastMonster = chosenMonster.id;
@@ -502,6 +510,21 @@ namespace FF4FabulGauntlet.Inventory
 									continue;
 								}
 							}
+							else if (chosenMonster.id == 183) // If we see Doctor Lugae 1...
+							{
+								if (monster.Count < 9)
+								{
+									monster.Add(184); // Add Barnabas
+									xpLimit -= allMonsters.Where(c => c.id == 184).First().exp;
+									lastMonster = -1;
+									j += 1;
+								}
+								else
+								{
+									lastMonster = -1;
+									continue;
+								}
+							}
 							else if (chosenMonster.id == 198 && monster.Count < 8) // If we see CPU...
 							{
 								if (monster.Count < 8)
@@ -532,14 +555,19 @@ namespace FF4FabulGauntlet.Inventory
 							}
 							else if (chosenMonster.id == 150 && monster.Count < 9 && monster.Where(c => c == 150).Count() == 1) // If we see a Lunarsaur and it's the first one...
 							{
-								monster.Add(150); // Add another one!
-								lastMonster = 150; // ... and allow the possibility of more.
-								xpLimit -= allMonsters.Where(c => c.id == 150).First().exp;
-								j++;
+								if (!(maxPercentHP + 20 > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75)))
+								{
+									monster.Add(150); // Add another one!
+									lastMonster = 150; // ... and allow the possibility of more.
+									xpLimit -= allMonsters.Where(c => c.id == 150).First().exp;
+									maxPercentHP += 20; // Add 20% to the max HP percentage limit so you don't wind up with 4 Lunasaurs... or worse...
+									j++;
+								}
 							}
+
 							// Do not add 50/50 chance of duplicating a boss unless addressed above.  This will avoid something like 7 Odins or 7 Evil Walls.
 							// ... unless you're in very hard difficulty... in which case you're on your own.  :P
-							else if (allBosses.Contains(chosenMonster.id) && difficulty < 4)
+							if (allBosses.Contains(chosenMonster.id) && difficulty < 4)
 							{
 								lastMonster = -1;
 							}
@@ -573,12 +601,12 @@ namespace FF4FabulGauntlet.Inventory
 								if (lastMonster == -1)
 									break;
 
-								maxPercentHP += monsterLimit.hpPercentage;
-								if (maxPercentHP > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
+								if (maxPercentHP + monsterLimit.hpPercentage > (difficulty <= 2 ? 50 : difficulty == 3 ? 60 : 75))
 								{
 									lastMonster = -1;
 									break;
 								}
+								maxPercentHP += monsterLimit.hpPercentage;
 							}
 
 							monster.Add(lastMonster);
@@ -597,46 +625,46 @@ namespace FF4FabulGauntlet.Inventory
 							valid = false;
 					}
 
-					// Remove Scarmiglione if there's a monster stronger than that.
-					if (monster.Contains(166) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 3000 && c.id != 166).Any())
-					{
-						monster.Remove(166);
-						xpLimit += 3200;
-					}
-					// Remove Octomammoth if there's a monster stronger than that.
-					if (monster.Contains(163) && allMonsters.Where(c => monster.Contains(c.id) && c.exp > 1200 && c.id != 163).Any())
-                    {
-						monster.Remove(163);
-						xpLimit += 1200;
-					}
 					// CPU > Baigan
 					if (monster.Contains(198) && monster.Contains(169))	{ monster.Remove(169); xpLimit += 10; }
 					if (monster.Contains(198) && monster.Contains(168)) { monster.Remove(168); xpLimit += 4800; }
 					if (monster.Contains(198) && monster.Contains(170)) { monster.Remove(170); xpLimit += 10; }
-					// Dr. Lugae/Barnabas > Cindy/Mindy/Sandy > Scarmiglione
+					// Dr. Lugae/Barnabas > Cindy/Mindy/Sandy
 					if (monster.Contains(183) && monster.Contains(174))	{ monster.Remove(174); xpLimit += 2500; }
 					if (monster.Contains(183) && monster.Contains(175))	{ monster.Remove(175); xpLimit += 2500; }
 					if (monster.Contains(183) && monster.Contains(176))	{ monster.Remove(176); xpLimit += 2500; }
-					if (monster.Contains(183) && monster.Contains(166))	{ monster.Remove(166); xpLimit += 3200; }
-					if (monster.Contains(174) && monster.Contains(166))	{ monster.Remove(166); xpLimit += 3200; }
+
+					if (i >= 140 && (!valid || monster.Count >= (difficulty == 0 ? 3 : difficulty == 1 ? 5 : difficulty == 2 ? 7 : 9))) i = i;
+
+					// Remove the lowest XP monster if the XP of the battle is less than half of the maximum XP limit and redraw.
+					if ((!valid || monster.Count >= (difficulty == 0 ? 3 : difficulty == 1 ? 5 : difficulty == 2 ? 7 : 9)) && xpLimit > origXpLimit - minXPLimit)
+                    {
+						valid = true;
+						while (monster.Count >= (difficulty == 0 ? 3 : difficulty == 1 ? 5 : difficulty == 2 ? 7 : 9))
+                        {
+							var lowestMonster = allMonsters.Where(c => monster.Contains(c.id)).OrderBy(c => c.exp).First();
+							monster.Remove(lowestMonster.id);
+							xpLimit += lowestMonster.exp;
+						}
+					}
 				}
 
 				if (i == 150)
 					monster = new List<int>() { 202 };
 
-				if (i == 168)
-					monster = new List<int>() { 87, 86, 87, 86, 87, 86 };
-				if (i == 169)
-					monster = new List<int>() { 196 };
 				if (i == 170)
-					monster = new List<int>() { 213 };
+					monster = new List<int>() { 87, 86, 87, 86, 87, 86 };
 				if (i == 171)
-					monster = new List<int>() { 195 };
+					monster = new List<int>() { 196 };
 				if (i == 172)
-					monster = new List<int>() { 227 };
+					monster = new List<int>() { 213 };
 				if (i == 173)
-					monster = new List<int>() { 228 };
+					monster = new List<int>() { 195 };
 				if (i == 174)
+					monster = new List<int>() { 227 };
+				if (i == 175)
+					monster = new List<int>() { 228 };
+				if (i == 176)
 					monster = new List<int>() { 180 };
 
 				singleGroup newGroup = new();
@@ -655,15 +683,23 @@ namespace FF4FabulGauntlet.Inventory
 					: i == 163 ? 495
 					: i == 164 ? 498
 					: i == 165 ? 499
-					: i == 166 ? 252
-					: i == 167 ? 230
-					: i == 168 ? 536
-					: i == 169 ? 537
-					: i == 170 ? 539
-					: i == 171 ? 541
-					: i == 172 ? 540
-					: i == 173 ? 542
-					: i == 174 ? 538 : i;
+					: i == 166 ? 496
+					: i == 167 ? 500
+					: i == 168 ? 252 // Odin battle; not used
+					: i == 169 ? 230 // Kainazzo battle; not used
+					: i == 170 ? 536
+					: i == 171 ? 537
+					: i == 172 ? 539
+					: i == 173 ? 541
+					: i == 174 ? 540
+					: i == 175 ? 542
+					: i == 176 ? 538 
+					: i == 177 ? 507
+					: i == 178 ? 508 
+					: i == 179 ? 509 
+					: i == 180 ? 510 
+					: i == 181 ? 511 
+					: i;
 
 				// Have a consistent background during each gauntlet.
 				if (lastBackgroundID == -1 || i % 10 == 1 || i > 150)
@@ -680,20 +716,24 @@ namespace FF4FabulGauntlet.Inventory
 				} 
 				newGroup.battle_background_asset_id = lastBackgroundID;
 
-				// Baron Captain/General = Baron music
+				// Baron Captain/General, DK Cecil - Baron music
 				if (monster.Contains(30) || monster.Contains(31) || monster.Contains(45) || monster.Contains(46) || monster.Contains(206))
 					newGroup.battle_bgm_asset_id = 1;
 				else if (monster.Contains(192)) // Demon Wall
 					newGroup.battle_bgm_asset_id = 20;
+				// Lugae / Calcobrena music
 				else if (monster.Contains(183) || monster.Contains(184) || monster.Contains(185) || monster.Contains(213) || monster.Contains(180) || monster.Contains(179) || monster.Contains(211))
-					// Lugae / Calcobrena music
 					newGroup.battle_bgm_asset_id = 35;
 				else if (monster.Contains(181)) // Golbez
 					newGroup.battle_bgm_asset_id = 22;
-				else if (monster.Contains(173)) // Dark Elf
+				else if (monster.Contains(173)) // Dark Elf - play Edward's tune
 					newGroup.battle_bgm_asset_id = 17;
+				else if (monster.Contains(203)) // Kain
+					newGroup.battle_bgm_asset_id = 21;
 				else if (monster.Contains(205)) // Yang
 					newGroup.battle_bgm_asset_id = 19;
+				else if (monster.Contains(207)) // Rydia
+					newGroup.battle_bgm_asset_id = 14;
 				else if (monster.Contains(166) || monster.Contains(167) || monster.Contains(171) || monster.Contains(178) || monster.Contains(188) || monster.Contains(194) || monster.Contains(195) || monster.Contains(227) || monster.Contains(228))
 					// Fiend music
 					newGroup.battle_bgm_asset_id = 27;
@@ -712,7 +752,9 @@ namespace FF4FabulGauntlet.Inventory
 					// ... or the HP percentage attacks of monsters exceed 20/35/50%...
 					|| maxPercentHP > (difficulty <= 2 ? 20 : difficulty == 3 ? 35 : 50)
 					// ... or it's the Zeromus fight
-					|| monster.Contains(202))
+					|| monster.Contains(202)
+					// ... or there's a Shadow Dragon and there's only one hero in the party
+					|| (monster.Contains(182) && numHeroes < 2))
 					attackMode = 0;
 				newGroup.battle_pattern1 = attackMode < 7 ? 1 : 0;
 				newGroup.battle_pattern2 = attackMode == 7 ? 1 : 0; // Back Attack
@@ -758,19 +800,16 @@ namespace FF4FabulGauntlet.Inventory
 				// Move Dark Elf to position 1; Dark Elf won't transform otherwise.  (in vanilla it would have to be position 5; an AI change moves it to position 1)
 				monsterSwap(newGroup, 173, 1);
 
-				// Move Octomammoth to position 4; it won't be defeated otherwise.  (in vanilla it would have to be position 5; an AI change moves it to position 4)
-				monsterSwap(newGroup, 163, 4);
-
 				// If Sandy/Cindy/Mindy is in this group, we'll want to swap them into monster 9/6/3.
 				monsterSwap(newGroup, 174, 9);
 				monsterSwap(newGroup, 175, 6);
 				monsterSwap(newGroup, 176, 3);
 
-				// If Scarmiglione I is in this group, we'll want to swap him into monster 9. (This has priority over Sandy.  If Scar is anywhere else, it becomes a "free battle".)
-				monsterSwap(newGroup, 166, 9);
+				// Dark Bahamut needs to be in position 4, or he won't reflect Flares.  (in vanilla it would have to be position 5; an AI change moves it to position 4)
+				monsterSwap(newGroup, 153, 4);
 
-				// Dark Bahamut needs to be in position 5, or he won't reflect Flares..
-				monsterSwap(newGroup, 153, 5);
+				// Elemental Lord needs to be in position 7, or they will mutate early.  (in vanilla it would have to be position 5; an AI change moves it to position 7)
+				monsterSwap(newGroup, 194, 7);
 
 				// If Baigan is in this group, we'll want to swap them into monster 8/5/2.
 				monsterSwap(newGroup, 169, 8);
